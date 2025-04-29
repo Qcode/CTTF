@@ -1,0 +1,9 @@
+**/.DS_Store
+simulations/.vscode
+simulations/.venv
+simulations/data
+simulations/datasets
+simulations/output-notebooks
+simulations/plots
+simulations/.ipynb_checkpoints
+**/__pycache__

@@ -1,0 +1,100 @@
+from enum import Enum
+import os
+import numpy as np
+from scipy.sparse import csr_array, load_npz, save_npz
+from model.ratings import (
+    generate_individual_preferences,
+    ranking_to_probability_dist_sparse,
+)
+
+
+class UserType(Enum):
+    NORMAL = 1
+    LEECH = 2
+    ADVERSARY = 3
+
+
+class PageRequest:
+    def __init__(self, index, timestep):
+        self.index = index
+        self.started_timestep = timestep
+        self.ended_timestep = None
+        self.has_interacted = False
+
+    def resolve(self, timestep):
+        self.ended_timestep = timestep
+
+    def is_resolved(self):
+        return self.ended_timestep is not None
+
+
+class User:
+    def __init__(
+        self,
+        config,
+        user_type,
+        index,
+        truth_probability,
+        truth_rankings,
+        preferences=None,
+    ):
+        self.config = config
+        self.index = index
+        self.user_type = user_type
+        self.preferences = preferences
+        self.original_preferences = preferences
+        self.reset(truth_probability, truth_rankings)
+
+        self.requested_pages = []
+        self.forwarding_requests = []
+        self.forwarding_responses = []
+        self.stored_pages = None
+
+    def reset(self, truth_probability, truth_rankings):
+        self.encountered = 1
+        if self.user_type == UserType.NORMAL and self.original_preferences is None:
+            file_location = f"data/user-preferences-s{self.config.SEED}/preferences-a{self.config.ATTENUATING_NOISE}-ur{self.config.UNIFORM_RATINGS}-{self.index}.npz"
+            if os.path.isfile(file_location):
+                self.preferences = load_npz(file_location)
+            else:
+                self.preferences = generate_individual_preferences(
+                    self.config, truth_probability, truth_rankings
+                )
+                save_npz(
+                    f"data/user-preferences-s{self.config.SEED}/preferences-a{self.config.ATTENUATING_NOISE}-ur{self.config.UNIFORM_RATINGS}-{self.index}.npz",
+                    self.preferences,
+                )
+        else:
+            self.preferences = self.original_preferences
+
+        self.computed_preferences = self.preferences
+        self.num_rankings = csr_array((1, self.config.PAGE_COUNT))
+        if self.preferences is not None:
+            one_hot_vector = self.preferences.copy()
+            repeat = (
+                self.config.ADVERSARY_FORCE_MULTIPLIER
+                if self.user_type == UserType.ADVERSARY
+                else 1
+            )
+            one_hot_vector.data[:] = repeat
+            self.one_hot_vector = one_hot_vector
+
+    def store_pages(self):
+        self.requested_pages = []
+        self.forwarding_requests = []
+        self.forwarding_responses = []
+
+        if self.user_type == UserType.ADVERSARY or self.computed_preferences is None:
+            self.stored_pages = np.empty(0)
+            return
+
+        probability = ranking_to_probability_dist_sparse(self.computed_preferences)
+        if probability.count_nonzero() < self.config.PAGES_STORED:
+            self.stored_pages = probability.nonzero()[1]
+        else:
+            self.stored_pages = np.random.choice(
+                probability.indices,
+                size=self.config.PAGES_STORED,
+                p=probability.data,
+                replace=False,
+            )
