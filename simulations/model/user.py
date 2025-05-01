@@ -98,3 +98,25 @@ class User:
                 p=probability.data,
                 replace=False,
             )
+
+
+def get_user_designations(config):
+    if os.path.isfile(
+        f"data/user-designations-s{config.SEED}-n{config.NUM_REGULAR}-l{config.NUM_LEECH}-a{config.NUM_ADVERSARY}.npy"
+    ):
+        return np.load(
+            f"data/user-designations-s{config.SEED}-n{config.NUM_REGULAR}-l{config.NUM_LEECH}-a{config.NUM_ADVERSARY}.npy",
+            allow_pickle=True,
+        )
+
+    user_designations = (
+        [UserType.NORMAL] * config.NUM_REGULAR
+        + [UserType.LEECH] * config.NUM_LEECH
+        + [UserType.ADVERSARY] * config.NUM_ADVERSARY
+    )
+    np.random.shuffle(user_designations)
+    np.save(
+        f"data/user-designations-s{config.SEED}-n{config.NUM_REGULAR}-l{config.NUM_LEECH}-a{config.NUM_ADVERSARY}.npy",
+        user_designations,
+    )
+    return user_designations
