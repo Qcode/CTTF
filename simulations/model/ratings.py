@@ -37,6 +37,16 @@ def ranking_to_zipf_sparse(a):
     return a
 
 
+def get_truth_rankings(PAGE_COUNT):
+    the_zipf = get_page_probability(PAGE_COUNT)
+    return zipf_to_ranking(the_zipf)
+
+
+def get_truth_probability(PAGE_COUNT):
+    the_zipf = get_page_probability(PAGE_COUNT)
+    return the_zipf / np.sum(the_zipf)
+
+
 def ranking_to_probability_dist_sparse(a):
     zipf = ranking_to_zipf_sparse(a)
     total = zipf.sum()

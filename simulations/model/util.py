@@ -12,8 +12,8 @@ def get_default_config():
     return Config(
         PAGE_COUNT=10**6,
         PAGES_STORED=1200,
-        PAGES_RANKED=200,
-        UNIFORM_RATINGS=0.1,
+        PAGES_RANKED=500,
+        UNIFORM_RATINGS=0.3,
         INDIVIDUAL_NOISE=0.5,
         PAGE_REQUEST_PROBABILITY=0.25,
         CONTACT_PROBABILITY=1,

@@ -1,0 +1,96 @@
+import os
+import sys
+from multiprocessing import Pool, cpu_count
+import pickle
+
+import pandas as pd
+import numpy as np
+from tqdm import tqdm
+from model.config import ModelType
+from model.util import get_default_config
+from model.ratings import (
+    get_truth_rankings,
+    get_truth_probability,
+    get_adversary_preferences,
+)
+from model.simulation import (
+    generate_days,
+    simulate_pre_blackout,
+    simulate_post_blackout,
+)
+from model.user import User, get_user_designations, UserType
+
+
+def make_dir(name):
+    if not os.path.isdir(name):
+        os.mkdir(name)
+
+
+def create_user(args):
+    config = args[0]
+    user_designation = args[1]
+    i = args[2]
+    return User(
+        config,
+        user_designation,
+        i,
+        preferences=(
+            get_adversary_preferences(config)
+            if user_designation == UserType.ADVERSARY
+            else None
+        ),
+    )
+
+
+if __name__ == "__main__":
+    config = get_default_config()
+    config.UNIFORM_RATINGS = float(sys.argv[1])
+    np.random.seed(config.SEED)
+
+    make_dir("data")
+    make_dir("plots")
+    make_dir("data/leech")
+    make_dir("data/runs")
+    make_dir(f"data/user-preferences-s{config.SEED}")
+
+    the_truth_rankings = get_truth_rankings(config.PAGE_COUNT)
+    the_truth_probability = get_truth_probability(config.PAGE_COUNT)
+
+    adversary_preferences = get_adversary_preferences(config)
+    user_designations = get_user_designations(config)
+    args = [(config, user_designations[i], i) for i in range(config.TOTAL_USERS)]
+
+    with Pool(processes=cpu_count()) as pool:
+        users = list(
+            tqdm(
+                pool.imap(create_user, args),
+                total=config.TOTAL_USERS,
+                desc="Creating users",
+            )
+        )
+
+    the_dataset = None
+    print("Loading dataset")
+    if config.SIMULATION_TYPE == ModelType.JAPAN:
+        the_dataset = pd.read_csv("datasets/yjmob100k-dataset2-interpolated.csv")
+    elif config.SIMULATION_TYPE == ModelType.GRID:
+        the_dataset = generate_days(config)
+
+    simulate_pre_blackout(config, the_dataset, users)
+
+    print("Storing pages")
+
+    for user in tqdm(users):
+        user.store_pages()
+
+    simulate_post_blackout(config, the_dataset, users, the_truth_probability)
+
+    print("Saving data")
+    prior_runs = list(filter(lambda name: name != ".DS_Store", os.listdir("data/runs")))
+    next_run = max(map(int, prior_runs)) + 1 if prior_runs else 1
+    os.mkdir(f"data/runs/{next_run}")
+
+    with open(f"data/runs/{next_run}/users", "wb") as f:
+        pickle.dump(users, f)
+    with open(f"data/runs/{next_run}/config", "wb") as f:
+        pickle.dump(config, f)

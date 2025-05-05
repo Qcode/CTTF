@@ -5,6 +5,8 @@ from scipy.sparse import csr_array, load_npz, save_npz
 from model.ratings import (
     generate_individual_preferences,
     ranking_to_probability_dist_sparse,
+    get_truth_probability,
+    get_truth_rankings,
 )
 
 
@@ -34,8 +36,6 @@ class User:
         config,
         user_type,
         index,
-        truth_probability,
-        truth_rankings,
         preferences=None,
     ):
         self.config = config
@@ -43,20 +43,22 @@ class User:
         self.user_type = user_type
         self.preferences = preferences
         self.original_preferences = preferences
-        self.reset(truth_probability, truth_rankings)
+        self.reset()
 
         self.requested_pages = []
         self.forwarding_requests = []
         self.forwarding_responses = []
         self.stored_pages = None
 
-    def reset(self, truth_probability, truth_rankings):
+    def reset(self):
         self.encountered = 1
         if self.user_type == UserType.NORMAL and self.original_preferences is None:
             file_location = f"data/user-preferences-s{self.config.SEED}/preferences-a{self.config.ATTENUATING_NOISE}-ur{self.config.UNIFORM_RATINGS}-{self.index}.npz"
             if os.path.isfile(file_location):
                 self.preferences = load_npz(file_location)
             else:
+                truth_probability = get_truth_probability(self.config.PAGE_COUNT)
+                truth_rankings = get_truth_rankings(self.config.PAGE_COUNT)
                 self.preferences = generate_individual_preferences(
                     self.config, truth_probability, truth_rankings
                 )
