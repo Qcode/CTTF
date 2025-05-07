@@ -37,6 +37,9 @@ class Config:
     PREBLACKOUT_DAYS: list[int]
     POSTBLACKOUT_DAYS: list[int]
 
+    REQUEST_CUTOFF_DAY: int
+    REQUEST_CUTOFF_TIMESTEP: int
+
     ATTENUATING_NOISE: AttenuatingNoiseType
 
     SIMULATION_TYPE: ModelType

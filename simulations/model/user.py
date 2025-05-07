@@ -17,13 +17,16 @@ class UserType(Enum):
 
 
 class PageRequest:
-    def __init__(self, index, timestep):
+    def __init__(self, index, day, timestep):
         self.index = index
+        self.started_day = day
         self.started_timestep = timestep
+        self.ended_day = None
         self.ended_timestep = None
         self.has_interacted = False
 
-    def resolve(self, timestep):
+    def resolve(self, day, timestep):
+        self.ended_day = day
         self.ended_timestep = timestep
 
     def is_resolved(self):

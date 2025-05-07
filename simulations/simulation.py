@@ -44,7 +44,7 @@ def create_user(args):
 
 if __name__ == "__main__":
     config = get_default_config()
-    config.UNIFORM_RATINGS = float(sys.argv[1])
+    config.POSTBLACKOUT_DAYS = list(range(2, 61))
     np.random.seed(config.SEED)
 
     make_dir("data")

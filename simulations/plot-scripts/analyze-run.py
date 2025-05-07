@@ -12,11 +12,10 @@ from model.ratings import (
     noise_preferences,
 )
 from model.user import get_user_designations, UserType
-from model.config import Config
 
 runs = list(filter(lambda name: name != ".DS_Store", os.listdir("data/runs")))
 
-the_run = sys.argv[1] if len(sys.argv) > 0 else max(map(int, runs))
+the_run = sys.argv[1] if len(sys.argv) > 1 else max(map(int, runs))
 with open(f"data/runs/{the_run}/config", "rb") as f:
     config = pickle.load(f)
 
@@ -51,7 +50,7 @@ print(f"100-th page {reversed_cdf[99]:.2%}")
 print(f"10,000-th page {reversed_cdf[9999]:.2%}")
 
 
-plt.title(f"Page Ratings")
+plt.title("Page Ratings")
 plt.ylabel("Rating")
 plt.xlabel("Page Index")
 plt.plot(
@@ -71,7 +70,7 @@ noise_example = ranking_to_zipf(noise_preferences(config, the_truth_rankings))
 noise_example /= np.sum(noise_example)
 print(np.cumsum(noise_example))
 plt.figure()
-plt.title(f"Cumulative Distribution")
+plt.title("Cumulative Distribution")
 plt.plot(np.arange(0, config.PAGE_COUNT), the_truth_cdf, label="Ground Truth")
 plt.plot(np.arange(0, config.PAGE_COUNT), np.cumsum(noise_example), label="Noised")
 plt.legend()
@@ -97,6 +96,9 @@ overall_probabilities = np.zeros_like(users[0].computed_preferences)
 leeches_with_interactions = 0
 average_pages_seen = 0
 average_nonzero_probs = 0
+
+stored_set = set()
+
 for i in tqdm(range(config.TOTAL_USERS)):
     if (
         users[i].user_type == UserType.LEECH
@@ -105,6 +107,10 @@ for i in tqdm(range(config.TOTAL_USERS)):
         leeches_with_interactions += 1
         overall_probabilities += users[i].computed_preferences
         average_pages_seen += users[i].computed_preferences.size
+    stored_set.update(users[i].stored_pages)
+
+print(f"Stored pages across all users {len(stored_set)}")
+
 print("How many leeches interacted with an active user", leeches_with_interactions)
 print("Total leeches", config.NUM_LEECH)
 if leeches_with_interactions > 0:
@@ -138,14 +144,14 @@ else:
     print("No leeches with interactions")
 
 rated_by_someone = all_preferences.nonzero()[1]
-print(rated_by_someone)
+print(f"Number of pages rated by someone {rated_by_someone}")
 
 total_requests = 0
 total_resolved = 0
 total_storing_first = 0
 total_with_interactions = 0
 
-total_was_rated = 0
+total_was_stored = 0
 
 user_appearance_count = 0
 
@@ -163,6 +169,8 @@ satisfied_by_index = np.zeros(config.PAGE_COUNT)
 
 satisfied_in_x_timesteps = np.zeros(48)
 
+satisfied_by_time = np.zeros(61 * 48)
+
 for user in users:
     if 0 in user.stored_pages:
         total_storing_first += 1
@@ -179,6 +187,9 @@ for user in users:
             satisfied_by_time_initiated[request.started_timestep] += 1
             # print(request.started_timestep)
             # print(request.ended_timestep)
+            satisfied_by_time[
+                (request.ended_day - 1) * 48 + request.ended_timestep
+            ] += 1
         if request.has_interacted and not request.is_resolved():
             total_unsatisfied += 1
             unsatisfied_by_index[request.index] += 1
@@ -189,8 +200,8 @@ for user in users:
             satisfied_in_x_timesteps[
                 request.ended_timestep - request.started_timestep
             ] += 1
-        if request.has_interacted and request.index in rated_by_someone:
-            total_was_rated += 1
+        if request.has_interacted and request.index in stored_set:
+            total_was_stored += 1
 
 percent_satisfied_by_time_initiated = (
     satisfied_by_time_initiated / total_by_time_initiated
@@ -201,9 +212,7 @@ print("Total Resolved", total_resolved)
 print("Total with interactions", total_with_interactions)
 print("Total users storing index 0", total_storing_first)
 
-print("Rated by someone and did interact", total_was_rated)
-
-import matplotlib.pyplot as plt
+print("Stored by someone and did interact", total_was_stored)
 
 plt.title("Requests made by index")
 plt.plot(np.arange(0, config.PAGE_COUNT), requests, label="Requests made")
@@ -211,14 +220,21 @@ plt.plot(np.arange(0, config.PAGE_COUNT), satisfied, label="Requests satisfied")
 plt.legend()
 
 plt.figure()
+plt.title("Percent satsified over days")
+plt.plot(
+    np.linspace(0, 61, 61 * 48), np.cumsum(satisfied_by_time) / total_with_interactions
+)
+plt.xlabel("Day")
+plt.ylabel("Percent of requests satisfied")
+
+plt.figure()
 plt.title("Percent satisfied")
 plt.plot(np.arange(0, 10000), (satisfied / np.maximum(1, requests))[:10000])
-plt.show(block=False)
 
 plt.figure()
 plt.title("Percent satisfied")
 plt.plot(np.arange(0, config.PAGE_COUNT), (satisfied / np.maximum(1, requests)))
-plt.show(block=False)
+
 
 plt.figure()
 plt.title("Percent satisfied by time initiated")
@@ -226,7 +242,6 @@ plt.plot(np.arange(0, 48), percent_satisfied_by_time_initiated)
 plt.xlabel("Half-hour timestep")
 plt.ylabel("Percent satisfied")
 plt.savefig("percent_satisfied_by_time_initiated.png")
-plt.show(block=False)
 
 plt.figure()
 plt.title("Cumulative unsatisfied percentage")
@@ -236,7 +251,6 @@ plt.plot(
 plt.ylabel("Percent Unsatisfied")
 plt.xlabel("Page index")
 plt.savefig("cumulative_unsatisfied_percentage.png")
-plt.show(block=False)
 
 
 plt.figure()
@@ -244,14 +258,12 @@ plt.title("Cumulative satisfied percentage")
 plt.plot(
     np.arange(0, config.PAGE_COUNT), np.cumsum(satisfied_by_index) / total_satisfied
 )
-plt.show(block=False)
 
 plt.figure()
 plt.title("Hours to resolve page request")
 frequencies_24 = satisfied_in_x_timesteps.reshape(24, 2).sum(axis=1)
 plt.xlabel("Hours")
 plt.ylabel("Number resolved")
-plt.show(block=False)
 
 # Plot the histogram
 plt.bar(np.arange(0, 24), frequencies_24, width=1, align="edge", edgecolor="black")

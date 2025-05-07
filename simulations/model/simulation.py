@@ -96,25 +96,31 @@ def simulate_post_blackout(config, the_dataset, users, the_truth_probability):
         contact_groups = day.groupby(["x", "y", "t"])["uid"].apply(list)
 
         for time_step in tqdm(range(48), desc="Processing Time Steps"):
+            if day_index < config.REQUEST_CUTOFF_DAY or (
+                day_index == config.REQUEST_CUTOFF_DAY
+                and time_step < config.REQUEST_CUTOFF_TIMESTEP
+            ):
+                valid_users = [
+                    user for user in users if user.user_type != UserType.ADVERSARY
+                ]
+                random_values = np.random.uniform(0, 1, len(valid_users))
+                requesting_users = np.array(valid_users)[
+                    random_values < config.PAGE_REQUEST_PROBABILITY
+                ]
 
-            valid_users = [
-                user for user in users if user.user_type != UserType.ADVERSARY
-            ]
-            random_values = np.random.uniform(0, 1, len(valid_users))
-            requesting_users = np.array(valid_users)[
-                random_values < config.PAGE_REQUEST_PROBABILITY
-            ]
+                if len(requesting_users) > 0:
+                    page_choices = np.random.choice(
+                        config.PAGE_COUNT,
+                        size=len(requesting_users),
+                        p=the_truth_probability,
+                    )
+                    requests = [
+                        PageRequest(choice, day_index, time_step)
+                        for choice in page_choices
+                    ]
 
-            if len(requesting_users) > 0:
-                page_choices = np.random.choice(
-                    config.PAGE_COUNT,
-                    size=len(requesting_users),
-                    p=the_truth_probability,
-                )
-                requests = [PageRequest(choice, time_step) for choice in page_choices]
-
-                for user, request in zip(requesting_users, requests):
-                    user.requested_pages.append(request)
+                    for user, request in zip(requesting_users, requests):
+                        user.requested_pages.append(request)
 
             for x in range(config.GRID_SIZE):
                 for y in range(config.GRID_SIZE):
@@ -144,4 +150,4 @@ def simulate_post_blackout(config, the_dataset, users, the_truth_probability):
                                 continue
                             if request.index in encountered.stored_pages:
                                 forwarded += 1
-                                request.resolve(time_step)
+                                request.resolve(day_index, time_step)
