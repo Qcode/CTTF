@@ -89,7 +89,9 @@ def simulate_pre_blackout(config, the_dataset, users):
                                 )
 
 
-def simulate_post_blackout(config, the_dataset, users, the_truth_probability):
+def simulate_post_blackout(
+    config, the_dataset, users, the_truth_probability, jammed=None
+):
     for day_index in config.POSTBLACKOUT_DAYS:
         print(f"DAY {day_index}")
         day = the_dataset.loc[the_dataset["d"] == day_index]
@@ -124,6 +126,8 @@ def simulate_post_blackout(config, the_dataset, users, the_truth_probability):
 
             for x in range(config.GRID_SIZE):
                 for y in range(config.GRID_SIZE):
+                    if jammed and (x, y) in jammed:
+                        continue
                     user_ids = contact_groups.get((x + 1, y + 1, time_step), [])
                     pairs = [
                         (user_ids[i], user_ids[j])

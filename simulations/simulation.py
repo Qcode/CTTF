@@ -44,7 +44,10 @@ def create_user(args):
 
 if __name__ == "__main__":
     config = get_default_config()
-    config.POSTBLACKOUT_DAYS = list(range(2, 61))
+    if len(sys.argv) > 1:
+        with open(sys.argv[1], "rb") as f:
+            print(f"Opening {sys.argv[1]}")
+            config = pickle.load(f)
     np.random.seed(config.SEED)
 
     make_dir("data")
@@ -71,8 +74,20 @@ if __name__ == "__main__":
 
     the_dataset = None
     print("Loading dataset")
+    jammed = []
     if config.SIMULATION_TYPE == ModelType.JAPAN:
         the_dataset = pd.read_csv("datasets/yjmob100k-dataset2-interpolated.csv")
+        if config.JAM_TOP_K_LOCATIONS > 0:
+            top_poi_locations = pd.read_csv("datasets/processed_poi.csv")
+            top_poi_locations = top_poi_locations.sort_values(
+                "POI_count", ascending=False
+            )
+            top_poi_locations = top_poi_locations.reset_index(drop=True)
+            first_k_rows = top_poi_locations.head(config.JAM_TOP_K_LOCATIONS)
+            print(first_k_rows)
+            first_k_rows = first_k_rows.drop("POI_count", axis=1)
+            jammed = set(first_k_rows.itertuples(index=False, name=None))
+            print(jammed)
     elif config.SIMULATION_TYPE == ModelType.GRID:
         the_dataset = generate_days(config)
 
@@ -83,7 +98,7 @@ if __name__ == "__main__":
     for user in tqdm(users):
         user.store_pages()
 
-    simulate_post_blackout(config, the_dataset, users, the_truth_probability)
+    simulate_post_blackout(config, the_dataset, users, the_truth_probability, jammed)
 
     print("Saving data")
     prior_runs = list(filter(lambda name: name != ".DS_Store", os.listdir("data/runs")))

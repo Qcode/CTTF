@@ -51,5 +51,7 @@ class Config:
 
     FORWARDING_LIMIT: int
 
+    JAM_TOP_K_LOCATIONS: int
+
     def __post_init__(self):
         self.TOTAL_USERS = self.NUM_REGULAR + self.NUM_LEECH + self.NUM_ADVERSARY
