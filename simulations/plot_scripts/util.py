@@ -58,7 +58,7 @@ def get_leech_info(config, users):
     return (
         overall_leech_probabilities / leeches_with_interactions,
         leeches_with_interactions,
-        average_pages_seen,
+        average_pages_seen / leeches_with_interactions,
     )
 
 

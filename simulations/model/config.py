@@ -13,6 +13,11 @@ class ModelType(Enum):
     JAPAN = 2
 
 
+class FetchingType(Enum):
+    CTTF = 1
+    EPIDEMIC = 2
+
+
 @dataclass
 class Config:
     PAGE_COUNT: int
@@ -52,6 +57,8 @@ class Config:
     FORWARDING_LIMIT: int
 
     JAM_TOP_K_LOCATIONS: int
+
+    FETCHING_TYPE: FetchingType
 
     def __post_init__(self):
         self.TOTAL_USERS = self.NUM_REGULAR + self.NUM_LEECH + self.NUM_ADVERSARY

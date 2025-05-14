@@ -3,7 +3,7 @@ from tqdm import tqdm
 import numpy as np
 import pickle
 
-runs = [1, 2, 3, 4, 5, 6, 7]
+runs = [1, 2, 8, 9]
 
 for run in runs:
     print(run)
@@ -28,12 +28,12 @@ for run in runs:
             0, len(config.POSTBLACKOUT_DAYS), len(config.POSTBLACKOUT_DAYS) * 48
         ),
         np.cumsum(satisfied_at_time) / requests_with_interaction,
-        label=f"{config.JAM_TOP_K_LOCATIONS} cells",
+        label=f"{len(config.PREBLACKOUT_DAYS)} days pre-blackout",
     )
 
 plt.xlabel("Day")
 plt.ylabel("Percent requests satisfied")
-plt.title("Jamming Effect on Efficacy")
+plt.title("Preblackout Length Effect on Efficacy")
 plt.legend()
-plt.savefig("plots/jamming.pdf", format="pdf", bbox_inches="tight")
+plt.savefig("plots/preblackout-length.pdf", format="pdf", bbox_inches="tight")
 plt.show()

@@ -28,8 +28,8 @@ heatmap = np.zeros((201, 201))
 heatmap[x_vals, y_vals] = df["POI_count"]
 cmap = matplotlib.colormaps["inferno"]
 cmap.set_bad("black", 1.0)
-sns.heatmap(heatmap, norm=LogNorm(), cmap=cmap)
-plt.title("Point of Interest Heatmap")
+sns.heatmap(heatmap, norm=LogNorm(vmax=2479), cmap=cmap)
+plt.title(f"Point of Interest Heatmap (jammed top {top_k} cells)")
 plt.tight_layout()
 plt.savefig(
     f"plots/poi_heatmap_missing_top_{top_k}.pdf", format="pdf", bbox_inches="tight"

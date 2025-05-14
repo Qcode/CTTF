@@ -6,7 +6,7 @@ import pickle
 import pandas as pd
 import numpy as np
 from tqdm import tqdm
-from model.config import ModelType
+from model.config import ModelType, FetchingType
 from model.util import get_default_config
 from model.ratings import (
     get_truth_rankings,
@@ -17,6 +17,7 @@ from model.simulation import (
     generate_days,
     simulate_pre_blackout,
     simulate_post_blackout,
+    simulate_epidemic_routing,
 )
 from model.user import User, get_user_designations, UserType
 
@@ -91,14 +92,21 @@ if __name__ == "__main__":
     elif config.SIMULATION_TYPE == ModelType.GRID:
         the_dataset = generate_days(config)
 
-    simulate_pre_blackout(config, the_dataset, users)
+    if config.FETCHING_TYPE == FetchingType.CTTF:
+        simulate_pre_blackout(config, the_dataset, users)
 
     print("Storing pages")
-
     for user in tqdm(users):
         user.store_pages()
 
-    simulate_post_blackout(config, the_dataset, users, the_truth_probability, jammed)
+    if config.FETCHING_TYPE == FetchingType.CTTF:
+        simulate_post_blackout(
+            config, the_dataset, users, the_truth_probability, jammed
+        )
+    else:
+        simulate_epidemic_routing(
+            config, the_dataset, users, the_truth_probability, jammed
+        )
 
     print("Saving data")
     prior_runs = list(filter(lambda name: name != ".DS_Store", os.listdir("data/runs")))

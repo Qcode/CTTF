@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import copy
 from tqdm import tqdm
 from model.user import UserType, PageRequest
 
@@ -155,3 +156,96 @@ def simulate_post_blackout(
                             if request.index in encountered.stored_pages:
                                 forwarded += 1
                                 request.resolve(day_index, time_step)
+
+
+def simulate_epidemic_routing(
+    config, the_dataset, users, the_truth_probability, jammed=None
+):
+    for day_index in config.POSTBLACKOUT_DAYS:
+        print(f"DAY {day_index}")
+        day = the_dataset.loc[the_dataset["d"] == day_index]
+        contact_groups = day.groupby(["x", "y", "t"])["uid"].apply(list)
+
+        for time_step in tqdm(range(48), desc="Processing Time Steps"):
+            if day_index < config.REQUEST_CUTOFF_DAY or (
+                day_index == config.REQUEST_CUTOFF_DAY
+                and time_step < config.REQUEST_CUTOFF_TIMESTEP
+            ):
+                valid_users = [
+                    user for user in users if user.user_type != UserType.ADVERSARY
+                ]
+                random_values = np.random.uniform(0, 1, len(valid_users))
+                requesting_users = np.array(valid_users)[
+                    random_values < config.PAGE_REQUEST_PROBABILITY
+                ]
+
+                if len(requesting_users) > 0:
+                    page_choices = np.random.choice(
+                        config.PAGE_COUNT,
+                        size=len(requesting_users),
+                        p=the_truth_probability,
+                    )
+                    requests = [
+                        PageRequest(choice, day_index, time_step)
+                        for choice in page_choices
+                    ]
+
+                    for user, request in zip(requesting_users, requests):
+                        user.requested_pages.append(request)
+
+            for x in range(config.GRID_SIZE):
+                for y in range(config.GRID_SIZE):
+                    if jammed and (x, y) in jammed:
+                        continue
+                    user_ids = contact_groups.get((x + 1, y + 1, time_step), [])
+                    pairs = [
+                        (user_ids[i], user_ids[j])
+                        for i in range(len(user_ids))
+                        for j in range(len(user_ids))
+                        if i != j
+                    ]
+                    for pair in pairs:
+                        requester_index = pair[0]
+                        encountered_index = pair[1]
+                        requester = users[requester_index]
+                        encountered = users[encountered_index]
+                        if (
+                            requester.user_type == UserType.ADVERSARY
+                            or encountered.user_type == UserType.ADVERSARY
+                        ):
+                            continue
+
+                        forwarded = 0
+                        for request in requester.requested_pages:
+                            if forwarded == config.FORWARDING_LIMIT:
+                                break
+                            request.has_interacted = True
+                            if request.is_resolved():
+                                continue
+                            # print(time_step, request.index, encountered.stored_pages)
+                            if (
+                                request.index in encountered.stored_pages
+                                or request.index in encountered.forwarding_responses
+                            ):
+                                forwarded += 1
+                                request.resolve(time_step)
+                            else:
+                                encountered.forwarding_requests.append(
+                                    copy.deepcopy(request)
+                                )
+
+                        for request in requester.forwarding_requests:
+                            if forwarded == config.FORWARDING_LIMIT:
+                                break
+                            if (
+                                request.index in encountered.stored_pages
+                                or request.index in encountered.forwarding_responses
+                            ):
+                                forwarded += 1
+                                requester.forwarding_responses.append(request.index)
+
+                        for response in requester.forwarding_responses:
+                            if forwarded == config.FORWARDING_LIMIT:
+                                break
+                            forwarded += 1
+                            encountered.forwarding_responses.append(response)

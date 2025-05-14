@@ -40,7 +40,7 @@ print("How many leeches interacted with an active user", leeches_with_interactio
 print("Total leeches", config.NUM_LEECH)
 print(
     "Average leech rankings collected",
-    average_pages_seen / leeches_with_interactions,
+    average_pages_seen,
 )
 plt.title(
     f"regular={config.NUM_REGULAR/config.TOTAL_USERS}, adversary = {config.NUM_ADVERSARY/config.TOTAL_USERS}, multiplier = {config.ADVERSARY_FORCE_MULTIPLIER}"
