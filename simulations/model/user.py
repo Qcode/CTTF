@@ -87,21 +87,23 @@ class User:
     def store_pages(self):
         self.requested_pages = []
         self.forwarding_requests = []
-        self.forwarding_responses = []
+        self.forwarding_responses = set()
 
         if self.user_type == UserType.ADVERSARY or self.computed_preferences is None:
-            self.stored_pages = np.empty(0)
+            self.stored_pages = set()
             return
 
         probability = ranking_to_probability_dist_sparse(self.computed_preferences)
         if probability.count_nonzero() < self.config.PAGES_STORED:
-            self.stored_pages = probability.nonzero()[1]
+            self.stored_pages = set(probability.nonzero()[1])
         else:
-            self.stored_pages = np.random.choice(
-                probability.indices,
-                size=self.config.PAGES_STORED,
-                p=probability.data,
-                replace=False,
+            self.stored_pages = set(
+                np.random.choice(
+                    probability.indices,
+                    size=self.config.PAGES_STORED,
+                    p=probability.data,
+                    replace=False,
+                )
             )
 
 

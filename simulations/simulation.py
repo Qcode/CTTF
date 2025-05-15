@@ -43,12 +43,8 @@ def create_user(args):
     )
 
 
-if __name__ == "__main__":
-    config = get_default_config()
-    if len(sys.argv) > 1:
-        with open(sys.argv[1], "rb") as f:
-            print(f"Opening {sys.argv[1]}")
-            config = pickle.load(f)
+def run_simulation(config_arg=None, run_name=None):
+    config = config_arg if config_arg is not None else get_default_config()
     np.random.seed(config.SEED)
 
     make_dir("data")
@@ -109,11 +105,24 @@ if __name__ == "__main__":
         )
 
     print("Saving data")
-    prior_runs = list(filter(lambda name: name != ".DS_Store", os.listdir("data/runs")))
-    next_run = max(map(int, prior_runs)) + 1 if prior_runs else 1
-    os.mkdir(f"data/runs/{next_run}")
+    next_run = run_name
+    if run_name is None:
+        prior_runs = list(
+            filter(lambda name: name != ".DS_Store", os.listdir("data/runs"))
+        )
+        next_run = max(map(int, prior_runs)) + 1 if prior_runs else 1
+        os.mkdir(f"data/runs/{next_run}")
 
     with open(f"data/runs/{next_run}/users", "wb") as f:
         pickle.dump(users, f)
     with open(f"data/runs/{next_run}/config", "wb") as f:
         pickle.dump(config, f)
+
+
+if __name__ == "__main__":
+    config_sys_arg = None
+    if len(sys.argv) > 1:
+        with open(sys.argv[1], "rb") as f:
+            print(f"Opening {sys.argv[1]}")
+            config_sys_arg = pickle.load(f)
+    run_simulation(config_sys_arg)

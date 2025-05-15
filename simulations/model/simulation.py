@@ -228,10 +228,14 @@ def simulate_epidemic_routing(
                                 or request.index in encountered.forwarding_responses
                             ):
                                 forwarded += 1
-                                request.resolve(time_step)
+                                request.resolve(day_index, time_step)
                             else:
                                 encountered.forwarding_requests.append(
-                                    copy.deepcopy(request)
+                                    PageRequest(
+                                        request.index,
+                                        request.started_day,
+                                        request.started_timestep,
+                                    )
                                 )
 
                         for request in requester.forwarding_requests:
@@ -242,10 +246,10 @@ def simulate_epidemic_routing(
                                 or request.index in encountered.forwarding_responses
                             ):
                                 forwarded += 1
-                                requester.forwarding_responses.append(request.index)
+                                requester.forwarding_responses.add(request.index)
 
                         for response in requester.forwarding_responses:
                             if forwarded == config.FORWARDING_LIMIT:
                                 break
                             forwarded += 1
-                            encountered.forwarding_responses.append(response)
+                            encountered.forwarding_responses.add(response)
