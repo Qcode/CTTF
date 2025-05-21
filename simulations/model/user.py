@@ -21,16 +21,23 @@ class PageRequest:
         self.index = index
         self.started_day = day
         self.started_timestep = timestep
-        self.ended_day = None
-        self.ended_timestep = None
+
+        self.resolved_days = []
+        self.resolved_timesteps = []
+        self.resolved_by = []
         self.has_interacted = False
 
-    def resolve(self, day, timestep):
-        self.ended_day = day
-        self.ended_timestep = timestep
+    def resolve(self, day, timestep, resolved_by):
+        if not self.is_full():
+            self.resolved_days.append(day)
+            self.resolved_timesteps.append(timestep)
+            self.resolved_by.append(resolved_by)
 
     def is_resolved(self):
-        return self.ended_timestep is not None
+        return len(self.resolved_days) > 0
+
+    def is_full(self):
+        return len(self.resolved_days) >= 10
 
 
 class User:

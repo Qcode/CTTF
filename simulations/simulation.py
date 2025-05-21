@@ -53,10 +53,8 @@ def run_simulation(config_arg=None, run_name=None):
     make_dir("data/runs")
     make_dir(f"data/user-preferences-s{config.SEED}")
 
-    the_truth_rankings = get_truth_rankings(config.PAGE_COUNT)
     the_truth_probability = get_truth_probability(config.PAGE_COUNT)
 
-    adversary_preferences = get_adversary_preferences(config)
     user_designations = get_user_designations(config)
     args = [(config, user_designations[i], i) for i in range(config.TOTAL_USERS)]
 
@@ -111,7 +109,8 @@ def run_simulation(config_arg=None, run_name=None):
             filter(lambda name: name != ".DS_Store", os.listdir("data/runs"))
         )
         next_run = max(map(int, prior_runs)) + 1 if prior_runs else 1
-        os.mkdir(f"data/runs/{next_run}")
+
+    os.mkdir(f"data/runs/{next_run}")
 
     with open(f"data/runs/{next_run}/users", "wb") as f:
         pickle.dump(users, f)

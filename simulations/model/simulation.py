@@ -151,11 +151,12 @@ def simulate_post_blackout(
                             if forwarded == config.FORWARDING_LIMIT:
                                 break
                             request.has_interacted = True
-                            if request.is_resolved():
+
+                            if request.is_full():
                                 continue
                             if request.index in encountered.stored_pages:
                                 forwarded += 1
-                                request.resolve(day_index, time_step)
+                                request.resolve(day_index, time_step, encountered.index)
 
 
 def simulate_epidemic_routing(
@@ -220,7 +221,7 @@ def simulate_epidemic_routing(
                             if forwarded == config.FORWARDING_LIMIT:
                                 break
                             request.has_interacted = True
-                            if request.is_resolved():
+                            if request.is_full():
                                 continue
                             # print(time_step, request.index, encountered.stored_pages)
                             if (
@@ -228,7 +229,7 @@ def simulate_epidemic_routing(
                                 or request.index in encountered.forwarding_responses
                             ):
                                 forwarded += 1
-                                request.resolve(day_index, time_step)
+                                request.resolve(day_index, time_step, encountered.index)
                             else:
                                 encountered.forwarding_requests.append(
                                     PageRequest(
