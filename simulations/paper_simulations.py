@@ -1,0 +1,105 @@
+from concurrent.futures import ProcessPoolExecutor as Pool
+from copy import deepcopy
+from model.util import get_default_config, split_by_percent
+from model.config import Config, FetchingType
+from simulation import run_simulation, make_dir
+
+
+class ConfigNamePair:
+    def __init__(self, config: Config, name: str):
+        self.config = deepcopy(config)
+        self.name = name
+
+
+def do_simulation(config_pair):
+    run_simulation(config_pair.config, config_pair.name)
+
+
+if __name__ == "__main__":
+    all_configs = []
+
+    config = get_default_config()
+
+    # Baseline simulation:
+    config.POSTBLACKOUT_DAYS = list(range(8, 61))
+    config.REQUEST_CUTOFF_DAY = 15
+    all_configs.append(ConfigNamePair(config, "baseline"))
+
+    # Baseline without interpolation
+    config.INTERPOLATED = False
+    all_configs.append(ConfigNamePair(config, "baselineNoInterpolation"))
+
+    # Varying Leech/Proactive percentage
+    config = get_default_config()
+    make_dir("data/runs/varyProactive")
+    for i in [0.05, 0.1, 0.25, 0.5, 0.75, 0.9]:
+        proactive, leech = split_by_percent(i, 25000)
+        config.NUM_REGULAR = proactive
+        config.NUM_LEECH = leech
+        all_configs.append(ConfigNamePair(config, f"varyProactive/{i}"))
+
+    # Varying Adversaries
+    config = get_default_config()
+    make_dir("data/runs/varyAdversary")
+    for i in [0, 0.01, 0.02, 0.05, 0.1, 0.25, 0.5]:
+        adversary, rest = split_by_percent(i, 25000)
+        proactive, leech = split_by_percent(0.25, rest)
+        config.NUM_ADVERSARY = adversary
+        config.NUM_REGULAR = proactive
+        config.NUM_LEECH = leech
+        all_configs.append(ConfigNamePair(config, f"varyAdversary/{i}"))
+
+    # Jamming Post-Blackout (without any adversary rating manipulation)
+    config = get_default_config()
+    make_dir("data/runs/jammingNoAdversary")
+    for i in [0, 10, 50, 100, 500, 1000, 5000, 10000, 15000, 20000]:
+        config.JAM_TOP_K_LOCATIONS = i
+        all_configs.append(ConfigNamePair(config, f"jammingNoAdversary/{i}"))
+
+    # Jamming with adversary
+    config = get_default_config()
+    make_dir("data/runs/jammingWithAdversary")
+    for i in [500, 1000, 5000, 10000, 15000, 20000]:
+        adversary, rest = split_by_percent(0.02, 25000)
+        proactive, leech = split_by_percent(0.25, rest)
+        config.NUM_ADVERSARY = adversary
+        config.NUM_REGULAR = proactive
+        config.NUM_LEECH = leech
+        config.JAM_TOP_K_LOCATIONS = i
+        all_configs.append(ConfigNamePair(config, f"jammingWithAdversary/{i}"))
+
+    # Different contact probabilities
+    config = get_default_config()
+    make_dir("data/runs/contactProbability")
+    for i in [1, 0.75, 0.5, 0.25, 0.1, 0.05, 0.01]:
+        config.CONTACT_PROBABILITY = i
+        all_configs.append(ConfigNamePair(config, f"contactProbability/{i}"))
+
+    # Different proportions of ranked/uniform
+    config = get_default_config()
+    make_dir("data/runs/ranked-uniform")
+    for ranked in [500, 750, 1000, 2000]:
+        for uniform in [0, 0.1, 0.2, 0.3]:
+            config.UNIFORM_RATINGS = uniform
+            config.PAGES_RANKED = ranked
+            all_configs.append(
+                ConfigNamePair(config, f"ranked-uniform/{ranked}-{uniform}")
+            )
+
+    config = get_default_config()
+    make_dir("data/runs/epidemic")
+    for adversaryPercent in [0, 0.01, 0.02, 0.05, 0.1]:
+        for spamMultiplier in [1, 2, 4, 8, 16, 32, 64]:
+            adversary, rest = split_by_percent(adversaryPercent, 25000)
+            proactive, leech = split_by_percent(0.25, rest)
+            config.NUM_ADVERSARY = adversary
+            config.NUM_LEECH = leech
+            config.NUM_REGULAR = proactive
+            config.FETCHING_TYPE = FetchingType.EPIDEMIC
+            config.ADVERSARY_FORCE_MULTIPLIER = spamMultiplier
+            all_configs.append(
+                ConfigNamePair(config, f"epidemic/{adversaryPercent}-{spamMultiplier}")
+            )
+
+    with Pool() as pool:
+        pool.map(do_simulation, all_configs)

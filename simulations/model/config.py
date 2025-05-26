@@ -60,5 +60,8 @@ class Config:
 
     FETCHING_TYPE: FetchingType
 
+    INTERPOLATED: bool
+    SPACE_FOR_FORWARDING: int
+
     def __post_init__(self):
         self.TOTAL_USERS = self.NUM_REGULAR + self.NUM_LEECH + self.NUM_ADVERSARY

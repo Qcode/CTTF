@@ -44,6 +44,7 @@ def create_user(args):
 
 
 def run_simulation(config_arg=None, run_name=None):
+    print(f"STARTING {run_name}")
     config = config_arg if config_arg is not None else get_default_config()
     np.random.seed(config.SEED)
 
@@ -71,7 +72,12 @@ def run_simulation(config_arg=None, run_name=None):
     print("Loading dataset")
     jammed = []
     if config.SIMULATION_TYPE == ModelType.JAPAN:
-        the_dataset = pd.read_csv("datasets/yjmob100k-dataset2-interpolated.csv")
+        which_dataset = (
+            "datasets/yjmob100k-dataset2-interpolated.csv"
+            if config.INTERPOLATED
+            else "datasets/yjmob100k-dataset2.csv"
+        )
+        the_dataset = pd.read_csv(which_dataset)
         if config.JAM_TOP_K_LOCATIONS > 0:
             top_poi_locations = pd.read_csv("datasets/processed_poi.csv")
             top_poi_locations = top_poi_locations.sort_values(

@@ -35,4 +35,6 @@ def get_default_config():
         FORWARDING_LIMIT=4,
         JAM_TOP_K_LOCATIONS=0,
         FETCHING_TYPE=FetchingType.CTTF,
+        INTERPOLATED=True,
+        SPACE_FOR_FORWARDING=300,
     )

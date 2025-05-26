@@ -66,6 +66,8 @@ def simulate_pre_blackout(config, the_dataset, users):
                         encountered = users[encountered_index]
                         if updater.user_type == UserType.ADVERSARY:
                             continue
+                        if np.random.rand() >= config.CONTACT_PROBABILITY:
+                            continue
 
                         if encountered.preferences is not None:
                             if updater.computed_preferences is None:
@@ -146,6 +148,8 @@ def simulate_post_blackout(
                             or encountered.user_type == UserType.ADVERSARY
                         ):
                             continue
+                        if np.random.rand() >= config.CONTACT_PROBABILITY:
+                            continue
                         forwarded = 0
                         for request in requester.requested_pages:
                             if forwarded == config.FORWARDING_LIMIT:
@@ -162,6 +166,27 @@ def simulate_post_blackout(
 def simulate_epidemic_routing(
     config, the_dataset, users, the_truth_probability, jammed=None
 ):
+    for user in users:
+        if user.user_type == UserType.ADVERSARY:
+            user.stored_pages = []
+
+            user.requested_pages = np.random.choice(
+                np.arange(config.PAGE_COUNT / 2, config.PAGE_COUNT),
+                size=config.ADVERSARY_FORCE_MULTIPLIER,
+            )
+            user.forwarding_requests = set(
+                np.random.choice(
+                    np.arange(config.PAGE_COUNT / 2, config.PAGE_COUNT),
+                    size=config.ADVERSARY_FORCE_MULTIPLIER,
+                )
+            )
+            user.forwarding_responses = set(
+                np.random.choice(
+                    np.arange(config.PAGE_COUNT / 2, config.PAGE_COUNT),
+                    size=config.ADVERSARY_FORCE_MULTIPLIER,
+                )
+            )
+
     for day_index in config.POSTBLACKOUT_DAYS:
         print(f"DAY {day_index}")
         day = the_dataset.loc[the_dataset["d"] == day_index]
@@ -198,6 +223,8 @@ def simulate_epidemic_routing(
                 for y in range(config.GRID_SIZE):
                     if jammed and (x, y) in jammed:
                         continue
+                    if np.random.rand() >= config.CONTACT_PROBABILITY:
+                        continue
                     user_ids = contact_groups.get((x + 1, y + 1, time_step), [])
                     pairs = [
                         (user_ids[i], user_ids[j])
@@ -210,11 +237,6 @@ def simulate_epidemic_routing(
                         encountered_index = pair[1]
                         requester = users[requester_index]
                         encountered = users[encountered_index]
-                        if (
-                            requester.user_type == UserType.ADVERSARY
-                            or encountered.user_type == UserType.ADVERSARY
-                        ):
-                            continue
 
                         forwarded = 0
                         for request in requester.requested_pages:
@@ -230,24 +252,24 @@ def simulate_epidemic_routing(
                             ):
                                 forwarded += 1
                                 request.resolve(day_index, time_step, encountered.index)
+                                encountered.forwarding_responses.discard(request.index)
                             else:
-                                encountered.forwarding_requests.append(
-                                    PageRequest(
-                                        request.index,
-                                        request.started_day,
-                                        request.started_timestep,
-                                    )
-                                )
+                                encountered.forwarding_requests.add(request.index)
 
-                        for request in requester.forwarding_requests:
+                        for request in requester.forwarding_requests.copy():
                             if forwarded == config.FORWARDING_LIMIT:
                                 break
                             if (
-                                request.index in encountered.stored_pages
-                                or request.index in encountered.forwarding_responses
+                                request in encountered.stored_pages
+                                or request in encountered.forwarding_responses
                             ):
                                 forwarded += 1
-                                requester.forwarding_responses.add(request.index)
+                                if (
+                                    len(requester.forwarding_responses)
+                                    < config.SPACE_FOR_FORWARDING
+                                ):
+                                    requester.forwarding_responses.add(request)
+                                requester.forwarding_requests.discard(request)
 
                         for response in requester.forwarding_responses:
                             if forwarded == config.FORWARDING_LIMIT:
