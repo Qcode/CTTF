@@ -1,9 +1,10 @@
+import subprocess
 from concurrent.futures import ProcessPoolExecutor as Pool
 from copy import deepcopy
 from model.util import get_default_config, split_by_percent
 from model.config import Config, FetchingType
 from simulation import run_simulation, make_dir
-
+import pickle
 
 class ConfigNamePair:
     def __init__(self, config: Config, name: str):
@@ -101,5 +102,19 @@ if __name__ == "__main__":
                 ConfigNamePair(config, f"epidemic/{adversaryPercent}-{spamMultiplier}")
             )
 
-    with Pool() as pool:
-        pool.map(do_simulation, all_configs)
+    processes = []
+    for config in all_configs:
+        config_dir_name = f"data/runs/{config.name}"
+        make_dir(config_dir_name)
+        config_file_name = f"{config_dir_name}/config"
+        config_log_name = f"{config_dir_name}/log"
+        with open(config_file_name, "wb") as f:
+            pickle.dump(config.config, f)
+        with open(config_log_name, "w") as f:
+            cmd = f"python3 simulation.py {config_file_name} {config.name}"
+            proc = subprocess.Popen(cmd, shell=True, stdout=f, stderr=subprocess.STDOUT)
+            processes.append(proc)
+
+    for i, p in enumerate(processes):
+        p.wait()
+        print(f"Process {i}, {all_configs[i].name} finished")

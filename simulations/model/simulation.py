@@ -169,11 +169,11 @@ def simulate_epidemic_routing(
     for user in users:
         if user.user_type == UserType.ADVERSARY:
             user.stored_pages = []
+            user.requested_pages = []
 
-            user.requested_pages = np.random.choice(
-                np.arange(config.PAGE_COUNT / 2, config.PAGE_COUNT),
-                size=config.ADVERSARY_FORCE_MULTIPLIER,
-            )
+            for adversary_request in np.random.choice(np.arange(config.PAGE_COUNT / 2, config.PAGE_COUNT), size=config.ADVERSARY_FORCE_MULTIPLIER):
+                user.requested_pages.append(PageRequest(adversary_request, 0, 0))
+
             user.forwarding_requests = set(
                 np.random.choice(
                     np.arange(config.PAGE_COUNT / 2, config.PAGE_COUNT),

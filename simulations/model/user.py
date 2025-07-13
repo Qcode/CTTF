@@ -64,7 +64,7 @@ class User:
         self.encountered = 1
         if self.user_type == UserType.NORMAL and self.original_preferences is None:
             file_location = f"data/user-preferences-s{self.config.SEED}/preferences-a{self.config.ATTENUATING_NOISE}-ur{self.config.UNIFORM_RATINGS}-{self.index}.npz"
-            if os.path.isfile(file_location):
+            if False: #os.path.isfile(file_location):
                 self.preferences = load_npz(file_location)
             else:
                 truth_probability = get_truth_probability(self.config.PAGE_COUNT)
@@ -72,10 +72,10 @@ class User:
                 self.preferences = generate_individual_preferences(
                     self.config, truth_probability, truth_rankings
                 )
-                save_npz(
-                    f"data/user-preferences-s{self.config.SEED}/preferences-a{self.config.ATTENUATING_NOISE}-ur{self.config.UNIFORM_RATINGS}-{self.index}.npz",
-                    self.preferences,
-                )
+                #save_npz(
+                #    f"data/user-preferences-s{self.config.SEED}/preferences-a{self.config.ATTENUATING_NOISE}-ur{self.config.UNIFORM_RATINGS}-{self.index}.npz",
+                #    self.preferences,
+                #)
         else:
             self.preferences = self.original_preferences
 
@@ -115,9 +115,9 @@ class User:
 
 
 def get_user_designations(config):
-    if os.path.isfile(
-        f"data/user-designations-s{config.SEED}-n{config.NUM_REGULAR}-l{config.NUM_LEECH}-a{config.NUM_ADVERSARY}.npy"
-    ):
+    if False:#os.path.isfile(
+#        f"data/user-designations-s{config.SEED}-n{config.NUM_REGULAR}-l{config.NUM_LEECH}-a{config.NUM_ADVERSARY}.npy"
+#    ):
         return np.load(
             f"data/user-designations-s{config.SEED}-n{config.NUM_REGULAR}-l{config.NUM_LEECH}-a{config.NUM_ADVERSARY}.npy",
             allow_pickle=True,
@@ -128,9 +128,9 @@ def get_user_designations(config):
         + [UserType.LEECH] * config.NUM_LEECH
         + [UserType.ADVERSARY] * config.NUM_ADVERSARY
     )
-    np.random.shuffle(user_designations)
-    np.save(
-        f"data/user-designations-s{config.SEED}-n{config.NUM_REGULAR}-l{config.NUM_LEECH}-a{config.NUM_ADVERSARY}.npy",
-        user_designations,
-    )
+    #np.random.shuffle(user_designations)
+    #np.save(
+    #    f"data/user-designations-s{config.SEED}-n{config.NUM_REGULAR}-l{config.NUM_LEECH}-a{config.NUM_ADVERSARY}.npy",
+    #    user_designations,
+    #)
     return user_designations

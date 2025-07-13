@@ -50,7 +50,6 @@ def run_simulation(config_arg=None, run_name=None):
 
     make_dir("data")
     make_dir("plots")
-    make_dir("data/leech")
     make_dir("data/runs")
     make_dir(f"data/user-preferences-s{config.SEED}")
 
@@ -116,7 +115,7 @@ def run_simulation(config_arg=None, run_name=None):
         )
         next_run = max(map(int, prior_runs)) + 1 if prior_runs else 1
 
-    os.mkdir(f"data/runs/{next_run}")
+    make_dir(f"data/runs/{next_run}")
 
     with open(f"data/runs/{next_run}/users", "wb") as f:
         pickle.dump(users, f)
@@ -125,9 +124,10 @@ def run_simulation(config_arg=None, run_name=None):
 
 
 if __name__ == "__main__":
+    print(sys.argv)
     config_sys_arg = None
     if len(sys.argv) > 1:
         with open(sys.argv[1], "rb") as f:
             print(f"Opening {sys.argv[1]}")
             config_sys_arg = pickle.load(f)
-    run_simulation(config_sys_arg)
+    run_simulation(config_sys_arg, None if len(sys.argv) == 2 else sys.argv[2])
