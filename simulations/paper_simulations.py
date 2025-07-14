@@ -1,8 +1,9 @@
 import subprocess
+import time
 from concurrent.futures import ProcessPoolExecutor as Pool
 from copy import deepcopy
 from model.util import get_default_config, split_by_percent
-from model.config import Config, FetchingType
+from model.config import Config, FetchingType, ModelType
 from simulation import run_simulation, make_dir
 import pickle
 
@@ -42,7 +43,7 @@ if __name__ == "__main__":
     # Varying Adversaries
     config = get_default_config()
     make_dir("data/runs/varyAdversary")
-    for i in [0, 0.01, 0.02, 0.05, 0.1, 0.25, 0.5]:
+    for i in [0, 0.01, 0.02, 0.05, 0.1, 0.25]:
         adversary, rest = split_by_percent(i, 25000)
         proactive, leech = split_by_percent(0.25, rest)
         config.NUM_ADVERSARY = adversary
@@ -53,14 +54,14 @@ if __name__ == "__main__":
     # Jamming Post-Blackout (without any adversary rating manipulation)
     config = get_default_config()
     make_dir("data/runs/jammingNoAdversary")
-    for i in [0, 10, 50, 100, 500, 1000, 5000, 10000, 15000, 20000]:
+    for i in [0, 10, 100, 1000, 10000, 20000]:
         config.JAM_TOP_K_LOCATIONS = i
         all_configs.append(ConfigNamePair(config, f"jammingNoAdversary/{i}"))
 
     # Jamming with adversary
     config = get_default_config()
     make_dir("data/runs/jammingWithAdversary")
-    for i in [500, 1000, 5000, 10000, 15000, 20000]:
+    for i in [0, 10, 100, 1000, 10000, 20000]:
         adversary, rest = split_by_percent(0.02, 25000)
         proactive, leech = split_by_percent(0.25, rest)
         config.NUM_ADVERSARY = adversary
@@ -87,6 +88,8 @@ if __name__ == "__main__":
                 ConfigNamePair(config, f"ranked-uniform/{ranked}-{uniform}")
             )
 
+    # EPIDEMIC
+
     config = get_default_config()
     make_dir("data/runs/epidemic")
     for adversaryPercent in [0, 0.01, 0.02, 0.05, 0.1]:
@@ -102,6 +105,21 @@ if __name__ == "__main__":
                 ConfigNamePair(config, f"epidemic/{adversaryPercent}-{spamMultiplier}")
             )
 
+    config = get_default_config()
+    make_dir("data/runs/grid")
+    for adversaryPercent in [0, 0.01, 0.02, 0.05, 0.1, 0.25]:
+        for jam in [0, 10, 50, 100, 300]:
+            adversary, rest = split_by_percent(adversaryPercent, 25000)
+            proactive, leech = split_by_percent(0.25, rest)
+            config.SIMULATION_TYPE = ModelType.GRID
+            config.NUM_ADVERSARY = adversary
+            config.NUM_LEECH = leech
+            config.NUM_REGULAR = proactive
+            config.TOTAL_USERS = 600
+            config.GRID_SIZE = 25
+            config.JAM_TOP_K_LOCATIONS = jam
+            all_configs.append(ConfigNamePair(config, f"grid/a{adversaryPercent}"))
+    print("Created all configs")
     processes = []
     for config in all_configs:
         config_dir_name = f"data/runs/{config.name}"
@@ -113,7 +131,17 @@ if __name__ == "__main__":
         with open(config_log_name, "w") as f:
             cmd = f"python3 simulation.py {config_file_name} {config.name}"
             proc = subprocess.Popen(cmd, shell=True, stdout=f, stderr=subprocess.STDOUT)
+            print("STARTING")
+            print(config.config)
             processes.append(proc)
+        while len(processes) >= 4:
+            for process in processes:
+                if process.poll() is not None:
+                    processes.remove(process)
+                    break
+            else:
+                time.sleep(1)
+
 
     for i, p in enumerate(processes):
         p.wait()

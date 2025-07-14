@@ -58,7 +58,7 @@ def run_simulation(config_arg=None, run_name=None):
     user_designations = get_user_designations(config)
     args = [(config, user_designations[i], i) for i in range(config.TOTAL_USERS)]
 
-    with Pool(processes=cpu_count()) as pool:
+    with Pool(processes=cpu_count() // 4) as pool:
         users = list(
             tqdm(
                 pool.imap(create_user, args),
@@ -89,7 +89,12 @@ def run_simulation(config_arg=None, run_name=None):
             jammed = set(first_k_rows.itertuples(index=False, name=None))
             print(jammed)
     elif config.SIMULATION_TYPE == ModelType.GRID:
-        the_dataset = generate_days(config)
+        the_dataset = pd.read_csv("datasets/grid.csv")
+        jammed = set()
+        while len(jammed) < config.JAM_TOP_K_LOCATIONS:
+            x = np.random.randint(0, 25)
+            y = np.random.randint(0, 25)
+            jammed.add((x, y))
 
     if config.FETCHING_TYPE == FetchingType.CTTF:
         simulate_pre_blackout(config, the_dataset, users)
