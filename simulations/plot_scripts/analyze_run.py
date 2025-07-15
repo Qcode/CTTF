@@ -104,8 +104,8 @@ for user in users:
             # print(request.started_timestep)
             # print(request.ended_timestep)
             satisfied_by_time[request.started_day - config.POSTBLACKOUT_DAYS[0]][
-                (request.ended_day - config.POSTBLACKOUT_DAYS[0]) * 48
-                + request.ended_timestep
+                (request.resolved_days[0] - config.POSTBLACKOUT_DAYS[0]) * 48
+                + request.resolved_timesteps[0]
             ] += 1
         if request.has_interacted and not request.is_resolved():
             total_unsatisfied += 1
@@ -115,7 +115,7 @@ for user in users:
             satisfied_by_index[request.index] += 1
 
             satisfied_in_x_timesteps[
-                request.ended_timestep - request.started_timestep
+                request.resolved_timesteps[0] - request.started_timestep
             ] += 1
         if request.has_interacted and request.index in stored_set:
             total_was_stored += 1
