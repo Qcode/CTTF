@@ -17,6 +17,7 @@ from model.ratings import (
 from model.simulation import (
     generate_days,
     simulate_pre_blackout,
+    simulate_pre_blackout_stalking,
     simulate_post_blackout,
     simulate_epidemic_routing,
 )
@@ -43,9 +44,10 @@ def create_user(args):
         ),
     )
 
+
 def enough_disk_space():
     total, used, free = shutil.disk_usage("/u1/rpevans")
-    if (free // (2 ** 30)) < 10:
+    if (free // (2**30)) < 10:
         print("NOT ENOUGH MEMORY!!!")
         exit()
 
@@ -105,7 +107,10 @@ def run_simulation(config_arg=None, run_name=None):
             jammed.add((x, y))
 
     if config.FETCHING_TYPE == FetchingType.CTTF:
-        simulate_pre_blackout(config, the_dataset, users)
+        if config.STALKING:
+            simulate_pre_blackout_stalking(config, the_dataset, users)
+        else:
+            simulate_pre_blackout(config, the_dataset, users)
 
     print("Storing pages")
     for user in tqdm(users):

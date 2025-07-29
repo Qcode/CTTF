@@ -37,4 +37,6 @@ def get_default_config():
         FETCHING_TYPE=FetchingType.CTTF,
         INTERPOLATED=True,
         SPACE_FOR_FORWARDING=300,
+        STALKING=False,
+        POW_LIMIT=1800,
     )

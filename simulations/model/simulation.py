@@ -92,6 +92,120 @@ def simulate_pre_blackout(config, the_dataset, users):
                                 )
 
 
+def simulate_pre_blackout_stalking(config, the_dataset, users):
+    for day_index in config.PREBLACKOUT_DAYS:
+        print(f"DAY {day_index}")
+        day = the_dataset.loc[the_dataset["d"] == day_index]
+        contact_groups = day.groupby(["x", "y", "t"])["uid"].apply(list)
+
+        for time_step in tqdm(range(48), desc="Processing Time Steps"):
+            for x in range(config.GRID_SIZE):
+                for y in range(config.GRID_SIZE):
+                    user_ids = contact_groups.get((x + 1, y + 1, time_step), [])
+                    pairs = [
+                        (user_ids[i], user_ids[j])
+                        for i in range(len(user_ids))
+                        for j in range(len(user_ids))
+                        if i != j
+                    ]
+
+                    leech_ids = np.array(
+                        [
+                            user_id
+                            for user_id in user_ids
+                            if users[user_id].user_type == UserType.LEECH
+                        ]
+                    )
+                    adversary_ids = np.array(
+                        [
+                            user_id
+                            for user_id in user_ids
+                            if users[user_id].user_type == UserType.ADVERSARY
+                        ]
+                    )
+
+                    num_adversaries = len(adversary_ids)
+                    num_leeches = len(leech_ids)
+
+                    limits = {}
+
+                    # Handle empty case
+                    if num_leeches == 0:
+                        leech_to_adversaries = {}
+                    else:
+                        # Repeat or sample leeches so each adversary is assigned to one
+                        if num_adversaries <= num_leeches:
+                            assigned_leeches = np.random.choice(
+                                leech_ids, size=num_adversaries, replace=False
+                            )
+                        else:
+                            repeats = -(
+                                -num_adversaries // num_leeches
+                            )  # ceil division
+                            assigned_leeches = np.tile(leech_ids, repeats)[
+                                :num_adversaries
+                            ]
+                            np.random.shuffle(assigned_leeches)
+
+                        # Build mapping from leech → list of adversaries
+                        leech_to_adversaries = {}
+                        for leech_id, adversary_id in zip(
+                            assigned_leeches, adversary_ids
+                        ):
+                            leech_to_adversaries[leech_id] = [adversary_id]
+
+                        # Optionally ensure all leeches are present (even with zero stalkers)
+                        for leech_id in leech_ids:
+                            leech_to_adversaries[leech_id] = []
+                            limits[leech_id] = 0
+
+                    def update(the_updater, the_encountered):
+                        limits[the_updater.index] += 1
+                        if limits[the_updater.index] > config.POW_LIMIT:
+                            return
+                        if the_encountered.preferences is not None:
+                            if the_updater.computed_preferences is None:
+                                the_updater.computed_preferences = (
+                                    the_encountered.computed_preferences.copy()
+                                )
+                            else:
+                                the_updater.num_rankings += (
+                                    the_encountered.one_hot_vector
+                                )
+                                the_updater.computed_preferences = (
+                                    the_updater.computed_preferences
+                                    + (
+                                        the_encountered.preferences
+                                        - the_updater.computed_preferences
+                                    ).multiply(the_updater.num_rankings.power(-1))
+                                )
+
+                    for pair in pairs:
+                        updater_index = pair[0]
+                        encountered_index = pair[1]
+                        updater = users[updater_index]
+                        encountered = users[encountered_index]
+                        if (
+                            updater.user_type == UserType.ADVERSARY
+                            or encountered.user_type == UserType.ADVERSARY
+                        ):
+                            continue
+                        if np.random.rand() >= config.CONTACT_PROBABILITY:
+                            continue
+
+                        update(updater, encountered)
+                        if updater.user_type == UserType.ADVERSARY:
+                            for stalker in leech_to_adversaries[updater.index]:
+                                update(updater, users[stalker])
+                                update(encountered, users[stalker])
+
+                    for leech in leech_ids:
+                        stalkers = leech_to_adversaries[leech]
+                        while stalkers and limits[leech_id] < config.POW_LIMIT:
+                            for stalker in stalkers:
+                                update(users[leech], users[stalker])
+
+
 def simulate_post_blackout(
     config, the_dataset, users, the_truth_probability, jammed=None
 ):
@@ -145,10 +259,13 @@ def simulate_post_blackout(
                         encountered_index = pair[1]
                         requester = users[requester_index]
                         encountered = users[encountered_index]
-                        
+                        if (
+                            requester.user_type == UserType.ADVERSARY
+                            or encountered.user_type == UserType.ADVERSARY
+                        ):
+                            continue
                         if np.random.rand() >= config.CONTACT_PROBABILITY:
                             continue
-                        
                         forwarded = 0
                         for request in requester.requested_pages:
                             if forwarded == config.FORWARDING_LIMIT:
@@ -157,8 +274,7 @@ def simulate_post_blackout(
 
                             if request.is_full():
                                 continue
-                            # Assume adversary satisfies
-                            if encountered.user_type == UserType.ADVERSARY or request.index in encountered.stored_pages:
+                            if request.index in encountered.stored_pages:
                                 forwarded += 1
                                 request.resolve(day_index, time_step, encountered.index)
 
