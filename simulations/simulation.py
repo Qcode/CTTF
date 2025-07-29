@@ -1,3 +1,4 @@
+import shutil
 import os
 import sys
 from multiprocessing import Pool, cpu_count
@@ -42,9 +43,16 @@ def create_user(args):
         ),
     )
 
+def enough_disk_space():
+    total, used, free = shutil.disk_usage("/u1/rpevans")
+    if (free // (2 ** 30)) < 10:
+        print("NOT ENOUGH MEMORY!!!")
+        exit()
+
 
 def run_simulation(config_arg=None, run_name=None):
     print(f"STARTING {run_name}")
+    enough_disk_space()
     config = config_arg if config_arg is not None else get_default_config()
     np.random.seed(config.SEED)
 
@@ -58,7 +66,7 @@ def run_simulation(config_arg=None, run_name=None):
     user_designations = get_user_designations(config)
     args = [(config, user_designations[i], i) for i in range(config.TOTAL_USERS)]
 
-    with Pool(processes=cpu_count() // 4) as pool:
+    with Pool(processes=4) as pool:
         users = list(
             tqdm(
                 pool.imap(create_user, args),
@@ -121,6 +129,11 @@ def run_simulation(config_arg=None, run_name=None):
         next_run = max(map(int, prior_runs)) + 1 if prior_runs else 1
 
     make_dir(f"data/runs/{next_run}")
+
+    enough_disk_space()
+
+    for user in users:
+        user.listify()
 
     with open(f"data/runs/{next_run}/users", "wb") as f:
         pickle.dump(users, f)

@@ -126,6 +126,8 @@ def simulate_post_blackout(
 
                     for user, request in zip(requesting_users, requests):
                         user.requested_pages.append(request)
+                        if request.index in user.stored_pages:
+                            request.resolve(day_index, time_step, user.index)
 
             for x in range(config.GRID_SIZE):
                 for y in range(config.GRID_SIZE):
@@ -143,13 +145,10 @@ def simulate_post_blackout(
                         encountered_index = pair[1]
                         requester = users[requester_index]
                         encountered = users[encountered_index]
-                        if (
-                            requester.user_type == UserType.ADVERSARY
-                            or encountered.user_type == UserType.ADVERSARY
-                        ):
-                            continue
+                        
                         if np.random.rand() >= config.CONTACT_PROBABILITY:
                             continue
+                        
                         forwarded = 0
                         for request in requester.requested_pages:
                             if forwarded == config.FORWARDING_LIMIT:
@@ -158,7 +157,8 @@ def simulate_post_blackout(
 
                             if request.is_full():
                                 continue
-                            if request.index in encountered.stored_pages:
+                            # Assume adversary satisfies
+                            if encountered.user_type == UserType.ADVERSARY or request.index in encountered.stored_pages:
                                 forwarded += 1
                                 request.resolve(day_index, time_step, encountered.index)
 
@@ -251,8 +251,10 @@ def simulate_epidemic_routing(
                                 or request.index in encountered.forwarding_responses
                             ):
                                 forwarded += 1
-                                request.resolve(day_index, time_step, encountered.index)
-                                encountered.forwarding_responses.discard(request.index)
+                                if (requester.user_type != UserType.ADVERSARY):
+                                    request.resolve(day_index, time_step, encountered.index)
+                                if (encountered.user_type != UserType.ADVERSARY):
+                                    encountered.forwarding_responses.discard(request.index)
                             else:
                                 encountered.forwarding_requests.add(request.index)
 
@@ -269,10 +271,12 @@ def simulate_epidemic_routing(
                                     < config.SPACE_FOR_FORWARDING
                                 ):
                                     requester.forwarding_responses.add(request)
-                                requester.forwarding_requests.discard(request)
+                                if (requester.user_type != UserType.ADVERSARY):
+                                    requester.forwarding_requests.discard(request)
 
                         for response in requester.forwarding_responses:
                             if forwarded == config.FORWARDING_LIMIT:
                                 break
                             forwarded += 1
-                            encountered.forwarding_responses.add(response)
+                            if (encountered.user_type != UserType.ADVERSARY):
+                                encountered.forwarding_responses.add(response)

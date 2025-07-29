@@ -113,6 +113,11 @@ class User:
                 )
             )
 
+    def listify(self):
+        for attr, value in self.__dict__.items():
+            if isinstance(value, set):
+                setattr(self, attr, list(value))
+
 
 def get_user_designations(config):
     if False:#os.path.isfile(
