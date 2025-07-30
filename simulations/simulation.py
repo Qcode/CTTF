@@ -153,4 +153,4 @@ if __name__ == "__main__":
         with open(sys.argv[1], "rb") as f:
             print(f"Opening {sys.argv[1]}")
             config_sys_arg = pickle.load(f)
-    run_simulation(config_sys_arg, None if len(sys.argv) == 2 else sys.argv[2])
+    run_simulation(config_sys_arg, None if len(sys.argv) < 2 else sys.argv[2])
