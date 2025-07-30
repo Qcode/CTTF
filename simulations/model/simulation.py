@@ -173,17 +173,27 @@ def simulate_pre_blackout_stalking(config, the_dataset, users):
                                     the_encountered.computed_preferences.copy()
                                 )
                             else:
+                                # Cache previous counts before update
+                                previous_counts = the_updater.num_rankings.copy()
+
+                                # Increment count
                                 the_updater.num_rankings += (
                                     the_encountered.one_hot_vector * repeat
                                 )
-                                the_updater.computed_preferences = (
-                                    the_updater.computed_preferences
-                                    + (
-                                        the_encountered.preferences
-                                        - the_updater.computed_preferences
+
+                                # Weighted sum = old_mean * old_count + new_pref * repeat
+                                weighted_sum = (
+                                    the_updater.computed_preferences.multiply(
+                                        previous_counts
                                     )
-                                    .multiply(repeat)
-                                    .multiply(the_updater.num_rankings.power(-1))
+                                    + the_encountered.preferences.multiply(repeat)
+                                )
+
+                                # New mean = weighted_sum / new count
+                                the_updater.computed_preferences = (
+                                    weighted_sum.multiply(
+                                        the_updater.num_rankings.power(-1)
+                                    )
                                 )
 
                     for pair in pairs:
