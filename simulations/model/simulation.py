@@ -80,7 +80,9 @@ def simulate_pre_blackout(config, the_dataset, users):
                                     if encountered.user_type == UserType.ADVERSARY
                                     else 1
                                 )
-                                updater.num_rankings += encountered.one_hot_vector
+                                updater.num_rankings += (
+                                    encountered.one_hot_vector * repeat
+                                )
                                 updater.computed_preferences = (
                                     updater.computed_preferences
                                     + (
@@ -128,6 +130,8 @@ def simulate_pre_blackout_stalking(config, the_dataset, users):
                     num_leeches = len(leech_ids)
 
                     limits = {}
+                    for user_id in user_ids:
+                        limits[user_id] = 0
 
                     # Handle empty case
                     if num_leeches == 0:
@@ -156,10 +160,10 @@ def simulate_pre_blackout_stalking(config, the_dataset, users):
 
                         # Optionally ensure all leeches are present (even with zero stalkers)
                         for leech_id in leech_ids:
-                            leech_to_adversaries[leech_id] = []
-                            limits[leech_id] = 0
+                            if leech_id not in leech_to_adversaries:
+                                leech_to_adversaries[leech_id] = []
 
-                    def update(the_updater, the_encountered):
+                    def update(the_updater, the_encountered, limits, repeat=1):
                         limits[the_updater.index] += 1
                         if limits[the_updater.index] > config.POW_LIMIT:
                             return
@@ -170,14 +174,16 @@ def simulate_pre_blackout_stalking(config, the_dataset, users):
                                 )
                             else:
                                 the_updater.num_rankings += (
-                                    the_encountered.one_hot_vector
+                                    the_encountered.one_hot_vector * repeat
                                 )
                                 the_updater.computed_preferences = (
                                     the_updater.computed_preferences
                                     + (
                                         the_encountered.preferences
                                         - the_updater.computed_preferences
-                                    ).multiply(the_updater.num_rankings.power(-1))
+                                    )
+                                    .multiply(repeat)
+                                    .multiply(the_updater.num_rankings.power(-1))
                                 )
 
                     for pair in pairs:
@@ -193,17 +199,25 @@ def simulate_pre_blackout_stalking(config, the_dataset, users):
                         if np.random.rand() >= config.CONTACT_PROBABILITY:
                             continue
 
-                        update(updater, encountered)
-                        if updater.user_type == UserType.ADVERSARY:
+                        update(updater, encountered, limits)
+                        if updater.user_type == UserType.LEECH:
                             for stalker in leech_to_adversaries[updater.index]:
-                                update(updater, users[stalker])
-                                update(encountered, users[stalker])
+                                update(updater, users[stalker], limits)
+                                update(encountered, users[stalker], limits)
 
                     for leech in leech_ids:
                         stalkers = leech_to_adversaries[leech]
-                        while stalkers and limits[leech_id] < config.POW_LIMIT:
-                            for stalker in stalkers:
-                                update(users[leech], users[stalker])
+                        if stalkers and limits[users[leech].index] < config.POW_LIMIT:
+                            remainder_repeat = (
+                                config.POW_LIMIT - limits[users[leech].index]
+                            )
+                            # Relies on the assumptions all adversaries have same rating
+                            update(
+                                users[leech],
+                                users[stalkers[0]],
+                                limits,
+                                repeat=remainder_repeat,
+                            )
 
 
 def simulate_post_blackout(
