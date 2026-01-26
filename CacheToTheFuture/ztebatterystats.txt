@@ -1,0 +1,2141 @@
+Discharge step durations:
+  #0: +11m19s679ms to 92 (screen-on, power-save-off, device-idle-off)
+  #1: +8m18s431ms to 93 (screen-on, power-save-off, device-idle-off)
+  #2: +9m3s745ms to 94 (screen-on, power-save-off, device-idle-off)
+  #3: +8m33s546ms to 95 (screen-on, power-save-off, device-idle-off)
+  #4: +8m3s319ms to 96 (screen-on, power-save-off, device-idle-off)
+  #5: +7m33s122ms to 97 (screen-on, power-save-off, device-idle-off)
+  #6: +8m18s437ms to 98 (screen-on, power-save-off, device-idle-off)
+  Estimated discharge time remaining: +13h23m57s900ms
+  Estimated screen on time: 14h 33m 52s 500ms 
+
+Statistics since last charge:
+  System starts: 0, currently on battery: true
+  Estimated battery capacity: 5550 mAh
+  Min learned battery capacity: 5595 mAh
+  Max learned battery capacity: 5595 mAh
+  Time on battery: 1h 4m 28s 683ms (100.0%) realtime, 1h 4m 28s 683ms (100.0%) uptime
+  Time on battery screen off: 0ms (0.0%) realtime, 0ms (0.0%) uptime
+  Time on battery screen doze: 0ms (0.0%)
+  Total run time: 1h 4m 28s 682ms realtime, 1h 4m 28s 682ms uptime
+  Battery time remaining: 13h 23m 57s 900ms 
+  Discharge: 403 mAh
+  Screen off discharge: 0 mAh
+  Screen doze discharge: 0 mAh
+  Screen on discharge: 403 mAh
+  Device light doze discharge: 0 mAh
+  Device deep doze discharge: 0 mAh
+  Start clock time: 2025-08-02-12-41-23
+  Screen on: 1h 4m 28s 683ms (100.0%) 0x, Interactive: 1h 4m 28s 683ms (100.0%)
+  Screen brightnesses:
+    dim 29m 23s 693ms (45.6%)
+    medium 26m 37s 243ms (41.3%)
+    light 8m 27s 747ms (13.1%)
+  Connectivity changes: 1
+  Total full wakelock time: 3s 284ms
+
+  CONNECTIVITY POWER SUMMARY START
+  Logging duration for connectivity statistics: 1h 4m 28s 683ms 
+  Cellular Statistics:
+     Cellular kernel active time: 0ms (0.0%)
+     Cellular Sleep time:  0ms (0.0%)
+     Cellular Idle time:   0ms (0.0%)
+     Cellular Rx time:     0ms (0.0%)
+     Cellular Tx time:     
+       less than 0dBm:  0ms (0.0%)
+       0dBm to 8dBm:  0ms (0.0%)
+       8dBm to 15dBm:  0ms (0.0%)
+       15dBm to 20dBm:  0ms (0.0%)
+       above 20dBm:  0ms (0.0%)
+     Cellular data received: 0B
+     Cellular data sent: 0B
+     Cellular packets received: 0
+     Cellular packets sent: 0
+     Cellular Radio Access Technology:
+       oos 1h 4m 28s 683ms (100.0%) 
+     Cellular Rx signal strength (RSRP):
+       very poor (less than -128dBm):  1h 4m 28s 683ms (100.0%) 
+  Wifi Statistics:
+     Wifi kernel active time: 2m 11s 346ms (3.4%)
+     WiFi Scan time:  0ms (0.0%)
+     WiFi Sleep time:  1h 1m 24s 187ms (95.2%)
+     WiFi Idle time:   2m 49s 208ms (4.4%)
+     WiFi Rx time:     10s 635ms (0.3%)
+     WiFi Tx time:     4s 661ms (0.1%)
+     WiFi Battery drain: 3.05mAh
+     Wifi data received: 595.62MB
+     Wifi data sent: 5.92MB
+     Wifi packets received: 445168
+     Wifi packets sent: 70839
+     Wifi states:
+       scanning 1h 2m 17s 188ms (96.6%) 
+       sta 2m 11s 495ms (3.4%) 
+     Wifi supplicant states:
+       disconn 1h 2m 6s 569ms (96.3%) 
+       disabled 3ms (0.0%) 
+       scanning 3s 881ms (0.1%) 
+       associating 173ms (0.0%) 
+       associated 288ms (0.0%) 
+       4-way-handshake 5s 333ms (0.1%) 
+       group-handshake 62ms (0.0%) 
+       completed 2m 12s 374ms (3.4%) 
+     Wifi Rx signal strength (RSSI):
+         great (greater than -55dBm): 2m 12s 366ms (3.4%) 
+  GPS Statistics:
+     GPS signal quality (Top 4 Average CN0):
+      poor (less than 20 dBHz): 0ms (0.0%) 
+      good (greater than 20 dBHz): 0ms (0.0%) 
+  CONNECTIVITY POWER SUMMARY END
+
+  Bluetooth total received: 134.47MB, sent: 564B
+  Bluetooth scan time: 1h 4m 26s 549ms 
+     Bluetooth Idle time:   1s 357ms (0.0%)
+     Bluetooth Rx time:     1s 444ms (0.0%)
+     Bluetooth Tx time:     916ms (0.0%)
+     Bluetooth Battery drain: 0.000106mAh
+
+  Device battery use since last full charge
+    Amount discharged (lower bound): 7
+    Amount discharged (upper bound): 8
+    Amount discharged while screen on: 8
+    Amount discharged while screen off: 0
+    Amount discharged while screen doze: 0
+
+  Estimated power use (mAh):
+    Capacity: 6000, Computed drain: 871, actual drain: 420-480
+    Uid u0a237: 471 ( cpu=471 ) Including smearing: 819 ( screen=248 proportional=100 )
+    Screen: 250 Excluded from smearing
+    Cell standby: 64.5 ( radio=64.5 ) Excluded from smearing
+    Uid 1000: 17.0 ( cpu=17.0 wifi=0.000225 sensor=0.000212 ) Excluded from smearing
+    Uid 0: 16.4 ( cpu=16.4 wifi=0.00108 ) Excluded from smearing
+    Uid u0a177: 8.58 ( cpu=8.52 bt=0.0655 ) Including smearing: 9.78 ( proportional=1.19 )
+    Bluetooth: 7.55 ( cpu=7.55 ) Including smearing: 8.60 ( proportional=1.05 )
+    Uid u0a175: 5.33 ( cpu=5.33 wifi=0.0000417 ) Including smearing: 6.08 ( proportional=0.742 )
+    Uid u0a40175: 4.31 ( cpu=4.31 ) Including smearing: 4.91 ( proportional=0.600 )
+    Idle: 3.76 Excluded from smearing
+    Uid 1001: 3.09 ( cpu=3.09 ) Excluded from smearing
+    Wifi: 3.02 ( cpu=0.0359 wifi=2.98 ) Including smearing: 3.44 ( proportional=0.420 )
+    Uid u0a40186: 2.22 ( cpu=2.22 ) Including smearing: 2.53 ( proportional=0.309 )
+    Uid 1036: 1.97 ( cpu=1.97 ) Excluded from smearing
+    Uid u0a211: 1.76 ( cpu=1.76 ) Excluded from smearing
+    Uid u0a178: 1.56 ( cpu=1.56 wifi=0.0000833 ) Including smearing: 1.78 ( proportional=0.218 )
+    Uid u0a198: 0.850 ( cpu=0.850 ) Including smearing: 0.968 ( proportional=0.118 )
+    Uid u0a173: 0.748 ( cpu=0.741 wifi=0.00711 ) Including smearing: 0.852 ( proportional=0.104 )
+    Uid 1069: 0.654 ( cpu=0.654 ) Excluded from smearing
+    Uid u0a110: 0.551 ( cpu=0.551 ) Excluded from smearing
+    Uid u0a130: 0.518 ( cpu=0.518 ) Including smearing: 0.590 ( proportional=0.0720 )
+    Uid u0a206: 0.499 ( cpu=0.499 sensor=0.0000444 ) Including smearing: 3.05 ( screen=2.18 proportional=0.372 )
+    Uid u0a192: 0.440 ( cpu=0.440 wifi=0.0000417 ) Including smearing: 0.501 ( proportional=0.0612 )
+    Uid u0a186: 0.396 ( cpu=0.396 wifi=0.0000417 ) Including smearing: 0.451 ( proportional=0.0551 )
+    Uid u0a129: 0.338 ( cpu=0.337 wifi=0.000497 ) Including smearing: 0.385 ( proportional=0.0470 )
+    Uid u0a200: 0.286 ( cpu=0.286 wifi=0.0000417 ) Including smearing: 0.325 ( proportional=0.0397 )
+    Uid u0a107: 0.278 ( cpu=0.278 ) Including smearing: 0.316 ( proportional=0.0386 )
+    Uid u0a193: 0.270 ( cpu=0.270 ) Including smearing: 0.307 ( proportional=0.0375 )
+    Uid u0a190: 0.236 ( cpu=0.235 wifi=0.0000417 ) Including smearing: 0.268 ( proportional=0.0328 )
+    Uid 1066: 0.229 ( cpu=0.229 ) Excluded from smearing
+    Uid u0a199: 0.220 ( cpu=0.220 wifi=0.0000417 ) Including smearing: 0.250 ( proportional=0.0306 )
+    Uid u0a187: 0.206 ( cpu=0.206 ) Including smearing: 0.235 ( proportional=0.0287 )
+    Uid u0a143: 0.189 ( cpu=0.189 wifi=0.0000417 ) Including smearing: 0.215 ( proportional=0.0263 )
+    Uid u0a116: 0.181 ( cpu=0.181 wifi=0.000239 ) Including smearing: 0.363 ( screen=0.137 proportional=0.0443 )
+    Uid u0a154: 0.181 ( cpu=0.181 ) Including smearing: 0.207 ( proportional=0.0252 )
+    Uid u0a221: 0.168 ( cpu=0.168 ) Including smearing: 0.236 ( screen=0.0394 proportional=0.0288 )
+    Uid u0a197: 0.162 ( cpu=0.162 ) Including smearing: 0.184 ( proportional=0.0225 )
+    Uid u0a184: 0.153 ( cpu=0.153 ) Including smearing: 0.174 ( proportional=0.0212 )
+    Uid u0a232: 0.133 ( cpu=0.133 wifi=0.0000417 ) Including smearing: 0.151 ( proportional=0.0185 )
+    Uid u0a176: 0.130 ( cpu=0.130 ) Including smearing: 0.148 ( proportional=0.0181 )
+    Uid u0a196: 0.116 ( cpu=0.116 ) Including smearing: 0.132 ( proportional=0.0162 )
+    Uid u0a222: 0.0965 ( cpu=0.0915 wifi=0.00505 ) Including smearing: 0.110 ( proportional=0.0134 )
+    Uid 2000: 0.0780 ( cpu=0.0764 wifi=0.00160 ) Excluded from smearing
+    Uid u0a168: 0.0675 ( cpu=0.0675 ) Including smearing: 0.0769 ( proportional=0.00939 )
+    Uid u0a228: 0.0608 ( cpu=0.0608 ) Including smearing: 0.0693 ( proportional=0.00846 )
+    Uid u0a208: 0.0526 ( cpu=0.0526 ) Including smearing: 0.0600 ( proportional=0.00732 )
+    Uid 1061: 0.0484 ( wifi=0.0484 ) Excluded from smearing
+    Uid u0a157: 0.0471 ( cpu=0.0471 ) Including smearing: 0.0537 ( proportional=0.00656 )
+    Uid 1073: 0.0443 ( cpu=0.0443 wifi=0.0000417 ) Excluded from smearing
+    Uid u0a121: 0.0386 ( cpu=0.0385 wifi=0.0000833 ) Including smearing: 0.0439 ( proportional=0.00536 )
+    Uid u0a203: 0.0349 ( cpu=0.0349 ) Excluded from smearing
+    Uid u0a171: 0.0324 ( cpu=0.0324 ) Including smearing: 0.0369 ( proportional=0.00451 )
+    Uid u0a174: 0.0323 ( cpu=0.0323 ) Including smearing: 0.0367 ( proportional=0.00449 )
+    Uid u0a182: 0.0321 ( cpu=0.0321 ) Including smearing: 0.0365 ( proportional=0.00446 )
+    Uid u0a167: 0.0313 ( cpu=0.0313 ) Including smearing: 0.0356 ( proportional=0.00435 )
+    Uid u0a185: 0.0288 ( cpu=0.0288 ) Including smearing: 0.0328 ( proportional=0.00400 )
+    Uid u0a194: 0.0260 ( cpu=0.0260 ) Including smearing: 0.0296 ( proportional=0.00361 )
+    Uid 1041: 0.0256 ( cpu=0.0256 ) Excluded from smearing
+    Uid u0a118: 0.0244 ( cpu=0.0244 ) Including smearing: 0.0277 ( proportional=0.00339 )
+    Uid u0a172: 0.0242 ( cpu=0.0242 ) Including smearing: 0.0276 ( proportional=0.00337 )
+    Uid u0a169: 0.0186 ( cpu=0.0186 ) Including smearing: 0.0212 ( proportional=0.00259 )
+    Uid u0a223: 0.0149 ( cpu=0.0149 ) Including smearing: 0.0170 ( proportional=0.00207 )
+    Uid 1017: 0.0119 ( cpu=0.0119 ) Excluded from smearing
+    Uid u0a119: 0.00979 ( cpu=0.00979 ) Including smearing: 0.0112 ( proportional=0.00136 )
+    Uid 1047: 0.00876 ( cpu=0.00876 ) Excluded from smearing
+    Uid 1020: 0.00257 ( cpu=0.00231 wifi=0.000258 ) Excluded from smearing
+    Uid 9999: 0.00245 ( cpu=0.00245 ) Excluded from smearing
+    Uid 1013: 0.00205 ( cpu=0.00205 ) Excluded from smearing
+    Uid 1053: 0.00186 ( cpu=0.00186 ) Excluded from smearing
+    Uid 1068: 0.00139 ( cpu=0.00139 ) Excluded from smearing
+    Uid u0a114: 0.00126 ( cpu=0.00126 ) Including smearing: 0.00143 ( proportional=0.000175 )
+    Uid u0a213: 0.00122 ( cpu=0.00122 ) Including smearing: 0.00139 ( proportional=0.000169 )
+    Uid u0a162: 0.00111 ( cpu=0.00111 ) Including smearing: 0.00126 ( proportional=0.000154 )
+    Uid 1051: 0.000736 ( wifi=0.000736 ) Excluded from smearing
+    Uid 1072: 0.000118 ( cpu=0.000118 ) Excluded from smearing
+    Uid u0a115: 0.0000417 ( wifi=0.0000417 ) Including smearing: 0.0000475 ( proportional=0.00000580 )
+    Over-counted: 391 ( ) Including smearing: 0 ( ) Excluded from smearing
+
+  Resource Power Manager Stats
+
+  CPU freqs: 614400 768000 884000 1040000 1228800 1378000 1536000 1612000 768000 1040000 1228800 1404000 1536000 1612000
+
+  0:
+    Wi-Fi network: 0B received, 17.57KB sent (packets 0 received, 416 sent)
+       WiFi Scan time:  0ms (0.0%)
+       WiFi Sleep time:  1h 4m 28s 683ms (100.0%)
+       WiFi Idle time:   0ms (0.0%)
+       WiFi Rx time:     0ms (0.0%)
+       WiFi Tx time:     26ms (0.0%)
+    Total cpu time: u=59s 246ms s=4m 27s 616ms 
+    Total cpu time per freq: 34830 1630 1680 2370 790 810 650 155020 350 330 410 500 480 44340
+    Proc kworker/u17:2:
+      CPU: 0ms usr + 3s 40ms krn ; 0ms fg
+    Proc kworker/u17:1:
+      CPU: 0ms usr + 3s 580ms krn ; 0ms fg
+    Proc kworker/u17:0:
+      CPU: 0ms usr + 3s 180ms krn ; 0ms fg
+    Proc kworker/u16:8:
+      CPU: 0ms usr + 2s 480ms krn ; 0ms fg
+    Proc kworker/u16:7:
+      CPU: 0ms usr + 4s 700ms krn ; 0ms fg
+    Proc kworker/u16:6:
+      CPU: 0ms usr + 1s 360ms krn ; 0ms fg
+    Proc kworker/u16:5:
+      CPU: 0ms usr + 2s 410ms krn ; 0ms fg
+    Proc kworker/u16:4:
+      CPU: 0ms usr + 4s 120ms krn ; 0ms fg
+    Proc kworker/u16:3:
+      CPU: 0ms usr + 6s 940ms krn ; 0ms fg
+    Proc kworker/u16:2:
+      CPU: 0ms usr + 4s 710ms krn ; 0ms fg
+    Proc kworker/u16:1:
+      CPU: 0ms usr + 7s 710ms krn ; 0ms fg
+    Proc kworker/u16:0:
+      CPU: 0ms usr + 1s 840ms krn ; 0ms fg
+    Proc kworker/7:1H:
+      CPU: 0ms usr + 10ms krn ; 0ms fg
+    Proc kworker/6:1H:
+      CPU: 0ms usr + 10ms krn ; 0ms fg
+    Proc kworker/1:1H:
+      CPU: 0ms usr + 110ms krn ; 0ms fg
+    Proc kworker/0:1H:
+      CPU: 0ms usr + 50ms krn ; 0ms fg
+    Proc storaged:
+      CPU: 1s 30ms usr + 320ms krn ; 0ms fg
+    Proc performancemanager:
+      CPU: 10ms usr + 10ms krn ; 0ms fg
+    Proc sugov_perf:6:
+      CPU: 0ms usr + 230ms krn ; 0ms fg
+    Proc sugov_perf:0:
+      CPU: 0ms usr + 3s 460ms krn ; 0ms fg
+    Proc migration/6:
+      CPU: 0ms usr + 10ms krn ; 0ms fg
+    Proc migration/5:
+      CPU: 0ms usr + 1s 830ms krn ; 0ms fg
+    Proc migration/4:
+      CPU: 0ms usr + 1s 40ms krn ; 0ms fg
+    Proc migration/3:
+      CPU: 0ms usr + 1s 20ms krn ; 0ms fg
+    Proc migration/2:
+      CPU: 0ms usr + 930ms krn ; 0ms fg
+    Proc migration/1:
+      CPU: 0ms usr + 990ms krn ; 0ms fg
+    Proc migration/0:
+      CPU: 0ms usr + 1s 60ms krn ; 0ms fg
+    Proc ksoftirqd/7:
+      CPU: 0ms usr + 90ms krn ; 0ms fg
+    Proc ksoftirqd/6:
+      CPU: 10ms usr + 60ms krn ; 0ms fg
+    Proc ksoftirqd/5:
+      CPU: 30ms usr + 0ms krn ; 0ms fg
+    Proc ksoftirqd/4:
+      CPU: 0ms usr + 10ms krn ; 0ms fg
+    Proc ksoftirqd/3:
+      CPU: 0ms usr + 40ms krn ; 0ms fg
+    Proc ksoftirqd/2:
+      CPU: 40ms usr + 0ms krn ; 0ms fg
+    Proc ksoftirqd/1:
+      CPU: 0ms usr + 390ms krn ; 0ms fg
+    Proc ksoftirqd/0:
+      CPU: 0ms usr + 90ms krn ; 0ms fg
+    Proc sdiohal_rx_thre:
+      CPU: 0ms usr + 1m 4s 320ms krn ; 0ms fg
+    Proc kworker/u16:10:
+      CPU: 0ms usr + 650ms krn ; 0ms fg
+    Proc irq/70-spi4.0:
+      CPU: 0ms usr + 20ms krn ; 0ms fg
+    Proc vendor.unisoc.hardware.power-service:
+      CPU: 20ms usr + 60ms krn ; 0ms fg
+    Proc zygote64:
+      CPU: 120ms usr + 670ms krn ; 0ms fg
+    Proc kworker/7:2:
+      CPU: 10ms usr + 0ms krn ; 0ms fg
+    Proc kworker/7:1:
+      CPU: 30ms usr + 170ms krn ; 0ms fg
+    Proc kworker/7:0:
+      CPU: 10ms usr + 30ms krn ; 0ms fg
+    Proc kworker/6:0:
+      CPU: 0ms usr + 190ms krn ; 0ms fg
+    Proc kworker/5:2:
+      CPU: 0ms usr + 30ms krn ; 0ms fg
+    Proc kworker/5:1:
+      CPU: 10ms usr + 80ms krn ; 0ms fg
+    Proc kworker/5:0:
+      CPU: 0ms usr + 60ms krn ; 0ms fg
+    Proc kworker/4:2:
+      CPU: 0ms usr + 200ms krn ; 0ms fg
+    Proc kworker/3:2:
+      CPU: 0ms usr + 40ms krn ; 0ms fg
+    Proc kworker/3:1:
+      CPU: 20ms usr + 0ms krn ; 0ms fg
+    Proc kworker/3:0:
+      CPU: 0ms usr + 140ms krn ; 0ms fg
+    Proc kworker/2:1:
+      CPU: 0ms usr + 120ms krn ; 0ms fg
+    Proc kworker/2:0:
+      CPU: 0ms usr + 240ms krn ; 0ms fg
+    Proc kworker/1:2:
+      CPU: 0ms usr + 930ms krn ; 0ms fg
+    Proc kworker/1:0:
+      CPU: 0ms usr + 530ms krn ; 0ms fg
+    Proc kworker/0:3:
+      CPU: 0ms usr + 50ms krn ; 0ms fg
+    Proc kworker/0:2:
+      CPU: 0ms usr + 140ms krn ; 0ms fg
+    Proc kworker/0:1:
+      CPU: 0ms usr + 220ms krn ; 0ms fg
+    Proc kworker/0:0:
+      CPU: 0ms usr + 170ms krn ; 0ms fg
+    Proc installd:
+      CPU: 0ms usr + 70ms krn ; 0ms fg
+    Proc kthreadd:
+      CPU: 0ms usr + 30ms krn ; 0ms fg
+    Proc hang_debug/7:
+      CPU: 20ms usr + 0ms krn ; 0ms fg
+    Proc vendor.sprd.hardware.boot@1.1-service:
+      CPU: 0ms usr + 10ms krn ; 0ms fg
+    Proc shub_rd_nwu:
+      CPU: 0ms usr + 350ms krn ; 0ms fg
+    Proc rcu_sched:
+      CPU: 0ms usr + 240ms krn ; 0ms fg
+    Proc loop8:
+      CPU: 0ms usr + 10ms krn ; 0ms fg
+    Proc engpc:
+      CPU: 10ms usr + 10ms krn ; 0ms fg
+    Proc state-check:
+      CPU: 80ms usr + 0ms krn ; 0ms fg
+    Proc rcu_preempt:
+      CPU: 590ms usr + 1s 150ms krn ; 0ms fg
+    Proc vold:
+      CPU: 0ms usr + 40ms krn ; 0ms fg
+    Proc spi4:
+      CPU: 0ms usr + 600ms krn ; 0ms fg
+    Proc spi3:
+      CPU: 0ms usr + 80ms krn ; 0ms fg
+    Proc netd:
+      CPU: 600ms usr + 810ms krn ; 0ms fg
+    Proc init:
+      CPU: 420ms usr + 480ms krn ; 0ms fg
+    Proc sh:
+      CPU: 20ms usr + 60ms krn ; 0ms fg
+    Proc ip:
+      CPU: 10ms usr + 0ms krn ; 0ms fg
+    Proc gsp-core[0]:
+      CPU: 0ms usr + 180ms krn ; 0ms fg
+    Proc kswapd0:
+      CPU: 0ms usr + 19s 130ms krn ; 0ms fg
+    Proc ueventd:
+      CPU: 1s 260ms usr + 120ms krn ; 0ms fg
+    Proc iptables-restore:
+      CPU: 50ms usr + 180ms krn ; 0ms fg
+    Proc uniber:
+      CPU: 980ms usr + 4s 150ms krn ; 0ms fg
+    Proc system:
+      CPU: 0ms usr + 620ms krn ; 0ms fg
+    Proc kauditd:
+      CPU: 0ms usr + 10ms krn ; 0ms fg
+    Proc kcompactd0:
+      CPU: 0ms usr + 2s 400ms krn ; 0ms fg
+    Proc psimon:
+      CPU: 70ms usr + 0ms krn ; 0ms fg
+    Proc loop26:
+      CPU: 0ms usr + 20ms krn ; 0ms fg
+    Proc loop24:
+      CPU: 0ms usr + 10ms krn ; 0ms fg
+    Proc loop20:
+      CPU: 0ms usr + 10ms krn ; 0ms fg
+    Proc loop16:
+      CPU: 0ms usr + 50ms krn ; 0ms fg
+    Proc loop15:
+      CPU: 0ms usr + 20ms krn ; 0ms fg
+    Proc loop12:
+      CPU: 0ms usr + 20ms krn ; 0ms fg
+    Proc loop11:
+      CPU: 0ms usr + 10ms krn ; 0ms fg
+    Proc loop10:
+      CPU: 10ms usr + 0ms krn ; 0ms fg
+    Proc sbuf-6-4:
+      CPU: 0ms usr + 270ms krn ; 0ms fg
+    Proc sbuf-5-6:
+      CPU: 0ms usr + 300ms krn ; 0ms fg
+    Proc ip6tables-restore:
+      CPU: 60ms usr + 100ms krn ; 0ms fg
+    Proc sdiohal_tx_thre:
+      CPU: 0ms usr + 2s 930ms krn ; 0ms fg
+    Proc f2fs_discard-25:
+      CPU: 140ms usr + 0ms krn ; 0ms fg
+    Proc cp_diskserver:
+      CPU: 0ms usr + 30ms krn ; 0ms fg
+    Proc f2fs_gc-253:11:
+      CPU: 0ms usr + 60ms krn ; 0ms fg
+    Proc sprd_drm_commit:
+      CPU: 0ms usr + 5s 240ms krn ; 0ms fg
+    Proc pub_int_handle_:
+      CPU: 0ms usr + 390ms krn ; 0ms fg
+    Proc update_engine:
+      CPU: 12s 80ms usr + 6s 360ms krn ; 0ms fg
+    Proc sugov:6:
+      CPU: 0ms usr + 1s 80ms krn ; 0ms fg
+    Proc sugov:0:
+      CPU: 0ms usr + 9s 930ms krn ; 0ms fg
+    Proc irq/88-omnivisi:
+      CPU: 0ms usr + 470ms krn ; 0ms fg
+  1000:
+    Wi-Fi network: 10.83KB received, 13.04KB sent (packets 27 received, 30 sent)
+    Wifi Running: 0ms (0.0%)
+    Full Wifi Lock: 0ms (0.0%)
+    Wifi Scan (blamed): 2s 40ms (0.1%) 3x
+    Wifi Scan (actual): 2s 40ms (0.1%) 3x
+    Background Wifi Scan: 0ms (0.0%) 0x
+       WiFi Scan time:  0ms (0.0%)
+       WiFi Sleep time:  1h 4m 28s 716ms (100.0%)
+       WiFi Idle time:   0ms (0.0%)
+       WiFi Rx time:     6ms (0.0%)
+       WiFi Tx time:     1ms (0.0%)
+    User activity: 1 other, 1 button, 330 touch
+    Wake lock *alarm* realtime
+    Wake lock *job*/android/com.android.server.ZramWriteback realtime
+    Wake lock GnssLocationProviderPsdsDownload realtime
+    Wake lock *launch* realtime
+    Wake lock NetworkStats realtime
+    Wake lock *telephony-radio* realtime
+    Wake lock NtpTimeHelper realtime
+    Wake lock GnssLocationProvider realtime
+    Wake lock NetworkTimeUpdateService realtime
+    Wake lock GnssVisibilityControl realtime
+    Wake lock SCREEN_FROZEN realtime
+    Job android/com.android.server.ZramWriteback: 49ms realtime (1 times)
+    Job Completions android/com.android.server.ZramWriteback: canceled(1x)
+    Sensor 58: 5s 83ms realtime (16 times)
+    Foreground activities: 6m 4s 937ms realtime (30 times) (running)
+    Foreground for: 1h 4m 28s 683ms 
+    Total running: 1h 4m 28s 683ms 
+    Total cpu time: u=3m 52s 663ms s=1m 54s 984ms 
+    Total cpu time per freq: 50970 7660 5270 5930 7130 5580 5500 191020 680 2050 2060 1040 790 39200
+    Proc android.hardware.memtrack@1.0-service:
+      CPU: 70ms usr + 100ms krn ; 0ms fg
+    Proc servicemanager:
+      CPU: 4s 140ms usr + 2s 840ms krn ; 0ms fg
+    Proc vendor.sprd.hardware.gnss@2.1-service:
+      CPU: 50ms usr + 90ms krn ; 0ms fg
+    Proc com.android.settings:
+      CPU: 8s 970ms usr + 2s 800ms krn ; 31s 310ms fg
+      3 starts, 3 crashes
+    Proc thermald:
+      CPU: 280ms usr + 1s 0ms krn ; 0ms fg
+    Proc connmgr:
+      CPU: 20ms usr + 30ms krn ; 0ms fg
+    Proc vendor.sprd.hardware.thermal@2.0-service:
+      CPU: 40ms usr + 280ms krn ; 0ms fg
+    Proc android.system.suspend@1.0-service:
+      CPU: 470ms usr + 610ms krn ; 0ms fg
+    Proc com.zte.heartyservice.strategy:
+      CPU: 80ms usr + 90ms krn ; 0ms fg
+    Proc com.android.subsys:
+      CPU: 50ms usr + 40ms krn ; 0ms fg
+    Proc android.hardware.graphics.allocator@4.0-service:
+      CPU: 60ms usr + 690ms krn ; 0ms fg
+    Proc com.zte.powersavemode:service:
+      CPU: 210ms usr + 140ms krn ; 0ms fg
+      1 starts
+    Proc android.hardware.graphics.composer@2.1-service:
+      CPU: 4s 410ms usr + 11s 800ms krn ; 0ms fg
+    Proc battery_record_daemon:
+      CPU: 20ms usr + 190ms krn ; 0ms fg
+    Proc slogmodem:
+      CPU: 0ms usr + 40ms krn ; 0ms fg
+    Proc com.android.keychain:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      2 starts
+    Proc com.ztefingerprint.service:
+      CPU: 20ms usr + 0ms krn ; 0ms fg
+    Proc srtd:
+      CPU: 10ms usr + 120ms krn ; 0ms fg
+    Proc gpsd:
+      CPU: 20ms usr + 90ms krn ; 0ms fg
+    Proc android.hardware.keymaster@4.1-unisoc.service:
+      CPU: 10ms usr + 20ms krn ; 0ms fg
+    Proc surfaceflinger:
+      CPU: 23s 830ms usr + 19s 130ms krn ; 0ms fg
+    Proc com.zte.mifavor.launcher.adapter:
+      CPU: 50ms usr + 30ms krn ; 0ms fg
+    Proc vendor.sprd.hardware.vibrator-service:
+      CPU: 10ms usr + 50ms krn ; 0ms fg
+    Proc com.zte.zgesture:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      2 starts
+    Proc refnotify:
+      CPU: 20ms usr + 60ms krn ; 0ms fg
+    Proc system:
+      CPU: 2m 2s 430ms usr + 45s 980ms krn ; 0ms fg
+    Proc android.hardware.health@2.1-service:
+      CPU: 30ms usr + 260ms krn ; 0ms fg
+    Proc sprdstorageproxyd:
+      CPU: 10ms usr + 20ms krn ; 0ms fg
+    Proc vendor.sprd.hardware.enhance@1.0-service:
+      CPU: 850ms usr + 1s 270ms krn ; 0ms fg
+    Proc hwservicemanager:
+      CPU: 90ms usr + 100ms krn ; 0ms fg
+    Proc android.hardware.usb@1.1-service:
+      CPU: 100ms usr + 10ms krn ; 0ms fg
+    Proc com.zte.powersavemode:
+      CPU: 60ms usr + 140ms krn ; 3s 880ms fg
+      1 starts
+    Proc com.android.aftersaleservice:
+      CPU: 810ms usr + 280ms krn ; 0ms fg
+    Proc android.hardware.sensors@1.0-service:
+      CPU: 580ms usr + 1s 140ms krn ; 0ms fg
+    Proc vendor.sprd.hardware.lights-service:
+      CPU: 30ms usr + 190ms krn ; 0ms fg
+    Proc com.zte.thermald:
+      CPU: 10ms usr + 10ms krn ; 0ms fg
+    Apk com.zte.heartyservice.strategy:
+      Service com.zte.heartyservice.strategy.StrategyService:
+        Created for: 114ms uptime
+        Starts: 4, launches: 4
+    Apk com.android.keychain:
+      Service com.android.keychain.KeyChainService:
+        Created for: 583ms uptime
+        Starts: 2, launches: 2
+    Apk com.zte.mifavor.launcher.adapter:
+      Service com.zte.mifavor.launcher.adapter.EmailUnReadIntentService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 4
+    Apk android:
+      Wakeup alarm *walarm*:WriteBufferAlarm: 0 times
+      Wakeup alarm *walarm*:WifiConnectivityManager Schedule Periodic Scan Timer: 0 times
+      Wakeup alarm *walarm*:WifiConnectivityManager Schedule Watchdog Timer: 0 times
+      Wakeup alarm *walarm*:android.appwidget.action.APPWIDGET_UPDATE: 0 times
+      Wakeup alarm *walarm*:*job.deadline* includes: Uid:1000 Package:android, : 0 times
+      Service com.android.server.ZramWriteback:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+    Apk com.android.aftersaleservice:
+      Wakeup alarm *walarm*:zte.intent.action.ALARM_PER_HOUR: 0 times
+  1001:
+    Wake lock RadioInteractor realtime
+    Wake lock *telephony-radio* realtime
+    Foreground for: 1h 4m 28s 683ms 
+    Total running: 1h 4m 28s 683ms 
+    Total cpu time: u=49s 669ms s=17s 207ms 
+    Total cpu time per freq: 6020 1420 970 1620 3710 3300 3540 27820 310 2260 560 130 80 10230
+    Proc com.android.phone:
+      CPU: 41s 590ms usr + 14s 230ms krn ; 0ms fg
+    Proc com.spreadtrum.vowifi:
+      CPU: 150ms usr + 320ms krn ; 0ms fg
+    Proc com.spreadtrum.vce:
+      CPU: 20ms usr + 10ms krn ; 0ms fg
+    Proc urild:
+      CPU: 7s 610ms usr + 2s 90ms krn ; 0ms fg
+  1002:
+    Wake lock bluetooth_timer realtime
+    Foreground for: 1h 4m 28s 683ms 
+    Total running: 1h 4m 28s 683ms 
+    Total cpu time: u=1m 1s 528ms s=1m 52s 205ms 
+    Total cpu time per freq: 97050 1190 780 910 890 680 500 6510 10 10 0 0 0 750
+    Proc com.android.bluetooth:
+      CPU: 41s 300ms usr + 49s 270ms krn ; 0ms fg
+    Proc android.hardware.bluetooth@1.1-service.unisoc:
+      CPU: 20s 400ms usr + 1m 2s 420ms krn ; 0ms fg
+  1010:
+    Wifi Running: 0ms (0.0%)
+    Full Wifi Lock: 0ms (0.0%)
+    Wifi Scan (blamed): 57s 544ms (1.5%) 25x
+    Wifi Scan (actual): 57s 544ms (1.5%) 25x
+    Background Wifi Scan: 0ms (0.0%) 0x
+       WiFi Scan time:  0ms (0.0%)
+       WiFi Sleep time:  1h 4m 28s 710ms (100.0%)
+       WiFi Idle time:   0ms (0.0%)
+       WiFi Rx time:     22ms (0.0%)
+       WiFi Tx time:     1ms (0.0%)
+    Total cpu time: u=461ms s=385ms 
+    Total cpu time per freq: 130 60 40 30 30 40 40 280 0 10 0 0 0 40
+    Proc android.hardware.wifi@1.0-service:
+      CPU: 90ms usr + 160ms krn ; 0ms fg
+    Proc wpa_supplicant:
+      CPU: 100ms usr + 50ms krn ; 0ms fg
+    Proc wificond:
+      CPU: 190ms usr + 80ms krn ; 0ms fg
+  1013:
+    Total cpu time: u=7ms s=31ms 
+    Total cpu time per freq: 0 0 0 0 0 0 0 10 0 0 0 0 0 0
+    Proc mediaserver:
+      CPU: 10ms usr + 10ms krn ; 0ms fg
+  1017:
+    Total cpu time: u=71ms s=150ms 
+    Total cpu time per freq: 0 0 0 0 0 0 0 180 0 0 0 0 0 40
+    Proc keystore:
+      CPU: 80ms usr + 120ms krn ; 0ms fg
+  1020:
+    Wi-Fi network: 28.24KB received, 15.73KB sent (packets 131 received, 64 sent)
+       WiFi Scan time:  0ms (0.0%)
+       WiFi Sleep time:  1h 4m 28s 729ms (100.0%)
+       WiFi Idle time:   0ms (0.0%)
+       WiFi Rx time:     3ms (0.0%)
+       WiFi Tx time:     4ms (0.0%)
+    Total cpu time: u=5ms s=38ms 
+    Total cpu time per freq: 0 0 0 0 0 0 0 30 0 0 0 0 0 0
+    (nothing executed)
+  1036:
+    Total cpu time: u=32s 151ms s=11s 921ms 
+    Total cpu time per freq: 5280 650 540 620 1090 890 800 23440 0 0 0 0 0 0
+    Proc logd:
+      CPU: 30s 250ms usr + 11s 200ms krn ; 0ms fg
+  1041:
+    Wake lock AudioMixAudioOut_D realtime
+    Total cpu time: u=271ms s=240ms 
+    Total cpu time per freq: 20 0 0 0 10 10 10 290 0 0 0 0 0 30
+    Proc audioserver:
+      CPU: 200ms usr + 140ms krn ; 0ms fg
+  1047:
+    Total cpu time: u=59ms s=121ms 
+    Total cpu time per freq: 0 10 10 0 0 0 20 70 0 0 0 0 0 30
+    Proc cameraserver:
+      CPU: 50ms usr + 90ms krn ; 0ms fg
+  1051:
+    Wi-Fi network: 177.27KB received, 54.23KB sent (packets 358 received, 464 sent)
+       WiFi Scan time:  0ms (0.0%)
+       WiFi Sleep time:  1h 4m 28s 721ms (100.0%)
+       WiFi Idle time:   0ms (0.0%)
+       WiFi Rx time:     5ms (0.0%)
+       WiFi Tx time:     14ms (0.0%)
+    (nothing executed)
+  1053:
+    Total cpu time: u=3ms s=31ms 
+    Total cpu time per freq: 0 0 0 0 0 0 0 30 0 0 0 0 0 0
+    Proc webview_zygote:
+      CPU: 0ms usr + 30ms krn ; 0ms fg
+  1061:
+    Wi-Fi network: 109.17MB received, 778.59KB sent (packets 76460 received, 15064 sent)
+       WiFi Scan time:  0ms (0.0%)
+       WiFi Sleep time:  1h 4m 27s 337ms (100.0%)
+       WiFi Idle time:   0ms (0.0%)
+       WiFi Rx time:     910ms (0.0%)
+       WiFi Tx time:     495ms (0.0%)
+    (nothing executed)
+  1066:
+    Total cpu time: u=2s 312ms s=2s 745ms 
+    Total cpu time per freq: 960 190 120 130 130 130 120 1970 0 0 0 0 0 0
+    Proc statsd:
+      CPU: 1s 960ms usr + 2s 430ms krn ; 0ms fg
+  1068:
+    Foreground for: 1h 4m 28s 683ms 
+    Total running: 1h 4m 28s 683ms 
+    Total cpu time: u=17ms s=9ms 
+    Total cpu time per freq: 0 0 0 0 0 0 0 30 0 0 0 0 0 10
+    Proc com.android.se:
+      CPU: 20ms usr + 0ms krn ; 0ms fg
+  1069:
+    Total cpu time: u=953ms s=12s 793ms 
+    Total cpu time per freq: 1130 610 520 660 690 530 600 8440 0 0 0 0 0 0
+    Proc lmkd:
+      CPU: 750ms usr + 9s 910ms krn ; 0ms fg
+  1072:
+    Total cpu time: u=0ms s=2ms 
+    Total cpu time per freq: 0 0 0 0 0 0 0 10 0 0 0 0 0 0
+    (nothing executed)
+  1073:
+    Wi-Fi network: 4.55KB received, 5.67KB sent (packets 56 received, 56 sent)
+       WiFi Scan time:  0ms (0.0%)
+       WiFi Sleep time:  1h 4m 28s 745ms (100.0%)
+       WiFi Idle time:   0ms (0.0%)
+       WiFi Rx time:     0ms (0.0%)
+       WiFi Tx time:     1ms (0.0%)
+    Foreground for: 1h 4m 28s 683ms 
+    Total running: 1h 4m 28s 683ms 
+    Total cpu time: u=561ms s=273ms 
+    Total cpu time per freq: 0 0 10 10 10 10 0 520 0 0 10 0 0 180
+    Proc com.android.networkstack.process:
+      CPU: 470ms usr + 200ms krn ; 0ms fg
+  2000:
+    Wi-Fi network: 729.16KB received, 204.85KB sent (packets 719 received, 405 sent)
+       WiFi Scan time:  0ms (0.0%)
+       WiFi Sleep time:  1h 4m 28s 704ms (100.0%)
+       WiFi Idle time:   0ms (0.0%)
+       WiFi Rx time:     17ms (0.0%)
+       WiFi Tx time:     26ms (0.0%)
+    Total cpu time: u=949ms s=410ms 
+    Total cpu time per freq: 0 0 0 0 10 0 0 510 0 0 0 0 0 750
+    Proc adbd:
+      CPU: 80ms usr + 140ms krn ; 0ms fg
+  9999:
+    Total cpu time: u=10ms s=42ms 
+    Total cpu time per freq: 20 0 0 0 0 0 0 30 0 0 0 0 0 0
+    Proc traced_probes:
+      CPU: 0ms usr + 20ms krn ; 0ms fg
+    Proc traced:
+      CPU: 10ms usr + 20ms krn ; 0ms fg
+  u0a105:
+    Wi-Fi network: 2.56KB received, 4.36KB sent (packets 14 received, 16 sent)
+    (nothing executed)
+  u0a107:
+    Foreground for: 7s 571ms 
+    Background for: 1s 745ms 
+    Cached for: 18m 13s 217ms 
+    Total running: 18m 22s 533ms 
+    Total cpu time: u=4s 175ms s=873ms 
+    Total cpu time per freq: 0 0 0 0 0 0 0 3320 10 10 10 30 80 1580
+    Proc android.process.acore:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      3 starts
+  u0a110:
+    Background for: 25s 228ms 
+    Cached for: 1h 3m 53s 87ms 
+    Total running: 1h 4m 18s 315ms 
+    Total cpu time: u=5s 329ms s=4s 889ms 
+    Total cpu time per freq: 0 0 0 0 0 0 30 9860 0 0 0 0 0 10
+    Proc android.process.media:
+      CPU: 3s 940ms usr + 3s 550ms krn ; 0ms fg
+      1 starts
+    Apk com.android.providers.downloads:
+      Service com.android.providers.downloads.DownloadJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 3
+  u0a114:
+    Foreground for: 1h 4m 28s 683ms 
+    Total running: 1h 4m 28s 683ms 
+    Total cpu time: u=11ms s=14ms 
+    Total cpu time per freq: 0 0 0 0 0 0 0 40 0 0 0 0 0 0
+    Proc com.zte.faceverify:
+      CPU: 10ms usr + 10ms krn ; 0ms fg
+  u0a115:
+    Wi-Fi network: 21.56KB received, 11.38KB sent (packets 42 received, 46 sent)
+       WiFi Scan time:  0ms (0.0%)
+       WiFi Sleep time:  1h 4m 28s 752ms (100.0%)
+       WiFi Idle time:   0ms (0.0%)
+       WiFi Rx time:     0ms (0.0%)
+       WiFi Tx time:     1ms (0.0%)
+    (nothing executed)
+  u0a116:
+    Wi-Fi network: 30.00KB received, 27.39KB sent (packets 60 received, 78 sent)
+       WiFi Scan time:  0ms (0.0%)
+       WiFi Sleep time:  1h 4m 28s 748ms (100.0%)
+       WiFi Idle time:   0ms (0.0%)
+       WiFi Rx time:     1ms (0.0%)
+       WiFi Tx time:     5ms (0.0%)
+    Wake lock *launch* realtime
+    Wake lock com.zte.zdm.PartialWakelock realtime
+    Wake lock *job*/com.zte.zdm/.application.jobs.DataConnectivityJobService realtime
+    Job com.zte.zdm/.application.jobs.DataConnectivityJobService: 1s 57ms realtime (2 times), 230ms background (1 times)
+    Job Completions com.zte.zdm/.application.jobs.DataConnectivityJobService: canceled(2x)
+    Foreground activities: 1s 916ms realtime (1 times)
+    Top for: 1s 988ms 
+    Background for: 1h 4m 26s 695ms 
+    Total running: 1h 4m 28s 683ms 
+    Total cpu time: u=2s 431ms s=950ms 
+    Total cpu time per freq: 20 20 0 10 10 10 0 3090 0 0 0 0 0 250
+    Proc com.zte.zdm:
+      CPU: 2s 300ms usr + 860ms krn ; 1s 50ms fg
+    Apk com.zte.zdm:
+      Service com.zte.zdm.application.jobs.DataConnectivityJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 2
+      Service com.zte.abupdate.ABUpdateService:
+        Created for: 67ms uptime
+        Starts: 1, launches: 1
+  u0a118:
+    Background for: 1s 151ms 
+    Cached for: 28s 445ms 
+    Total running: 29s 596ms 
+    Total cpu time: u=288ms s=168ms 
+    Total cpu time per freq: 0 0 0 0 0 0 0 430 0 0 0 0 0 0
+    Proc com.facebook.services:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      1 starts
+    Apk com.facebook.services:
+      Service com.facebook.oxygen.services.fbns.PreloadedFbnsService:
+        Created for: 306ms uptime
+        Starts: 1, launches: 1
+  u0a119:
+    Background for: 2s 312ms 
+    Cached for: 19s 452ms 
+    Total running: 21s 764ms 
+    Total cpu time: u=86ms s=96ms 
+    Total cpu time per freq: 0 0 0 0 0 0 0 170 0 0 0 0 0 10
+    Proc com.facebook.system:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      1 starts
+  u0a121:
+    Wi-Fi network: 17.24KB received, 8.08KB sent (packets 38 received, 42 sent)
+       WiFi Scan time:  0ms (0.0%)
+       WiFi Sleep time:  1h 4m 28s 756ms (100.0%)
+       WiFi Idle time:   0ms (0.0%)
+       WiFi Rx time:     0ms (0.0%)
+       WiFi Tx time:     2ms (0.0%)
+    Wake lock *alarm* realtime
+    Wake lock fiid-sync realtime
+    Wake lock *job*/co.sitic.pp/.jTarea realtime
+    Job co.sitic.pp/.jTarea: 1s 500ms realtime (4 times), 1s 500ms background (4 times)
+    Job Completions co.sitic.pp/.jTarea: canceled(5x)
+    Background for: 1h 4m 27s 629ms 
+    Cached for: 40ms 
+    Total running: 1h 4m 27s 669ms 
+    Total cpu time: u=468ms s=246ms 
+    Total cpu time per freq: 0 0 0 0 0 0 0 720 0 0 0 0 0 20
+    Proc co.sitic.pp:
+      CPU: 380ms usr + 170ms krn ; 0ms fg
+      1 starts
+    Apk co.sitic.pp:
+      Wakeup alarm *walarm*:*job.deadline* includes: Uid:10121 Package:co.sitic.pp, : 0 times
+      Service co.sitic.pp.jTarea:
+        Created for: 0ms uptime
+        Starts: 0, launches: 4
+  u0a129:
+    Wi-Fi network: 45.89KB received, 57.81KB sent (packets 187 received, 151 sent)
+       WiFi Scan time:  0ms (0.0%)
+       WiFi Sleep time:  1h 4m 28s 747ms (100.0%)
+       WiFi Idle time:   0ms (0.0%)
+       WiFi Rx time:     4ms (0.0%)
+       WiFi Tx time:     9ms (0.0%)
+    Wake lock *alarm* realtime
+    Wake lock *job*/com.celltick.lockscreen/androidx.work.impl.background.systemjob.SystemJobService realtime
+    Job com.celltick.lockscreen/androidx.work.impl.background.systemjob.SystemJobService: 3s 79ms realtime (6 times), 2s 999ms background (6 times)
+    Job Completions com.celltick.lockscreen/androidx.work.impl.background.systemjob.SystemJobService: canceled(7x)
+    Foreground services: 80ms realtime (2 times)
+    Fg Service for: 80ms 
+    Background for: 2m 6s 782ms 
+    Cached for: 33m 27s 480ms 
+    Total running: 35m 34s 342ms 
+    Total cpu time: u=5s 241ms s=1s 683ms 
+    Total cpu time per freq: 190 10 20 30 50 50 10 5560 0 30 0 30 40 200
+    Proc com.celltick.lockscreen.start6:
+      CPU: 600ms usr + 230ms krn ; 0ms fg
+      2 starts
+    Apk com.celltick.lockscreen:
+      Service androidx.work.impl.background.systemjob.SystemJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 6
+      Service com.celltick.lockscreen.manager.ManagerService:
+        Created for: 2m 0s 92ms uptime
+        Starts: 2, launches: 2
+      Service androidx.work.multiprocess.RemoteWorkManagerService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 3
+  u0a130:
+    Wi-Fi network: 172.86MB received, 968.40KB sent (packets 121444 received, 17382 sent)
+    Wake lock *alarm* realtime
+    Wake lock *job*/com.telcel.contenedor/amazonia.iu.com.amlibrary.services.PostOreoJobService realtime
+    Wake lock *job*/com.telcel.contenedor/com.LogiaGroup.LogiaDeck.Services.AppReminderService realtime
+    Wake lock fiid-sync realtime
+    Wake lock Icing realtime
+    Wake lock *job*/com.telcel.contenedor/androidx.work.impl.background.systemjob.SystemJobService realtime
+    Wake lock *job*/DownloadManager:com.android.providers.downloads realtime
+    Wake lock wake:com.google.firebase.iid.WakeLockHolder realtime
+    Job DownloadManager:com.android.providers.downloads: 10s 556ms realtime (1 times), 10s 556ms background (1 times)
+    Job com.telcel.contenedor/com.LogiaGroup.LogiaDeck.Services.AppReminderService: 100ms realtime (1 times), 100ms background (1 times)
+    Job com.telcel.contenedor/androidx.work.impl.background.systemjob.SystemJobService: 743ms realtime (2 times), 743ms background (2 times)
+    Job com.telcel.contenedor/amazonia.iu.com.amlibrary.services.PostOreoJobService: 99ms realtime (4 times), 99ms background (4 times)
+    Job Completions DownloadManager:com.android.providers.downloads: canceled(1x)
+    Job Completions com.telcel.contenedor/com.LogiaGroup.LogiaDeck.Services.AppReminderService: canceled(1x)
+    Job Completions com.telcel.contenedor/androidx.work.impl.background.systemjob.SystemJobService: canceled(2x)
+    Job Completions com.telcel.contenedor/amazonia.iu.com.amlibrary.services.PostOreoJobService: canceled(4x)
+    Background for: 1h 4m 18s 793ms 
+    Cached for: 69ms 
+    Total running: 1h 4m 18s 862ms 
+    Total cpu time: u=6s 790ms s=3s 378ms 
+    Total cpu time per freq: 330 20 10 10 10 0 10 7710 0 0 0 0 0 10
+    Proc com.telcel.contenedor:
+      CPU: 5s 930ms usr + 2s 630ms krn ; 0ms fg
+      1 starts
+    Apk com.telcel.contenedor:
+      Wakeup alarm *walarm*:com.telcel.contenedor/com.digitalturbine.ignite.jobs.heartbeat.HeartbeatService: 0 times
+      Service androidx.work.impl.background.systemjob.SystemJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 2
+      Service com.mobile.services.PushProviderManager:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.digitalturbine.ignite.IgniteService:
+        Created for: 46s 884ms uptime
+        Starts: 1, launches: 1
+      Service com.digitalturbine.ignite.jobs.heartbeat.HeartbeatService:
+        Created for: 462ms uptime
+        Starts: 1, launches: 1
+      Service com.LogiaGroup.LogiaDeck.Services.AppReminderService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service amazonia.iu.com.amlibrary.services.PostOreoJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 4
+  u0a143:
+    Wi-Fi network: 16.35KB received, 8.54KB sent (packets 36 received, 40 sent)
+       WiFi Scan time:  0ms (0.0%)
+       WiFi Sleep time:  1h 4m 28s 765ms (100.0%)
+       WiFi Idle time:   0ms (0.0%)
+       WiFi Rx time:     0ms (0.0%)
+       WiFi Tx time:     1ms (0.0%)
+    Wake lock *job*/com.google.android.calendar/com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService realtime
+    Wake lock ChimeExecutorApi::com.google.android.calendar realtime
+    Job com.google.android.calendar/com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService: 892ms realtime (3 times), 892ms background (3 times)
+    Job Completions com.google.android.calendar/com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService: canceled(3x)
+    Background for: 10s 157ms 
+    Cached for: 38m 24s 632ms 
+    Total running: 38m 34s 789ms 
+    Total cpu time: u=2s 385ms s=1s 138ms 
+    Total cpu time per freq: 30 10 0 10 10 20 0 3210 0 0 0 0 0 40
+    Proc com.google.android.calendar:
+      CPU: 190ms usr + 60ms krn ; 0ms fg
+      3 starts
+    Apk com.google.android.calendar:
+      Service com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 3
+  u0a154:
+    Wi-Fi network: 10.89KB received, 1.53KB sent (packets 14 received, 15 sent)
+    Wake lock *job*/com.google.android.inputmethod.latin/com.google.android.apps.inputmethod.libs.dataservice.superpacks.SuperpacksBackgroundJobService realtime
+    Job com.google.android.inputmethod.latin/com.google.android.apps.inputmethod.libs.dataservice.superpacks.SuperpacksBackgroundJobService: 736ms realtime (1 times), 736ms background (1 times)
+    Job Completions com.google.android.inputmethod.latin/com.google.android.apps.inputmethod.libs.dataservice.superpacks.SuperpacksBackgroundJobService: canceled(2x)
+    Jobs deferred on launch times=1, count=0, totalLatencyMs=12104464, <3600000ms=0 <7200000ms=0 <14400000ms=1 <28800000ms=0 <9223372036854775807ms=0 
+    Vibrator: 1s 755ms realtime (39 times)
+    Foreground for: 19s 177ms 
+    Background for: 1h 4m 9s 506ms 
+    Total running: 1h 4m 28s 683ms 
+    Total cpu time: u=3s 253ms s=1s 142ms 
+    Total cpu time per freq: 950 80 60 70 30 30 30 2500 0 20 10 10 10 450
+    Proc com.google.android.inputmethod.latin:
+      CPU: 3s 190ms usr + 1s 20ms krn ; 0ms fg
+    Apk com.google.android.inputmethod.latin:
+      Service com.google.android.apps.inputmethod.libs.dataservice.superpacks.SuperpacksBackgroundJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+  u0a157:
+    Wake lock *job*/com.facebook.appmanager/com.facebook.preloads.platform.common.periodicwork.PeriodicWorkJobService realtime
+    Wake lock *job*/com.facebook.appmanager/com.facebook.oxygen.appmanager.update.core.UpdateService realtime
+    Wake lock *job*/com.facebook.appmanager/com.facebook.oxygen.common.jobqueue.JobQueueService realtime
+    Job com.facebook.appmanager/com.facebook.oxygen.common.jobqueue.JobQueueService: 4s 922ms realtime (6 times), 4s 922ms background (6 times)
+    Job com.facebook.appmanager/com.facebook.preloads.platform.common.periodicwork.PeriodicWorkJobService: 4s 945ms realtime (1 times), 4s 945ms background (1 times)
+    Job com.facebook.appmanager/com.facebook.oxygen.appmanager.update.core.UpdateService: 212ms realtime (2 times), 212ms background (2 times)
+    Job Completions com.facebook.appmanager/com.facebook.oxygen.common.jobqueue.JobQueueService: canceled(6x)
+    Job Completions com.facebook.appmanager/com.facebook.preloads.platform.common.periodicwork.PeriodicWorkJobService: canceled(1x)
+    Job Completions com.facebook.appmanager/com.facebook.oxygen.appmanager.update.core.UpdateService: canceled(2x)
+    Background for: 10s 160ms 
+    Cached for: 1m 15s 42ms 
+    Total running: 1m 25s 202ms 
+    Total cpu time: u=613ms s=261ms 
+    Total cpu time per freq: 0 0 0 0 0 0 0 740 0 0 0 0 0 70
+    Proc com.facebook.appmanager:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      1 starts
+    Apk com.facebook.appmanager:
+      Service com.facebook.oxygen.appmanager.update.core.UpdateService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 2
+      Service com.facebook.oxygen.common.jobqueue.JobQueueService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 6
+      Service com.facebook.preloads.platform.common.periodicwork.PeriodicWorkJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+  u0a162:
+    Foreground for: 1h 4m 28s 683ms 
+    Total running: 1h 4m 28s 683ms 
+    Total cpu time: u=7ms s=12ms 
+    Total cpu time per freq: 0 0 0 0 0 0 0 0 0 0 0 0 0 10
+    Proc com.android.modemnotifier:
+      CPU: 10ms usr + 10ms krn ; 0ms fg
+  u0a167:
+    Wake lock *job*/com.google.android.partnersetup/.InstalledAppJobService realtime
+    Wake lock *alarm* realtime
+    Wake lock *job*/com.google.android.partnersetup/.PhenotypeJobService realtime
+    Job com.google.android.partnersetup/.InstalledAppJobService: 149ms realtime (1 times), 149ms background (1 times)
+    Job com.google.android.partnersetup/.PhenotypeJobService: 483ms realtime (1 times), 483ms background (1 times)
+    Job Completions com.google.android.partnersetup/.InstalledAppJobService: canceled(1x)
+    Job Completions com.google.android.partnersetup/.PhenotypeJobService: canceled(1x)
+    Background for: 1s 169ms 
+    Cached for: 6m 12s 775ms 
+    Total running: 6m 13s 944ms 
+    Total cpu time: u=380ms s=204ms 
+    Total cpu time per freq: 20 0 0 10 0 10 10 480 0 0 10 10 10 20
+    Proc com.google.android.partnersetup:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      3 starts
+    Apk com.google.android.partnersetup:
+      Wakeup alarm *walarm*:*job.deadline* includes: Uid:10167 Package:com.google.android.partnersetup, : 0 times
+      Service com.google.android.partnersetup.PhenotypeJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.partnersetup.InstalledAppJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+  u0a168:
+    Wake lock *job*/com.google.android.apps.turbo/com.google.android.libraries.smartbattery.appusage.library.InferAppBucketsJob realtime
+    Job com.google.android.apps.turbo/com.google.android.libraries.smartbattery.appusage.library.InferAppBucketsJob: 404ms realtime (1 times), 404ms background (1 times)
+    Job Completions com.google.android.apps.turbo/com.google.android.libraries.smartbattery.appusage.library.InferAppBucketsJob: canceled(1x)
+    Background for: 1s 58ms 
+    Cached for: 1h 3m 2s 707ms 
+    Total running: 1h 3m 3s 765ms 
+    Total cpu time: u=986ms s=416ms 
+    Total cpu time per freq: 170 100 20 10 20 10 20 930 10 10 50 0 0 20
+    Proc com.google.android.apps.turbo:
+      CPU: 40ms usr + 0ms krn ; 0ms fg
+      2 starts
+    Proc com.google.android.apps.turbo:aab:
+      CPU: 0ms usr + 10ms krn ; 0ms fg
+      2 starts
+    Apk com.google.android.apps.turbo:
+      Service com.google.android.libraries.smartbattery.appusage.library.InferAppBucketsJob:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+  u0a169:
+    Wake lock *alarm* realtime
+    Wake lock *job*/com.google.android.configupdater/.MainJobService realtime
+    Job com.google.android.configupdater/.MainJobService: 143ms realtime (1 times), 143ms background (1 times)
+    Job Completions com.google.android.configupdater/.MainJobService: canceled(1x)
+    Background for: 309ms 
+    Cached for: 33m 25s 129ms 
+    Total running: 33m 25s 438ms 
+    Total cpu time: u=239ms s=130ms 
+    Total cpu time per freq: 10 0 0 0 0 0 0 250 0 10 0 0 0 30
+    Proc com.google.android.configupdater:
+      CPU: 20ms usr + 0ms krn ; 0ms fg
+      2 starts
+    Apk com.google.android.configupdater:
+      Service com.google.android.configupdater.MainJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+  u0a171:
+    Background for: 227ms 
+    Cached for: 12s 737ms 
+    Total running: 12s 964ms 
+    Total cpu time: u=398ms s=196ms 
+    Total cpu time per freq: 0 0 0 0 0 0 0 540 0 0 0 0 0 0
+    Proc com.google.android.apps.restore:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      1 starts
+  u0a172:
+    Wake lock *job*/com.google.android.projection.gearhead/com.google.android.apps.auto.components.app.fzero.LauncherIconStateVerificationService realtime
+    Job com.google.android.projection.gearhead/com.google.android.apps.auto.components.app.fzero.LauncherIconStateVerificationService: 193ms realtime (1 times), 193ms background (1 times)
+    Job Completions com.google.android.projection.gearhead/com.google.android.apps.auto.components.app.fzero.LauncherIconStateVerificationService: canceled(1x)
+    Background for: 967ms 
+    Cached for: 1h 2m 25s 720ms 
+    Total running: 1h 2m 26s 687ms 
+    Total cpu time: u=383ms s=174ms 
+    Total cpu time per freq: 40 30 20 50 30 20 20 260 0 20 30 0 0 0
+    Proc com.google.android.projection.gearhead:shared:
+      CPU: 0ms usr + 10ms krn ; 0ms fg
+      1 starts
+    Proc com.google.android.projection.gearhead:car:
+      CPU: 220ms usr + 130ms krn ; 0ms fg
+    Apk com.google.android.projection.gearhead:
+      Service com.google.android.apps.auto.components.app.fzero.LauncherIconStateVerificationService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+  u0a173:
+    Wi-Fi network: 5.81MB received, 85.86KB sent (packets 4470 received, 1422 sent)
+       WiFi Scan time:  0ms (0.0%)
+       WiFi Sleep time:  1h 4m 28s 581ms (100.0%)
+       WiFi Idle time:   0ms (0.0%)
+       WiFi Rx time:     106ms (0.0%)
+       WiFi Tx time:     93ms (0.0%)
+    Wake lock *job*/com.google.android.dialer/androidx.work.impl.background.systemjob.SystemJobService realtime
+    Wake lock *alarm* realtime
+    Wake lock *job*/com.google.android.dialer/com.android.dialer.spam.inapp.SpamJobService realtime
+    Wake lock *job*/com.google.android.dialer/com.google.android.libraries.internal.growth.growthkit.internal.jobs.impl.GrowthKitJobService realtime
+    Job com.google.android.dialer/androidx.work.impl.background.systemjob.SystemJobService: 1s 294ms realtime (2 times), 1s 294ms background (2 times)
+    Job com.google.android.dialer/com.android.dialer.spam.inapp.SpamJobService: 21s 547ms realtime (5 times), 21s 547ms background (5 times)
+    Job com.google.android.dialer/com.google.android.libraries.internal.growth.growthkit.internal.jobs.impl.GrowthKitJobService: 944ms realtime (1 times), 944ms background (1 times)
+    Job Completions com.google.android.dialer/androidx.work.impl.background.systemjob.SystemJobService: canceled(2x)
+    Job Completions com.google.android.dialer/com.android.dialer.spam.inapp.SpamJobService: canceled(6x)
+    Job Completions com.google.android.dialer/com.google.android.libraries.internal.growth.growthkit.internal.jobs.impl.GrowthKitJobService: canceled(1x)
+    Background for: 24s 454ms 
+    Cached for: 2m 15s 446ms 
+    Total running: 2m 39s 900ms 
+    Total cpu time: u=11s 927ms s=1s 821ms 
+    Total cpu time per freq: 10 20 10 0 10 0 0 13910 0 0 0 0 0 260
+    Proc com.google.android.dialer:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      5 starts
+    Apk com.google.android.dialer:
+      Service androidx.work.impl.background.systemjob.SystemJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 2
+      Service com.android.dialer.spam.inapp.SpamJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 5
+      Service com.google.android.libraries.internal.growth.growthkit.internal.jobs.impl.GrowthKitJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+  u0a174:
+    Foreground for: 1h 4m 28s 683ms 
+    Total running: 1h 4m 28s 683ms 
+    Total cpu time: u=317ms s=279ms 
+    Total cpu time per freq: 0 0 0 0 0 10 10 460 0 0 0 0 0 110
+    Proc com.google.android.ims:
+      CPU: 210ms usr + 190ms krn ; 0ms fg
+  u0a175:
+    Wi-Fi network: 160.08MB received, 1.70MB sent (packets 132415 received, 15871 sent)
+       WiFi Scan time:  0ms (0.0%)
+       WiFi Sleep time:  1h 4m 28s 781ms (100.0%)
+       WiFi Idle time:   0ms (0.0%)
+       WiFi Rx time:     0ms (0.0%)
+       WiFi Tx time:     1ms (0.0%)
+    Wake lock *dexopt* realtime
+    Wake lock *alarm* realtime
+    Wake lock *job*/com.android.vending/com.google.android.finsky.scheduler.process.backgroundimpl.PhoneskyJobServiceBackground realtime
+    Wake lock *job*/com.android.vending/com.google.android.finsky.scheduler.process.quicklaunchimpl.PhoneskyJobServiceQuickLaunch realtime
+    Wake lock *job*/com.android.vending/com.google.android.finsky.instantapps.hint.AppPreloadHygieneService realtime
+    Wake lock *job*/com.android.vending/com.google.android.finsky.instantapps.dna.ArchivePrefetchService realtime
+    Wake lock fiid-sync realtime
+    Wake lock Icing realtime
+    Wake lock *job*/com.android.vending/com.google.android.finsky.scheduler.process.mainimpl.PhoneskyJobServiceMain realtime
+    Wake lock *job*/com.android.vending/com.google.android.finsky.instantapps.statussync.EnabledStatusSyncService realtime
+    Wake lock *job*/com.android.vending/com.google.android.finsky.instantapps.PhenotypeUpdateService realtime
+    Job com.android.vending/com.google.android.finsky.instantapps.dna.ArchivePrefetchService: 421ms realtime (2 times)
+    Job com.android.vending/com.google.android.finsky.instantapps.hint.AppPreloadHygieneService: 33ms realtime (1 times)
+    Job com.android.vending/com.google.android.finsky.scheduler.process.mainimpl.PhoneskyJobServiceMain: 34s 937ms realtime (8 times)
+    Job com.android.vending/com.google.android.finsky.scheduler.process.quicklaunchimpl.PhoneskyJobServiceQuickLaunch: 147ms realtime (1 times)
+    Job com.android.vending/com.google.android.finsky.instantapps.PhenotypeUpdateService: 15s 233ms realtime (4 times)
+    Job com.android.vending/com.google.android.finsky.instantapps.statussync.EnabledStatusSyncService: 917ms realtime (2 times)
+    Job com.android.vending/com.google.android.finsky.scheduler.process.backgroundimpl.PhoneskyJobServiceBackground: 54s 574ms realtime (5 times)
+    Job Completions com.android.vending/com.google.android.finsky.instantapps.dna.ArchivePrefetchService: canceled(2x)
+    Job Completions com.android.vending/com.google.android.finsky.instantapps.hint.AppPreloadHygieneService: canceled(1x)
+    Job Completions com.android.vending/com.google.android.finsky.scheduler.process.mainimpl.PhoneskyJobServiceMain: canceled(9x)
+    Job Completions com.android.vending/com.google.android.finsky.scheduler.process.quicklaunchimpl.PhoneskyJobServiceQuickLaunch: canceled(2x)
+    Job Completions com.android.vending/com.google.android.finsky.instantapps.PhenotypeUpdateService: canceled(4x)
+    Job Completions com.android.vending/com.google.android.finsky.instantapps.statussync.EnabledStatusSyncService: canceled(2x)
+    Job Completions com.android.vending/com.google.android.finsky.scheduler.process.backgroundimpl.PhoneskyJobServiceBackground: canceled(6x)
+    Foreground services: 1h 3m 55s 787ms realtime (2 times) (running)
+    Fg Service for: 1h 3m 55s 787ms 
+    Foreground for: 562ms 
+    Background for: 5ms 
+    Cached for: 167ms 
+    Total running: 1h 3m 56s 521ms 
+    Total cpu time: u=1m 13s 25ms s=20s 510ms 
+    Total cpu time per freq: 170 20 30 20 60 50 100 52870 240 550 340 390 360 38100
+    Proc com.android.vending:quick_launch:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      2 starts
+    Proc com.android.vending:background:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      2 starts
+    Proc com.android.vending:
+      CPU: 450ms usr + 450ms krn ; 0ms fg
+      1 starts
+    Proc com.android.vending:instant_app_installer:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      3 starts
+    Apk com.android.vending:
+      Wakeup alarm *walarm*:*job.deadline* includes: Uid:10175 Package:com.android.vending, : 0 times
+      Service com.google.android.finsky.instantapps.dna.ArchivePrefetchService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 2
+      Service com.google.android.finsky.ipcservers.background.BackgroundGrpcServerAndroidService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.finsky.instantapps.hint.AppPreloadHygieneService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.finsky.multiusercoordinator.MultiUserCoordinatorService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.finsky.contentfilterui.ContentFiltersService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 3
+      Service com.google.frameworks.client.data.android.server.play.BackgroundProcessEndpointService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.finsky.crossprofile.ProfileStateService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.finsky.scheduler.process.quicklaunchimpl.PhoneskyJobServiceQuickLaunch:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.finsky.ipcservers.quicklaunch.QuickLaunchGrpcServerAndroidService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.finsky.zapp.PlayModuleService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 10
+      Service com.google.android.finsky.instantapps.statussync.EnabledStatusSyncService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 2
+      Service com.google.frameworks.client.data.android.server.play.QuickLaunchProcessEndpointService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.finsky.billing.iab.InAppBillingService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.finsky.scheduler.process.mainimpl.PhoneskyJobServiceMain:
+        Created for: 0ms uptime
+        Starts: 0, launches: 8
+      Service com.google.android.finsky.scheduler.process.backgroundimpl.PhoneskyJobServiceBackground:
+        Created for: 0ms uptime
+        Starts: 0, launches: 5
+      Service com.google.android.finsky.verifier.impl.PackageVerificationService:
+        Created for: 36ms uptime
+        Starts: 1, launches: 1
+      Service com.google.frameworks.client.data.android.server.play.MainProcessEndpointService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.finsky.verifier.impl.service.impl.PackageVerificationService:
+        Created for: 68ms uptime
+        Starts: 1, launches: 1
+      Service com.google.android.finsky.instantapps.PhenotypeUpdateService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 4
+      Service com.google.android.finsky.externalreferrer.GetInstallReferrerService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.finsky.setup.PlaySetupServiceV2:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+  u0a176:
+    Wake lock TikTokWorker#com.google.apps.tiktok.sync.impl.workmanager.SyncWorker startWork() realtime
+    Wake lock *job*/com.google.android.apps.wellbeing/androidx.work.impl.background.systemjob.SystemJobService realtime
+    Wake lock *job*/com.google.android.apps.wellbeing/.powerstate.impl.PowerStateJobService realtime
+    Wake lock *job*/com.google.android.apps.wellbeing/.autodnd.impl.AutoDndJobService realtime
+    Job com.google.android.apps.wellbeing/androidx.work.impl.background.systemjob.SystemJobService: 14s 962ms realtime (3 times), 14s 962ms background (3 times)
+    Job com.google.android.apps.wellbeing/.powerstate.impl.PowerStateJobService: 67ms realtime (1 times), 67ms background (1 times)
+    Job com.google.android.apps.wellbeing/.autodnd.impl.AutoDndJobService: 43ms realtime (1 times), 43ms background (1 times)
+    Job Completions com.google.android.apps.wellbeing/androidx.work.impl.background.systemjob.SystemJobService: canceled(3x)
+    Job Completions com.google.android.apps.wellbeing/.powerstate.impl.PowerStateJobService: canceled(1x)
+    Job Completions com.google.android.apps.wellbeing/.autodnd.impl.AutoDndJobService: canceled(1x)
+    Background for: 16s 274ms 
+    Cached for: 55s 505ms 
+    Total running: 1m 11s 779ms 
+    Total cpu time: u=1s 512ms s=865ms 
+    Total cpu time per freq: 0 0 0 0 30 0 40 2120 0 0 0 0 0 90
+    Proc com.google.android.apps.wellbeing:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      4 starts
+    Apk com.google.android.apps.wellbeing:
+      Service androidx.work.impl.background.systemjob.SystemJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 3
+      Service com.google.android.apps.wellbeing.powerstate.impl.PowerStateJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.apps.wellbeing.autodnd.impl.AutoDndJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+  u0a177:
+    Wi-Fi network: 23.82MB received, 1.05MB sent (packets 18338 received, 4676 sent)
+    Bluetooth Scan (total actual realtime): 1h 4m 26s 549ms  (1 times) (currently running)
+    Bluetooth Scan Results: 437 (0 in background)
+    Wake lock *gms_scheduler*/com.google.android.gms/.icing.proxy.IcingInternalCorporaUpdateService realtime
+    Wake lock IntentOp:com.google.android.gms/.chimera.PersistentIntentOperationService realtime
+    Wake lock *gms_scheduler*/com.google.android.gms/.gcm.HeartbeatAlarm$ConnectionInfoPersistService realtime
+    Wake lock IntentOp:.mdm.receivers.GmsRegisteredChimeraReceiver realtime
+    Wake lock GOOGLE_C2DM realtime
+    Wake lock GCoreFlp realtime
+    Wake lock IntentOp:com.google.android.gms/.chimera.GmsIntentOperationService realtime
+    Wake lock *gms_scheduler*/com.google.android.gms/.auth.account.be.accountstate.GcmTaskService realtime
+    Wake lock NlpWakeLock realtime
+    Wake lock *gms_scheduler*:internal realtime
+    Wake lock *alarm* realtime
+    Wake lock Checkin Service realtime
+    Wake lock IntentOp:.update.execution.InstallationIntentOperation realtime
+    Wake lock Wakeful StateMachine: GeofencerStateMachine realtime
+    Wake lock *gms_scheduler*/com.google.android.gms/.checkin.CheckinService realtime
+    Wake lock IntentOp:.common.broadcast.BackgroundBroadcastReceiverSupport$PersistentReceiverIntentOperation realtime
+    Wake lock GCM_READ realtime
+    Wake lock *gms_scheduler*/com.google.android.gms/.phenotype.service.sync.PackageUpdateTaskService realtime
+    Wake lock *gms_scheduler*/com.google.android.gms/.gass.chimera.SchedulePeriodicTasksService realtime
+    Wake lock *gms_scheduler*/com.google.android.gms/.chimera.container.ConfigService realtime
+    Wake lock *gms_scheduler*/com.google.android.gms/.phenotype.service.sync.PhenotypeConfigurator realtime
+    Wake lock *gms_scheduler*/com.google.android.gms/.pay.gcmtask.PayGcmTaskService realtime
+    Wake lock *gms_scheduler*/com.google.android.gms/.smartdevice.logging.CleanBufferedLogsService realtime
+    Wake lock IntentOp:.chimera.container.InitConfigOperation realtime
+    Wake lock IntentOp:.chimera.container.zapp.WaitDownloadCompleteOperation realtime
+    Wake lock *gms_scheduler*/com.google.android.gms/.telephonyspam.sync.SpamListSyncTaskService realtime
+    Wake lock Icing realtime
+    Wake lock *gms_scheduler*/com.google.android.gms/.instantapps.routing.DomainFilterUpdateService realtime
+    Wake lock *gms_scheduler*/com.google.android.gms/.tapandpay.gcmtask.TapAndPayGcmTaskService realtime
+    Wake lock IntentOp:.stats.controlledevents.ControlledEventsPhenotypeUpdateOperation realtime
+    Wake lock IntentOp:.nearby.messages.GcmRegistrationChimeraReceiver realtime
+    Wake lock *gms_scheduler*/com.google.android.gms/.gcm.gmsproc.GcmInGmsTaskService realtime
+    Wake lock *gms_scheduler*/com.google.android.gms/.auth.account.be.legacy.AuthCronService realtime
+    Wake lock IntentOp:.common.broadcast.BackgroundBroadcastReceiverSupport$GmsReceiverIntentOperation realtime
+    Wake lock nearby:ENWearableDeviceManager realtime
+    Wake lock *gms_scheduler*/com.google.android.gms/.checkin.EventLogService realtime
+    Wake lock *gms_scheduler*/com.google.android.gms/.matchstick.task.ScheduledTaskService realtime
+    Wake lock GCM_CONN_ALARM realtime
+    Wake lock *gms_scheduler*/com.google.android.gms/.udc.service.UdcContextInitService realtime
+    Wake lock IntentOp:.reminders.notification.RefreshNotificationsIntentOperation realtime
+    Wake lock wake:com.google.android.gms/.chimera.GmsIntentOperationService realtime
+    Wake lock *gms_scheduler*/com.google.android.gms/.clearcut.uploader.QosUploaderService realtime
+    Wake lock CMWakeLock realtime
+    Wake lock *gms_scheduler*/com.google.android.gms/.ads.social.GcmSchedulerWakeupService realtime
+    Wake lock UlrDispSvcFastWL realtime
+    Foreground services: 1m 13s 972ms realtime (7 times)
+    Fg Service for: 1m 13s 972ms 
+    Foreground for: 1h 3m 14s 711ms 
+    Total running: 1h 4m 28s 683ms 
+    Total cpu time: u=1m 56s 961ms s=41s 708ms 
+    Total cpu time per freq: 8410 2310 1510 1770 1690 1300 940 103530 290 390 540 580 380 32940
+    Proc com.google.process.gapps:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      2 starts
+    Proc com.google.android.webview:sandboxed_process0:org.chromium.content.app.SandboxedProcessService0:2:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      1 starts
+    Proc com.google.android.gms:
+      CPU: 16s 40ms usr + 4s 640ms krn ; 0ms fg
+      1 starts
+    Proc com.google.process.gservices:
+      CPU: 1s 420ms usr + 950ms krn ; 0ms fg
+    Proc com.google.android.gms.ui:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      2 starts
+    Proc com.google.android.gms.unstable:
+      CPU: 5s 960ms usr + 1s 80ms krn ; 0ms fg
+      1 starts
+    Proc com.google.android.gms:car:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      1 starts
+    Proc com.google.android.gms.persistent:
+      CPU: 45s 330ms usr + 17s 360ms krn ; 0ms fg
+      1 starts
+    Apk com.google.android.gms:
+      Wakeup alarm *walarm*:com.google.android.gms.gcm.ACTION_CHECK_QUEUE: 0 times
+      Wakeup alarm *walarm*:com.google.android.location.ALARM_WAKEUP_CACHE_UPDATER: 0 times
+      Wakeup alarm *walarm*:CONTEXT_MANAGER_ALARM_WAKEUP: 0 times
+      Wakeup alarm *walarm*:com.google.android.intent.action.GCM_RECONNECT: 0 times
+      Service com.google.android.gms.nearby.exposurenotification.service.ExposureNotificationInternalService:
+        Created for: 3s 351ms uptime
+        Starts: 24, launches: 24
+      Service com.google.android.gms.ads.identifier.service.AdvertisingIdService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 18
+      Service com.google.android.gms.wearable.service.WearableControlService:
+        Created for: 1s 235ms uptime
+        Starts: 16, launches: 16
+      Service com.google.android.gms.chimera.PersistentInternalBoundBrokerService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 7
+      Service com.google.android.gms.checkin.CheckinApiService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.gms.chimera.container.FileApkIntentOperation$ExternalFileApkService:
+        Created for: 1s 224ms uptime
+        Starts: 30, launches: 30
+      Service com.google.android.gms.auth.account.be.channelid.ChannelBindingStateIntentService:
+        Created for: 35ms uptime
+        Starts: 1, launches: 1
+      Service com.google.android.gms.icing.service.IndexService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 4
+      Service com.google.android.gms.gcm.PushMessagingRegistrarProxy:
+        Created for: 0ms uptime
+        Starts: 0, launches: 14
+      Service com.google.android.gms.auth.account.be.accountstate.GcmTaskService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.gms.wearable.service.WearableService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 102
+      Service com.google.android.gms.pay.gcmtask.PayGcmTaskService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 13
+      Service com.google.android.gms.auth.proximity.phonehub.PhoneHubService:
+        Created for: 73ms uptime
+        Starts: 2, launches: 2
+      Service com.google.android.gms.tapandpay.gcmtask.TapAndPayGcmTaskService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 10
+      Service com.google.android.gms.chimera.GmsInternalBoundBrokerService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 16
+      Service com.google.android.location.internal.server.HardwareArProviderService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 4
+      Service com.google.android.gms.auth.account.authenticator.GoogleAccountAuthenticatorService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 47
+      Service com.google.android.gms.gass.GassService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 11
+      Service com.google.android.gms.auth.be.appcert.AppCertService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.gms.lockbox.service.LockboxBrokerService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 6
+      Service com.google.android.gms.icing.proxy.IcingInternalCorporaUpdateService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 4
+      Service com.google.android.gms.chimera.container.FileApkChimeraService$FileApkService:
+        Created for: 296ms uptime
+        Starts: 1, launches: 1
+      Service com.google.android.gms.nearby.sharing.SharingTileService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.gms.nearby.fastpair.service.WearableDataListenerService:
+        Created for: 12s 107ms uptime
+        Starts: 200, launches: 200
+      Service com.google.android.gms.stats.service.DropBoxEntryAddedService:
+        Created for: 198ms uptime
+        Starts: 5, launches: 5
+      Service com.google.android.location.network.NetworkLocationService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 4
+      Service com.google.android.gms.chimera.UiIntentOperationService:
+        Created for: 49s 696ms uptime
+        Starts: 3, launches: 3
+      Service com.google.android.gms.auth.GetToken:
+        Created for: 0ms uptime
+        Starts: 0, launches: 5
+      Service com.google.android.location.reporting.service.ReportingAndroidService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.gms.matchstick.task.ScheduledTaskService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.gms.nearby.discovery.service.DiscoveryService:
+        Created for: 15s 996ms uptime
+        Starts: 1, launches: 1
+      Service com.google.android.location.reporting.service.DispatchingService:
+        Created for: 1s 11ms uptime
+        Starts: 6, launches: 6
+      Service com.google.android.gms.gcm.HeartbeatAlarm$ConnectionInfoPersistService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 2
+      Service com.google.android.gms.icing.service.IndexWorkerService:
+        Created for: 8s 470ms uptime
+        Starts: 35, launches: 35
+      Service com.google.android.gms.chimera.PersistentIntentOperationService:
+        Created for: 26m 28s 298ms uptime
+        Starts: 166, launches: 167
+      Service com.google.android.gms.chimera.GmsIntentOperationService:
+        Created for: 27m 5s 142ms uptime
+        Starts: 166, launches: 167
+      Service com.google.android.gms.clearcut.uploader.QosUploaderService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.gms.gcm.http.GoogleHttpService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 17
+      Service com.google.android.gms.chimera.CarBoundBrokerService:
+        Created for: 11s 394ms uptime
+        Starts: 1, launches: 1
+      Service com.google.android.gms.auth.account.be.legacy.AuthCronService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.gms.magictether.wifisync.WifiSyncService:
+        Created for: 38ms uptime
+        Starts: 2, launches: 2
+      Service com.google.android.gms.checkin.EventLogService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 2
+      Service com.google.android.gms.auth.api.proxy.AuthService:
+        Created for: 48ms uptime
+        Starts: 2, launches: 1
+      Service com.google.android.gms.checkin.CheckinService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 19
+      Service com.google.android.gms.ads.social.GcmSchedulerWakeupService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.gms.autofill.service.AutofillService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 2
+      Service com.google.android.gms.phenotype.service.sync.PhenotypeConfigurator:
+        Created for: 0ms uptime
+        Starts: 0, launches: 4
+      Service com.google.android.location.fused.FusedLocationService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 4
+      Service com.google.android.gms.telephonyspam.sync.SpamListSyncTaskService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.gms.chimera.container.ConfigService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 2
+      Service com.google.android.gms.chimera.GmsApiService:
+        Created for: 532ms uptime
+        Starts: 17, launches: 4
+      Service com.google.android.gms.chimera.GmsBoundBrokerService:
+        Created for: 3s 367ms uptime
+        Starts: 21, launches: 6
+      Service com.google.android.gms.statementservice.OperationService:
+        Created for: 20s 797ms uptime
+        Starts: 1, launches: 1
+      Service com.google.android.gms.instantapps.routing.DomainFilterUpdateService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.location.nearby.direct.service.NearbyDirectService:
+        Created for: 16s 673ms uptime
+        Starts: 1, launches: 1
+      Service com.google.android.gms.auth.authzen.GcmReceiverService:
+        Created for: 168ms uptime
+        Starts: 1, launches: 1
+      Service com.google.android.gms.analytics.service.AnalyticsService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 3
+      Service com.google.android.gms.phenotype.service.sync.PackageUpdateTaskService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.gms.fitness.service.recording.FitRecordingBroker:
+        Created for: 1s 345ms uptime
+        Starts: 16, launches: 16
+      Service com.google.android.location.geocode.GeocodeService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 4
+      Service com.google.android.gms.instantapps.service.InstantAppsService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 2
+      Service org.chromium.content.app.SandboxedProcessService0:2:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.gms.droidguard.DroidGuardService:
+        Created for: 4s 250ms uptime
+        Starts: 1, launches: 4
+      Service com.google.android.gms.measurement.service.MeasurementBrokerService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 8
+      Service com.google.android.gms.gcm.gmsproc.GcmInGmsTaskService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 4
+      Service com.google.android.gms.udc.service.UdcContextInitService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 2
+      Service com.google.android.gms.magictether.host.TetherListenerService:
+        Created for: 127ms uptime
+        Starts: 2, launches: 2
+      Service com.google.android.gms.icing.service.AppIndexingService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 4
+      Service com.google.android.gms.chimera.GmsInternalApiService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.gms.gass.chimera.SchedulePeriodicTasksService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 2
+  u0a178:
+    Wi-Fi network: 103.95MB received, 610.39KB sent (packets 75681 received, 11074 sent)
+       WiFi Scan time:  0ms (0.0%)
+       WiFi Sleep time:  1h 4m 28s 792ms (100.0%)
+       WiFi Idle time:   0ms (0.0%)
+       WiFi Rx time:     0ms (0.0%)
+       WiFi Tx time:     2ms (0.0%)
+    Wake lock *job*/com.google.android.googlequicksearchbox/androidx.work.impl.background.systemjob.SystemJobService realtime
+    Wake lock *job*/com.google.android.googlequicksearchbox/com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService realtime
+    Wake lock *alarm* realtime
+    Wake lock *job*/com.google.android.googlequicksearchbox/com.google.android.apps.gsa.tasks.BackgroundTasksJobService realtime
+    Wake lock TikTokWorker#com.google.apps.tiktok.sync.impl.workmanager.SyncWorker startWork() realtime
+    Wake lock Icing realtime
+    Wake lock *job*/DownloadManager:com.android.providers.downloads realtime
+    Job com.google.android.googlequicksearchbox/androidx.work.impl.background.systemjob.SystemJobService: 240ms realtime (3 times)
+    Job DownloadManager:com.android.providers.downloads: 7s 270ms realtime (2 times)
+    Job com.google.android.googlequicksearchbox/com.google.android.apps.gsa.tasks.BackgroundTasksJobService: 8s 727ms realtime (18 times)
+    Job com.google.android.googlequicksearchbox/com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService: 1s 631ms realtime (5 times)
+    Job Completions com.google.android.googlequicksearchbox/androidx.work.impl.background.systemjob.SystemJobService: canceled(3x)
+    Job Completions DownloadManager:com.android.providers.downloads: canceled(1x) constraints(1x)
+    Job Completions com.google.android.googlequicksearchbox/com.google.android.apps.gsa.tasks.BackgroundTasksJobService: canceled(42x) constraints(1x)
+    Job Completions com.google.android.googlequicksearchbox/com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService: canceled(3x) constraints(2x)
+    Foreground for: 1h 4m 28s 683ms 
+    Total running: 1h 4m 28s 683ms 
+    Total cpu time: u=24s 768ms s=7s 379ms 
+    Total cpu time per freq: 1830 710 520 610 610 410 300 24870 10 40 0 0 30 840
+    Proc com.google.android.googlequicksearchbox:interactor:
+      CPU: 2s 270ms usr + 1s 140ms krn ; 0ms fg
+    Proc com.google.android.googlequicksearchbox:search:
+      CPU: 18s 680ms usr + 3s 880ms krn ; 0ms fg
+    Proc com.google.android.googlequicksearchbox:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      2 starts
+    Apk com.google.android.googlequicksearchbox:
+      Service androidx.work.impl.background.systemjob.SystemJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 3
+      Service com.google.android.apps.gsa.staticplugins.bisto.BistoRealService:
+        Created for: 27m 41s 898ms uptime
+        Starts: 83, launches: 83
+      Service com.google.android.apps.gsa.tasks.BackgroundTasksJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 18
+      Service com.google.android.apps.gsa.shared.util.keepalive.StandaloneKeepAlive$KeepAliveService:
+        Created for: 57m 53s 363ms uptime
+        Starts: 2, launches: 2
+      Service com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 5
+      Service com.google.android.apps.gsa.search.core.service.SearchService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 202
+  u0a182:
+    Background for: 619ms 
+    Cached for: 14s 623ms 
+    Total running: 15s 242ms 
+    Total cpu time: u=368ms s=220ms 
+    Total cpu time per freq: 0 0 0 0 0 0 0 490 0 0 0 0 0 10
+    Proc com.google.android.tts:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      1 starts
+  u0a184:
+    Wake lock *job*/com.google.android.contacts/com.google.android.apps.contacts.shortcut.ShortcutJobService realtime
+    Wake lock *job*/com.google.android.contacts/androidx.work.impl.background.systemjob.SystemJobService realtime
+    Wake lock *job*/com.google.android.contacts/com.google.android.libraries.internal.growth.growthkit.internal.jobs.impl.GrowthKitJobService realtime
+    Wake lock Icing realtime
+    Job com.google.android.contacts/androidx.work.impl.background.systemjob.SystemJobService: 362ms realtime (2 times), 362ms background (2 times)
+    Job com.google.android.contacts/com.google.android.libraries.internal.growth.growthkit.internal.jobs.impl.GrowthKitJobService: 1s 624ms realtime (1 times), 1s 624ms background (1 times)
+    Job com.google.android.contacts/com.google.android.apps.contacts.shortcut.ShortcutJobService: 335ms realtime (2 times), 335ms background (2 times)
+    Job Completions com.google.android.contacts/androidx.work.impl.background.systemjob.SystemJobService: canceled(2x)
+    Job Completions com.google.android.contacts/com.google.android.libraries.internal.growth.growthkit.internal.jobs.impl.GrowthKitJobService: canceled(1x)
+    Job Completions com.google.android.contacts/com.google.android.apps.contacts.shortcut.ShortcutJobService: canceled(2x)
+    Background for: 3s 696ms 
+    Cached for: 1m 25s 742ms 
+    Total running: 1m 29s 438ms 
+    Total cpu time: u=1s 852ms s=958ms 
+    Total cpu time per freq: 0 0 0 0 0 0 0 2710 0 0 0 0 0 110
+    Proc com.google.android.contacts:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      3 starts
+    Apk com.google.android.contacts:
+      Service androidx.work.impl.background.systemjob.SystemJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 2
+      Service com.google.android.apps.contacts.shortcut.ShortcutJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 2
+      Service com.google.android.libraries.internal.growth.growthkit.internal.jobs.impl.GrowthKitJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+  u0a185:
+    Background for: 543ms 
+    Cached for: 17s 130ms 
+    Total running: 17s 673ms 
+    Total cpu time: u=268ms s=258ms 
+    Total cpu time per freq: 0 0 0 0 0 0 0 490 0 0 0 0 0 10
+    Proc com.android.chrome:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      1 starts
+  u0a186:
+    Wi-Fi network: 91.40KB received, 51.25KB sent (packets 231 received, 220 sent)
+       WiFi Scan time:  0ms (0.0%)
+       WiFi Sleep time:  1h 4m 28s 797ms (100.0%)
+       WiFi Idle time:   0ms (0.0%)
+       WiFi Rx time:     0ms (0.0%)
+       WiFi Tx time:     1ms (0.0%)
+    Wake lock Application creation -> Application.onCreate -> Startup Listeners -> AfterPackageReplaced -> StartupAfterPackageReplaced realtime
+    Wake lock *dexopt* realtime
+    Wake lock *alarm* realtime
+    Wake lock fiid-sync realtime
+    Wake lock *job*/com.google.android.apps.youtube.music/androidx.work.impl.background.systemjob.SystemJobService realtime
+    Wake lock Icing realtime
+    Job com.google.android.apps.youtube.music/androidx.work.impl.background.systemjob.SystemJobService: 962ms realtime (4 times), 962ms background (4 times)
+    Job Completions com.google.android.apps.youtube.music/androidx.work.impl.background.systemjob.SystemJobService: canceled(7x)
+    Background for: 2s 106ms 
+    Cached for: 50m 35s 573ms 
+    Total running: 50m 37s 679ms 
+    Total cpu time: u=5s 506ms s=2s 144ms 
+    Total cpu time per freq: 620 10 0 0 10 20 0 6750 0 20 0 10 10 120
+    Proc com.google.android.apps.youtube.music:
+      CPU: 590ms usr + 120ms krn ; 0ms fg
+      3 starts
+    Apk com.google.android.apps.youtube.music:
+      Service androidx.work.impl.background.systemjob.SystemJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 4
+      Service com.google.android.apps.youtube.music.notifications.FcmMessageListenerService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+  u0a187:
+    Wi-Fi network: 1.46KB received, 2.32KB sent (packets 14 received, 8 sent)
+    Wake lock *job*/com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService realtime
+    Wake lock *job*/com.google.android.apps.photos/com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService realtime
+    Wake lock BackgroundTaskService-UpdateFlagsTask realtime
+    Wake lock *job*/com.google.android.apps.photos/.jobqueue.PhotosJobQueueJobsService realtime
+    Wake lock *job*/com.google.android.apps.photos/androidx.work.impl.background.systemjob.SystemJobService realtime
+    Job com.google.android.apps.photos/.jobqueue.PhotosJobQueueJobsService: 1s 492ms realtime (1 times), 1s 492ms background (1 times)
+    Job com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService: 47s 166ms realtime (2 times), 47s 166ms background (2 times)
+    Job com.google.android.apps.photos/com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService: 1s 181ms realtime (3 times), 1s 181ms background (3 times)
+    Job com.google.android.apps.photos/androidx.work.impl.background.systemjob.SystemJobService: 290ms realtime (1 times), 290ms background (1 times)
+    Job Completions com.google.android.apps.photos/.jobqueue.PhotosJobQueueJobsService: canceled(1x)
+    Job Completions com.google.android.apps.photos/com.google.android.libraries.social.async.BackgroundTaskJobService: canceled(2x)
+    Job Completions com.google.android.apps.photos/com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService: canceled(3x)
+    Job Completions com.google.android.apps.photos/androidx.work.impl.background.systemjob.SystemJobService: canceled(1x)
+    Background for: 49s 493ms 
+    Cached for: 1m 4s 70ms 
+    Total running: 1m 53s 563ms 
+    Total cpu time: u=2s 839ms s=952ms 
+    Total cpu time per freq: 0 0 0 0 0 0 0 3650 0 0 0 0 0 60
+    Proc com.google.android.apps.photos:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      2 starts
+    Apk com.google.android.apps.photos:
+      Service androidx.work.impl.background.systemjob.SystemJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.libraries.social.async.BackgroundTaskJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 2
+      Service com.google.android.apps.photos.jobqueue.PhotosJobQueueJobsService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 3
+  u0a190:
+    Wi-Fi network: 5.84KB received, 1.97KB sent (packets 16 received, 16 sent)
+       WiFi Scan time:  0ms (0.0%)
+       WiFi Sleep time:  1h 4m 28s 800ms (100.0%)
+       WiFi Idle time:   0ms (0.0%)
+       WiFi Rx time:     0ms (0.0%)
+       WiFi Tx time:     1ms (0.0%)
+    Wake lock *job*/com.google.android.apps.docs/com.google.android.libraries.internal.growth.growthkit.internal.jobs.impl.GrowthKitJobService realtime
+    Wake lock *job*/com.google.android.apps.docs/com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService realtime
+    Wake lock Icing realtime
+    Job com.google.android.apps.docs/com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService: 1s 44ms realtime (3 times), 1s 44ms background (3 times)
+    Job com.google.android.apps.docs/com.google.android.libraries.internal.growth.growthkit.internal.jobs.impl.GrowthKitJobService: 1s 99ms realtime (1 times), 1s 99ms background (1 times)
+    Job Completions com.google.android.apps.docs/com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService: canceled(3x)
+    Job Completions com.google.android.apps.docs/com.google.android.libraries.internal.growth.growthkit.internal.jobs.impl.GrowthKitJobService: canceled(1x)
+    Background for: 4s 879ms 
+    Cached for: 3m 32s 17ms 
+    Total running: 3m 36s 896ms 
+    Total cpu time: u=2s 750ms s=1s 595ms 
+    Total cpu time per freq: 0 0 0 0 0 0 10 4130 0 0 0 0 0 60
+    Proc com.google.android.apps.docs:
+      CPU: 10ms usr + 10ms krn ; 0ms fg
+      3 starts
+    Apk com.google.android.apps.docs:
+      Service com.google.android.libraries.internal.growth.growthkit.internal.jobs.impl.GrowthKitJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 3
+  u0a192:
+    Wi-Fi network: 169.33KB received, 72.49KB sent (packets 287 received, 321 sent)
+       WiFi Scan time:  0ms (0.0%)
+       WiFi Sleep time:  1h 4m 28s 802ms (100.0%)
+       WiFi Idle time:   0ms (0.0%)
+       WiFi Rx time:     0ms (0.0%)
+       WiFi Tx time:     1ms (0.0%)
+    Wake lock fiid-sync realtime
+    Wake lock *job*/com.google.android.youtube/androidx.work.impl.background.systemjob.SystemJobService realtime
+    Job com.google.android.youtube/androidx.work.impl.background.systemjob.SystemJobService: 1s 954ms realtime (2 times), 1s 954ms background (2 times)
+    Job Completions com.google.android.youtube/androidx.work.impl.background.systemjob.SystemJobService: canceled(2x)
+    Background for: 4s 369ms 
+    Cached for: 1m 50s 448ms 
+    Total running: 1m 54s 817ms 
+    Total cpu time: u=5s 214ms s=2s 892ms 
+    Total cpu time per freq: 0 0 0 0 0 0 0 7720 0 0 0 0 0 130
+    Proc com.google.android.youtube:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      3 starts
+    Apk com.google.android.youtube:
+      Service androidx.work.impl.background.systemjob.SystemJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 2
+      Service com.google.android.apps.youtube.app.common.notification.FcmMessageListenerService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+  u0a193:
+    Wi-Fi network: 28.99KB received, 16.77KB sent (packets 80 received, 78 sent)
+    Wake lock *alarm* realtime
+    Wake lock fiid-sync realtime
+    Wake lock *job*/com.google.android.gm/.job.ProviderCreatedJob$ProviderCreatedJobService realtime
+    Wake lock *job*/com.google.android.gm/com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService realtime
+    Wake lock *job*/com.google.android.gm/com.android.mail.job.NotifyDatasetChangedJob$NotifyDatasetChangedJobService realtime
+    Job com.google.android.gm/.job.ProviderCreatedJob$ProviderCreatedJobService: 205ms realtime (3 times), 205ms background (3 times)
+    Job com.google.android.gm/com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService: 1s 902ms realtime (3 times), 1s 902ms background (3 times)
+    Job com.google.android.gm/com.android.mail.job.NotifyDatasetChangedJob$NotifyDatasetChangedJobService: 517ms realtime (5 times), 517ms background (5 times)
+    Job Completions com.google.android.gm/.job.ProviderCreatedJob$ProviderCreatedJobService: canceled(3x)
+    Job Completions com.google.android.gm/com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService: canceled(3x)
+    Job Completions com.google.android.gm/com.android.mail.job.NotifyDatasetChangedJob$NotifyDatasetChangedJobService: canceled(5x)
+    Background for: 7s 852ms 
+    Cached for: 4m 6s 919ms 
+    Total running: 4m 14s 771ms 
+    Total cpu time: u=3s 227ms s=1s 740ms 
+    Total cpu time per freq: 0 0 0 0 0 0 10 4740 0 0 0 0 0 60
+    Proc com.google.android.gm:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      3 starts
+    Apk com.google.android.gm:
+      Wakeup alarm *walarm*:*job.deadline* includes: Uid:10193 Package:com.google.android.gm, : 0 times
+      Service com.google.android.libraries.hub.firebase.FirebaseMessagingServiceImpl:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.android.mail.job.NotifyDatasetChangedJob$NotifyDatasetChangedJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 5
+      Service com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 3
+      Service com.google.android.gm.job.ProviderCreatedJob$ProviderCreatedJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 3
+  u0a194:
+    Background for: 326ms 
+    Cached for: 15s 900ms 
+    Total running: 16s 226ms 
+    Total cpu time: u=341ms s=135ms 
+    Total cpu time per freq: 0 0 0 0 0 0 0 420 0 0 0 0 0 0
+    Proc com.google.android.calculator:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      1 starts
+  u0a196:
+    Wake lock ChimeExecutorApi::com.google.android.keep realtime
+    Wake lock *job*/com.google.android.keep/com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService realtime
+    Wake lock *job*/com.google.android.keep/com.google.android.libraries.internal.growth.growthkit.internal.jobs.impl.GrowthKitJobService realtime
+    Job com.google.android.keep/com.google.android.libraries.internal.growth.growthkit.internal.jobs.impl.GrowthKitJobService: 6s 489ms realtime (1 times), 6s 489ms background (1 times)
+    Job com.google.android.keep/com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService: 5s 927ms realtime (1 times), 5s 927ms background (1 times)
+    Job Completions com.google.android.keep/com.google.android.libraries.internal.growth.growthkit.internal.jobs.impl.GrowthKitJobService: canceled(1x)
+    Job Completions com.google.android.keep/com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService: canceled(1x)
+    Background for: 11s 482ms 
+    Cached for: 1m 35s 636ms 
+    Total running: 1m 47s 118ms 
+    Total cpu time: u=1s 522ms s=622ms 
+    Total cpu time per freq: 0 0 0 0 0 10 0 2070 0 0 0 0 0 50
+    Proc com.google.android.keep:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      2 starts
+    Apk com.google.android.keep:
+      Service com.google.android.libraries.internal.growth.growthkit.internal.jobs.impl.GrowthKitJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+  u0a197:
+    Wi-Fi network: 32.91KB received, 2.44KB sent (packets 32 received, 8 sent)
+    Wake lock fiid-sync realtime
+    Wake lock ChimeExecutorApi::com.google.android.videos realtime
+    Wake lock *job*/com.google.android.videos/com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService realtime
+    Wake lock *job*/com.google.android.videos/androidx.work.impl.background.systemjob.SystemJobService realtime
+    Job com.google.android.videos/com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService: 884ms realtime (1 times), 884ms background (1 times)
+    Job com.google.android.videos/androidx.work.impl.background.systemjob.SystemJobService: 1s 266ms realtime (3 times), 1s 266ms background (3 times)
+    Job Completions com.google.android.videos/com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService: canceled(2x)
+    Job Completions com.google.android.videos/androidx.work.impl.background.systemjob.SystemJobService: canceled(4x)
+    Background for: 3s 384ms 
+    Cached for: 1m 36s 848ms 
+    Total running: 1m 40s 232ms 
+    Total cpu time: u=1s 898ms s=1s 83ms 
+    Total cpu time per freq: 0 0 0 0 0 0 0 2740 0 0 0 0 0 110
+    Proc com.google.android.videos:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      3 starts
+    Apk com.google.android.videos:
+      Service androidx.work.impl.background.systemjob.SystemJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 3
+      Service com.google.android.libraries.notifications.entrypoints.scheduled.ScheduledTaskService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+  u0a198:
+    Wi-Fi network: 12.83MB received, 146.76KB sent (packets 9742 received, 1936 sent)
+    Wake lock bugle_datamodel_executor_wakelock realtime
+    Wake lock *job*/com.google.android.apps.messaging/com.google.android.libraries.internal.growth.growthkit.internal.jobs.impl.GrowthKitJobService realtime
+    Wake lock fiid-sync realtime
+    Wake lock *job*/com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService realtime
+    Job com.google.android.apps.messaging/com.google.android.libraries.internal.growth.growthkit.internal.jobs.impl.GrowthKitJobService: 1s 23ms realtime (1 times)
+    Job com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService: 1m 36s 884ms realtime (3 times)
+    Job Completions com.google.android.apps.messaging/com.google.android.libraries.internal.growth.growthkit.internal.jobs.impl.GrowthKitJobService: canceled(1x)
+    Job Completions com.google.android.apps.messaging/androidx.work.impl.background.systemjob.SystemJobService: canceled(6x)
+    Foreground for: 1h 4m 28s 683ms 
+    Total running: 1h 4m 28s 683ms 
+    Total cpu time: u=11s 993ms s=3s 893ms 
+    Total cpu time per freq: 110 20 20 0 0 0 10 15370 0 0 10 10 0 190
+    Proc com.google.android.apps.messaging:rcs:
+      CPU: 80ms usr + 70ms krn ; 0ms fg
+    Proc com.google.android.apps.messaging:
+      CPU: 280ms usr + 100ms krn ; 0ms fg
+      1 starts
+    Apk com.google.android.apps.messaging:
+      Service androidx.work.impl.background.systemjob.SystemJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 3
+      Service com.google.android.libraries.internal.growth.growthkit.internal.jobs.impl.GrowthKitJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.apps.messaging.shared.datamodel.action.execution.ActionExecutorImpl$EmptyService:
+        Created for: 175ms uptime
+        Starts: 2, launches: 2
+  u0a199:
+    Wi-Fi network: 18.52KB received, 11.89KB sent (packets 54 received, 54 sent)
+       WiFi Scan time:  0ms (0.0%)
+       WiFi Sleep time:  1h 4m 28s 808ms (100.0%)
+       WiFi Idle time:   0ms (0.0%)
+       WiFi Rx time:     0ms (0.0%)
+       WiFi Tx time:     1ms (0.0%)
+    Wake lock *job*/com.google.android.apps.tachyon/androidx.work.impl.background.systemjob.SystemJobService realtime
+    Wake lock fiid-sync realtime
+    Wake lock *job*/com.google.android.apps.tachyon/com.google.android.libraries.internal.growth.growthkit.internal.jobs.impl.GrowthKitJobService realtime
+    Job com.google.android.apps.tachyon/androidx.work.impl.background.systemjob.SystemJobService: 10s 198ms realtime (3 times), 10s 198ms background (3 times)
+    Job com.google.android.apps.tachyon/com.google.android.libraries.internal.growth.growthkit.internal.jobs.impl.GrowthKitJobService: 1s 803ms realtime (1 times), 1s 803ms background (1 times)
+    Job Completions com.google.android.apps.tachyon/androidx.work.impl.background.systemjob.SystemJobService: canceled(3x)
+    Job Completions com.google.android.apps.tachyon/com.google.android.libraries.internal.growth.growthkit.internal.jobs.impl.GrowthKitJobService: canceled(1x)
+    Background for: 25s 239ms 
+    Cached for: 1m 25s 187ms 
+    Total running: 1m 50s 426ms 
+    Total cpu time: u=2s 751ms s=1s 307ms 
+    Total cpu time per freq: 0 0 0 0 0 0 0 3920 0 0 0 0 0 110
+    Proc com.google.android.apps.tachyon:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      2 starts
+    Apk com.google.android.apps.tachyon:
+      Service androidx.work.impl.background.systemjob.SystemJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 3
+      Service com.google.android.apps.tachyon.call.service.CallService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 2
+      Service com.google.android.apps.tachyon.net.fcm.FcmReceivingService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.google.android.libraries.internal.growth.growthkit.internal.jobs.impl.GrowthKitJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+  u0a200:
+    Wi-Fi network: 50.96KB received, 25.69KB sent (packets 90 received, 87 sent)
+       WiFi Scan time:  0ms (0.0%)
+       WiFi Sleep time:  1h 4m 28s 810ms (100.0%)
+       WiFi Idle time:   0ms (0.0%)
+       WiFi Rx time:     0ms (0.0%)
+       WiFi Tx time:     1ms (0.0%)
+    Wake lock *job*/com.google.android.apps.maps/com.google.android.apps.gmm.cloudmessage.chime.GmmChimeTaskService realtime
+    Wake lock Icing realtime
+    Job com.google.android.apps.maps/com.google.android.apps.gmm.cloudmessage.chime.GmmChimeTaskService: 2s 955ms realtime (3 times), 2s 955ms background (3 times)
+    Job Completions com.google.android.apps.maps/com.google.android.apps.gmm.cloudmessage.chime.GmmChimeTaskService: canceled(3x)
+    Background for: 29s 253ms 
+    Cached for: 1m 26s 33ms 
+    Total running: 1m 55s 286ms 
+    Total cpu time: u=3s 307ms s=1s 971ms 
+    Total cpu time per freq: 0 0 0 0 0 10 0 5040 0 0 0 0 0 150
+    Proc com.google.android.apps.maps:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      2 starts
+    Proc com.google.android.apps.maps:server_recovery_process:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      2 starts
+    Apk com.google.android.apps.maps:
+      Service com.google.android.apps.gmm.cloudmessage.chime.GmmChimeTaskService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 3
+  u0a203:
+    Wake lock *alarm* realtime
+    Background for: 3s 292ms 
+    Cached for: 30m 51s 812ms 
+    Total running: 30m 55s 104ms 
+    Total cpu time: u=387ms s=279ms 
+    Total cpu time per freq: 10 20 0 0 0 10 0 590 0 10 0 0 0 40
+    Proc com.android.providers.calendar:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      4 starts
+    Apk com.android.providers.calendar:
+      Wakeup alarm *walarm*:android.intent.action.PROVIDER_CHANGED: 0 times
+  u0a206:
+    Wake lock *launch* realtime
+    Sensor 1: 940ms realtime (1 times)
+    Vibrator: 55ms realtime (1 times)
+    Foreground activities: 30s 473ms realtime (5 times)
+    Top for: 38s 659ms 
+    Foreground for: 1h 3m 50s 24ms 
+    Total running: 1h 4m 28s 683ms 
+    Total cpu time: u=7s 338ms s=2s 795ms 
+    Total cpu time per freq: 560 40 70 60 0 10 20 6200 110 150 90 180 80 2260
+    Proc com.zte.mifavor.launcher:
+      CPU: 6s 880ms usr + 2s 540ms krn ; 3s 830ms fg
+  u0a208:
+    Wake lock *job*/com.google.android.setupwizard/.deferred.DeferredSetupNotificationSchedulerService realtime
+    Wake lock *alarm* realtime
+    Wake lock *job*/com.google.android.setupwizard/.predeferred.PreDeferredServiceScheduler realtime
+    Wake lock *job*/com.google.android.setupwizard/.deferred.DeferredSetupScheduler realtime
+    Job com.google.android.setupwizard/.deferred.DeferredSetupNotificationSchedulerService: 96ms realtime (5 times)
+    Job com.google.android.setupwizard/.predeferred.PreDeferredServiceScheduler: 83ms realtime (1 times)
+    Job com.google.android.setupwizard/.deferred.DeferredSetupScheduler: 786ms realtime (6 times)
+    Job Completions com.google.android.setupwizard/.deferred.DeferredSetupNotificationSchedulerService: canceled(5x)
+    Job Completions com.google.android.setupwizard/.predeferred.PreDeferredServiceScheduler: canceled(1x)
+    Job Completions com.google.android.setupwizard/.deferred.DeferredSetupScheduler: canceled(6x)
+    Foreground services: 1h 4m 28s 683ms realtime (0 times) (running)
+    Fg Service for: 1h 4m 28s 683ms 
+    Total running: 1h 4m 28s 683ms 
+    Total cpu time: u=719ms s=398ms 
+    Total cpu time per freq: 180 10 50 20 30 10 20 380 0 0 0 0 0 190
+    Proc com.google.android.setupwizard:
+      CPU: 720ms usr + 390ms krn ; 0ms fg
+    Apk com.google.android.setupwizard:
+      Service com.google.android.setupwizard.predeferred.PreDeferredUpdateService:
+        Created for: 2m 10s 840ms uptime
+        Starts: 1, launches: 1
+      Service com.google.android.setupwizard.deferred.DeferredSetupScheduler:
+        Created for: 0ms uptime
+        Starts: 0, launches: 6
+      Service com.google.android.setupwizard.deferred.DeferredSetupNotificationSchedulerService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 5
+      Service com.google.android.setupwizard.predeferred.PreDeferredServiceScheduler:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+  u0a211:
+    Wake lock *launch* realtime
+    Wake lock WindowManager: 3s 284ms full (1 times) realtime
+    TOTAL wake: 3s 284ms full realtime
+    Vibrator: 45ms realtime (1 times)
+    Foreground activities: 2s 81ms realtime (1 times)
+    Foreground for: 1h 4m 28s 683ms 
+    Total running: 1h 4m 28s 683ms 
+    Total cpu time: u=28s 378ms s=10s 350ms 
+    Total cpu time per freq: 8580 1080 770 1000 860 800 860 15760 50 170 100 90 50 5950
+    Proc com.android.systemui:
+      CPU: 27s 50ms usr + 9s 190ms krn ; 400ms fg
+  u0a213:
+    Foreground for: 1h 4m 28s 683ms 
+    Total running: 1h 4m 28s 683ms 
+    Total cpu time: u=17ms s=6ms 
+    Total cpu time per freq: 0 0 0 0 0 0 0 30 0 0 0 0 0 10
+    Proc com.android.smspush:
+      CPU: 10ms usr + 0ms krn ; 0ms fg
+  u0a221:
+    Wake lock *launch* realtime
+    Foreground activities: 552ms realtime (3 times)
+    Top for: 1s 121ms 
+    Foreground for: 2m 8s 928ms 
+    Background for: 67ms 
+    Cached for: 59m 38s 625ms 
+    Total running: 1h 1m 48s 741ms 
+    Total cpu time: u=2s 325ms s=896ms 
+    Total cpu time per freq: 30 10 0 0 10 10 20 2480 0 10 0 0 10 720
+    Proc com.google.android.permissioncontroller:
+      CPU: 1s 800ms usr + 650ms krn ; 310ms fg
+      1 starts
+    Apk com.google.android.permissioncontroller:
+      Service com.android.permissioncontroller.role.service.RoleControllerServiceImpl:
+        Created for: 0ms uptime
+        Starts: 0, launches: 3
+      Service com.android.permissioncontroller.permission.service.PermissionControllerServiceImpl:
+        Created for: 0ms uptime
+        Starts: 0, launches: 6
+  u0a222:
+    Wi-Fi network: 5.64MB received, 43.64KB sent (packets 4111 received, 775 sent)
+       WiFi Scan time:  0ms (0.0%)
+       WiFi Sleep time:  1h 4m 28s 669ms (100.0%)
+       WiFi Idle time:   0ms (0.0%)
+       WiFi Rx time:     97ms (0.0%)
+       WiFi Tx time:     50ms (0.0%)
+    Wake lock Icing realtime
+    Foreground for: 1h 4m 28s 683ms 
+    Total running: 1h 4m 28s 683ms 
+    Total cpu time: u=1s 208ms s=506ms 
+    Total cpu time per freq: 0 0 0 0 0 0 0 1830 0 0 0 0 0 100
+    Proc com.google.android.ext.services:modelDownloaderServiceProcess:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      1 starts
+    Proc com.google.android.ext.services:
+      CPU: 240ms usr + 110ms krn ; 0ms fg
+    Apk com.google.android.ext.services:
+      Service com.android.textclassifier.downloader.ModelDownloaderService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 2
+      Service android.ext.services.watchdog.ExplicitHealthCheckServiceImpl:
+        Created for: 0ms uptime
+        Starts: 0, launches: 6
+  u0a223:
+    Foreground for: 1h 4m 28s 683ms 
+    Total running: 1h 4m 28s 683ms 
+    Total cpu time: u=140ms s=132ms 
+    Total cpu time per freq: 0 0 0 0 0 0 0 220 0 0 0 0 0 60
+    Proc com.google.android.providers.media.module:
+      CPU: 110ms usr + 90ms krn ; 0ms fg
+  u0a228:
+    Background for: 2s 633ms 
+    Cached for: 33m 16s 575ms 
+    Total running: 33m 19s 208ms 
+    Total cpu time: u=996ms s=404ms 
+    Total cpu time per freq: 60 40 40 30 80 30 60 880 0 10 0 0 0 30
+    Proc com.google.android.cellbroadcastreceiver:
+      CPU: 530ms usr + 220ms krn ; 0ms fg
+      4 starts
+  u0a232:
+    Wi-Fi network: 8.12KB received, 5.05KB sent (packets 21 received, 24 sent)
+       WiFi Scan time:  0ms (0.0%)
+       WiFi Sleep time:  1h 4m 28s 817ms (100.0%)
+       WiFi Idle time:   0ms (0.0%)
+       WiFi Rx time:     0ms (0.0%)
+       WiFi Tx time:     1ms (0.0%)
+    Wake lock *job*/com.handmark.expressweather/.jobtasks.JobWeatherService realtime
+    Wake lock *alarm* realtime
+    Wake lock *job*/com.handmark.expressweather/.data.UpdateService realtime
+    Wake lock fiid-sync realtime
+    Wake lock *job*/com.handmark.expressweather/androidx.work.impl.background.systemjob.SystemJobService realtime
+    Job com.handmark.expressweather/androidx.work.impl.background.systemjob.SystemJobService: 1s 99ms realtime (1 times), 1s 99ms background (1 times)
+    Job com.handmark.expressweather/.data.UpdateService: 18ms realtime (1 times), 18ms background (1 times)
+    Job com.handmark.expressweather/.jobtasks.JobWeatherService: 60ms realtime (1 times), 60ms background (1 times)
+    Job Completions com.handmark.expressweather/androidx.work.impl.background.systemjob.SystemJobService: canceled(1x)
+    Job Completions com.handmark.expressweather/.data.UpdateService: canceled(1x)
+    Job Completions com.handmark.expressweather/.jobtasks.JobWeatherService: canceled(1x)
+    Background for: 1s 684ms 
+    Cached for: 35m 23s 882ms 
+    Total running: 35m 25s 566ms 
+    Total cpu time: u=4s 444ms s=1s 629ms 
+    Total cpu time per freq: 350 10 0 50 40 50 60 4460 0 0 0 0 0 10
+    Proc com.handmark.expressweather:
+      CPU: 1s 130ms usr + 410ms krn ; 0ms fg
+      1 starts
+    Proc com.google.android.webview:sandboxed_process0:org.chromium.content.app.SandboxedProcessService0:1:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      1 starts
+    Proc com.google.android.webview:sandboxed_process0:org.chromium.content.app.SandboxedProcessService0:0:
+      CPU: 0ms usr + 0ms krn ; 0ms fg
+      1 starts
+    Apk com.handmark.expressweather:
+      Wakeup alarm *walarm*:*job.deadline* includes: Uid:10232 Package:com.handmark.expressweather, : 0 times
+      Service androidx.work.impl.background.systemjob.SystemJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.handmark.expressweather.data.UpdateService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service com.handmark.expressweather.jobtasks.JobWeatherService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service org.chromium.content.app.SandboxedProcessService0:1:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+      Service org.chromium.content.app.SandboxedProcessService0:0:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+  u0a237:
+    Bluetooth network: 134.47MB received, 564B sent
+    Wake lock *launch* realtime
+    Foreground activities: 57m 51s 682ms realtime (4 times)
+    Top for: 57m 52s 343ms 
+    Background for: 6s 796ms 
+    Cached for: 573ms 
+    Total running: 57m 59s 712ms 
+    Total cpu time: u=2h 34m 18s 213ms s=18m 51s 354ms 
+    Total cpu time per freq: 27630 1530 590 750 810 380 590 7316650 830 3170 3040 1350 1180 3069770
+    Proc com.example.cachetothefuture:
+      CPU: 2h 29m 5s 180ms usr + 17m 58s 200ms krn ; 2h 52m 45s 250ms fg
+      1 starts
+  u0a40175:
+    Total cpu time: u=1m 12s 619ms s=2s 704ms 
+    Total cpu time per freq: 0 0 0 0 0 0 0 35230 0 0 10 90 80 41250
+    (nothing executed)
+  u0a40186:
+    Total cpu time: u=36s 755ms s=1s 735ms 
+    Total cpu time per freq: 0 0 0 0 0 0 0 17750 10 40 30 70 140 21620
+    (nothing executed)
+
+Total cpu time reads: 0
+Batched cpu time reads: 0
+Batching Duration (min): 68
+All UID cpu time reads since the later of device start or stats reset: 168
+UIDs removed since the later of device start or stats reset: 13
