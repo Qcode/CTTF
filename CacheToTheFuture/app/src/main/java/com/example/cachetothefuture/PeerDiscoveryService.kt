@@ -4,6 +4,15 @@ import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
+import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothManager
+import android.bluetooth.le.AdvertiseCallback
+import android.bluetooth.le.AdvertiseData
+import android.bluetooth.le.AdvertiseSettings
+import android.bluetooth.le.ScanCallback
+import android.bluetooth.le.ScanFilter
+import android.bluetooth.le.ScanResult
+import android.bluetooth.le.ScanSettings
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ServiceInfo
@@ -13,6 +22,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
+import android.os.ParcelUuid
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
@@ -22,53 +32,82 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.lang.reflect.Method
+import java.util.UUID
 
 
 class PeerDiscoveryService : Service() {
-    private lateinit var wifiP2pManager: WifiP2pManager
-    private lateinit var channel: WifiP2pManager.Channel
-    private val handler = Handler(Looper.getMainLooper())
+    private lateinit var notificationManager: NotificationManager
+    private val serviceUUID = ParcelUuid(UUID.fromString("a1f5b23a-5e28-4272-adc8-20718e5d5509"))
+
+    private val advertiseCallback = object : AdvertiseCallback() {
+        override fun onStartFailure(errorCode: Int) {
+            Log.d(TAG, "Start Failure $errorCode")
+            super.onStartFailure(errorCode)
+        }
+
+        override fun onStartSuccess(settingsInEffect: AdvertiseSettings?) {
+            Log.d(TAG, "Starting Advertising")
+            super.onStartSuccess(settingsInEffect)
+        }
+    }
+
+    private val scanCallback = object : ScanCallback() {
+        override fun onScanFailed(errorCode: Int) {
+            Log.d(TAG, "Scan Failure $errorCode")
+            super.onScanFailed(errorCode)
+        }
+
+        override fun onScanResult(callbackType: Int, result: ScanResult?) {
+            Log.d(TAG, "Scan result $callbackType")
+            Log.d(TAG, "$result")
+            notificationManager.notify(
+                101, // different ID
+                NotificationCompat.Builder(this@PeerDiscoveryService, "CTTFNotification")
+                    .setContentText("Device $result")
+                    .setSmallIcon(R.drawable.ic_launcher_foreground)
+                    .setAutoCancel(true)
+                    .build()
+            )
+            super.onScanResult(callbackType, result)
+        }
+
+    }
 
     override fun onCreate() {
+        notificationManager = getSystemService(NotificationManager::class.java)
         super.onCreate()
-
-        wifiP2pManager = getSystemService(Context.WIFI_P2P_SERVICE) as WifiP2pManager
-        channel = wifiP2pManager.initialize(this, mainLooper, null)
-
-        val method: Method = wifiP2pManager::class.java.getMethod(
-            "setDeviceName",
-            WifiP2pManager.Channel::class.java,
-            String::class.java,
-            ActionListener::class.java
-        )
-        val sharedPref = getSharedPreferences("bluetooth", Context.MODE_PRIVATE)
-        val bluetoothMac = sharedPref.getString("mac", "not_set") ?: "not_set"
-        Log.d("Ross", "Setting wifi direct name")
-        method.invoke(wifiP2pManager, channel, "CttF-${bluetoothMac}", null)
-        Log.d("Ross", "done setting wifi direct name")
     }
 
     @SuppressLint("MissingPermission")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+        val bluetoothAdapter = bluetoothManager.adapter
+        val bluetoothLeAdvertiser = bluetoothAdapter.bluetoothLeAdvertiser
+        val advertiseData = AdvertiseData.Builder().addServiceUuid(serviceUUID).build()
+        val bluetoothLeScanner = bluetoothAdapter.bluetoothLeScanner
+
         if (intent?.action == "stop") {
+            bluetoothLeAdvertiser.stopAdvertising(advertiseCallback)
+            bluetoothLeScanner.stopScan(scanCallback)
             stopForeground(STOP_FOREGROUND_DETACH)
             stopSelf()
             return START_NOT_STICKY
         }
+
         Log.d("ross", "Running")
         val notificationChannel = NotificationChannel(
-            "WifiDirectChannel",
+            "CTTFNotification",
             "CacheToTheFutureChannel",
             NotificationManager.IMPORTANCE_LOW
         )
         notificationChannel.description = "Channel for foreground service notification"
 
-        val notificationManager = getSystemService(NotificationManager::class.java)
         notificationManager.createNotificationChannel(notificationChannel)
-        val notification = NotificationCompat.Builder(this, "WifiDirectChannel")
-            .setContentTitle("Wi-Fi Direct Service")
+        val notification = NotificationCompat.Builder(this, "CTTFNotification")
+            .setContentTitle("BLE Service")
             .setContentText("Discovering peers...")
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .build()
         ServiceCompat.startForeground(
@@ -78,15 +117,10 @@ class PeerDiscoveryService : Service() {
             ServiceInfo.FOREGROUND_SERVICE_TYPE_REMOTE_MESSAGING
         )
 
-        wifiP2pManager.discoverPeers(channel, object : ActionListener {
-            override fun onSuccess() {
-                Log.d("ross", "Peer Discovery started")
-            }
+        bluetoothLeAdvertiser.startAdvertising(AdvertiseSettings.Builder().build(), advertiseData, advertiseCallback)
 
-            override fun onFailure(reason: Int) {
-                Log.d("ross", "Peer discovery failed: $reason")
-            }
-        })
+        bluetoothLeScanner.startScan(listOf(ScanFilter.Builder().setServiceUuid(serviceUUID).build()),
+            ScanSettings.Builder().build(), scanCallback)
 
         val app = application as MyApplication
         val bluetoothRepository = app.container.bluetoothRepository
@@ -97,53 +131,16 @@ class PeerDiscoveryService : Service() {
         val sharedPref = getSharedPreferences("bluetooth", Context.MODE_PRIVATE)
         val myMac = sharedPref.getString("mac", "") ?: ""
 
-        handler.post(object : Runnable {
-            override fun run() {
-                wifiP2pManager.requestPeers(channel) { peerList ->
-                    if (peerList.deviceList.isEmpty()) {
-                        Log.d("ross", "No peers found")
-                    } else {
-                        val peer =
-                            peerList.deviceList.find { device -> device.deviceName.contains("CttF") }
-                        if (peer != null) {
-                            val otherMacAddress = peer.deviceName.substring(5)
-                            Log.d("Ross", otherMacAddress)
-
-                            CoroutineScope(Dispatchers.IO).launch {
-                                bluetoothRepository.connectAndExchange(
-                                    allUrls,
-                                    requestRepository.requests.value,
-                                    myMac,
-                                    otherMacAddress
-                                )
-                                    .collect {
-                                        when (it) {
-                                            is BluetoothEmit.OtherSaved -> storedFilesRepository.addOtherCachedUrl(
-                                                it.storedUrl,
-                                                context
-                                            )
-
-                                            is BluetoothEmit.UnsatisfiedRequest -> requestRepository.storeRequest(
-                                                it.request
-                                            )
-
-                                            is BluetoothEmit.Time -> Unit
-                                        }
-                                    }
-                            }
-                        }
-                    }
-                }
-
-                // Schedule next execution
-                handler.postDelayed(this, 15 * 1000)
-            }
-        })
-
         return START_STICKY
     }
 
     override fun onDestroy() {
+        val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+        val bluetoothAdapter = bluetoothManager.adapter
+        val bluetoothLeAdvertiser = bluetoothAdapter.bluetoothLeAdvertiser
+        val bluetoothLeScanner = bluetoothAdapter.bluetoothLeScanner
+        bluetoothLeAdvertiser.stopAdvertising(advertiseCallback)
+        bluetoothLeScanner.stopScan(scanCallback)
         super.onDestroy()
         Log.d("ross", "destroyed")
     }

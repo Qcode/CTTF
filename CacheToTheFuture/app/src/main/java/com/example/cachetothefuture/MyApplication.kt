@@ -5,6 +5,7 @@ import android.app.DownloadManager
 import android.bluetooth.BluetoothManager
 import com.example.cachetothefuture.data.AppContainer
 
+
 class MyApplication : Application() {
     lateinit var container: AppContainer
 

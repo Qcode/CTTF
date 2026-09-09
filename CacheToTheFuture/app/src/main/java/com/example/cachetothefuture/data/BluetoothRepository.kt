@@ -9,6 +9,13 @@ import android.bluetooth.BluetoothManager
 import android.bluetooth.BluetoothProfile
 import android.bluetooth.BluetoothSocket
 import android.content.Context
+import android.bluetooth.le.AdvertiseCallback
+import android.bluetooth.le.AdvertiseData
+import android.bluetooth.le.AdvertiseSettings
+import android.bluetooth.le.ScanCallback
+import android.bluetooth.le.ScanResult
+import android.bluetooth.le.ScanFilter
+import android.bluetooth.le.ScanSettings
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.LinkProperties
@@ -27,6 +34,7 @@ import android.net.wifi.aware.WifiAwareNetworkSpecifier
 import android.net.wifi.aware.WifiAwareSession
 import android.os.Build
 import android.os.Environment
+import android.os.ParcelUuid
 import android.util.Log
 import androidx.annotation.RequiresApi
 import kotlinx.coroutines.CoroutineScope
@@ -49,6 +57,7 @@ import java.net.ServerSocket
 import java.util.UUID
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
+import kotlin.math.sqrt
 import kotlin.random.Random
 import kotlin.time.Duration
 
@@ -412,44 +421,37 @@ class BluetoothRepository(
                 }
             })
     }
-    /*
-
     @SuppressLint("MissingPermission")
     @RequiresApi(Build.VERSION_CODES.Q)
-    @RequiresPermission(allOf = [Manifest.permission.BLUETOOTH_ADVERTISE, Manifest.permission.BLUETOOTH_SCAN])
-    fun testLE() {
-        val scanner = bluetoothAdapter?.bluetoothLeScanner
-        Log.d("Ross", bluetoothAdapter?.isLe2MPhySupported.toString())
-
-        val scanCallback = object : ScanCallback() {
-            @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
-            override fun onScanResult(callbackType: Int, result: ScanResult) {
-                Log.d("Ross", "scan result")
-                val device = result.device
-                val serviceData =
-                    result.scanRecord?.getServiceData(ParcelUuid(UUID.fromString("0b5c98e5-6deb-4970-88cd-5241067ed52f")))
-                if (serviceData != null) {
-                    val psm =
-                        ((serviceData[0].toInt() and 0xFF) shl 8) or (serviceData[1].toInt() and 0xFF)
-                    Log.d("Ross", "Found device ${device.address} with PSM $psm")
-
-                    connectL2cap(device, psm)
-                    scanner?.stopScan(this) // stop after finding server
-                }
-            }
-
-            override fun onScanFailed(errorCode: Int) {
-                Log.e("Ross", "Scan failed with error: $errorCode")
-            }
-        }
+    fun testL2capThroughput() {
+        Log.d("Ross", "2M PHY supported: ${bluetoothAdapter?.isLe2MPhySupported}")
 
         val name = Build.MODEL
-        if ("S7" in name) {
+        if ("ZTE" in name) {
             Log.d("Ross", "server starting")
-            startL2capServer() // runs in background
+            startL2capServer()
         }
         if ("A53" in name) {
             Log.d("Ross", "scan starting")
+            val scanner = bluetoothAdapter?.bluetoothLeScanner
+            val scanCallback = object : ScanCallback() {
+                override fun onScanResult(callbackType: Int, result: ScanResult) {
+                    val device = result.device
+                    val serviceData =
+                        result.scanRecord?.getServiceData(ParcelUuid(UUID.fromString("0b5c98e5-6deb-4970-88cd-5241067ed52f")))
+                    if (serviceData != null) {
+                        val psm =
+                            ((serviceData[0].toInt() and 0xFF) shl 8) or (serviceData[1].toInt() and 0xFF)
+                        Log.d("Ross", "Found device ${device.address} with PSM $psm")
+                        connectL2cap(device, psm)
+                        scanner?.stopScan(this)
+                    }
+                }
+
+                override fun onScanFailed(errorCode: Int) {
+                    Log.e("Ross", "Scan failed with error: $errorCode")
+                }
+            }
             val scanSettings = ScanSettings.Builder()
                 .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
                 .build()
@@ -458,14 +460,13 @@ class BluetoothRepository(
     }
 
     @SuppressLint("MissingPermission")
-    @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
     @RequiresApi(Build.VERSION_CODES.Q)
     fun startL2capServer() {
         val serverSocket =
             requireNotNull(bluetoothAdapter?.listenUsingInsecureL2capChannel()) { "Bluetooth adapter not available" }
         val psm = serverSocket.psm
 
-        val advertiser = bluetoothAdapter.bluetoothLeAdvertiser
+        val advertiser = bluetoothAdapter?.bluetoothLeAdvertiser
 
         val settings = AdvertiseSettings.Builder()
             .setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_LATENCY)
@@ -473,7 +474,7 @@ class BluetoothRepository(
             .setConnectable(true)
             .build()
 
-        val data = AdvertiseData.Builder()
+        val advData = AdvertiseData.Builder()
             .setIncludeDeviceName(false)
             .addServiceData(
                 ParcelUuid(UUID.fromString("0b5c98e5-6deb-4970-88cd-5241067ed52f")),
@@ -481,51 +482,54 @@ class BluetoothRepository(
             )
             .build()
 
-        val callback = object : AdvertiseCallback() {
+        val advCallback = object : AdvertiseCallback() {
             override fun onStartSuccess(settingsInEffect: AdvertiseSettings) {
-                super.onStartSuccess(settingsInEffect)
                 Log.d("Ross", "Advertising started")
             }
 
             override fun onStartFailure(errorCode: Int) {
-                super.onStartFailure(errorCode)
                 Log.e("Ross", "Advertising failed: $errorCode")
             }
         }
 
-        advertiser?.startAdvertising(settings, data, callback)
+        advertiser?.startAdvertising(settings, advData, advCallback)
         Log.d("Ross", "Server listening on PSM $psm")
+        pushToUpdates("L2CAP Server ready - PSM: $psm")
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                while (true) {
-                    val socket = serverSocket.accept()
-                    Log.d("Ross", "Client connected!")
+                val socket = serverSocket.accept()
+                Log.d("Ross", "Client connected!")
+                delay(200)
 
-                    // Give time for GATT connection to establish (if client requests PHY)
-                    delay(200)
+                val output = socket.outputStream
+                val iterations = 100
+                val dataSize = 1_000_000
+                val chunkSize = 65535
 
-                    val output = socket.outputStream
-                    val randomByteArray = ByteArray(1_000_000)
+                for (i in 1..iterations) {
+                    val randomByteArray = ByteArray(dataSize)
                     Random.Default.nextBytes(randomByteArray)
 
-                    val chunkSize = 65535
                     var offset = 0
-
                     while (offset < randomByteArray.size) {
                         val length = minOf(chunkSize, randomByteArray.size - offset)
                         output.write(randomByteArray, offset, length)
                         offset += length
                     }
                     output.flush()
-
-                    Log.d("Ross", "Transfer complete")
+                    Log.d("Ross", "Server: Transfer $i/$iterations complete")
                 }
+
+                Log.d("Ross", "Server: All $iterations transfers complete")
+                socket.close()
+                serverSocket.close()
+                advertiser?.stopAdvertising(advCallback)
             } catch (e: Exception) {
                 Log.e("Ross", "Server error", e)
             }
         }
-    }*/
+    }
 
     @SuppressLint("MissingPermission")
     @RequiresApi(Build.VERSION_CODES.Q)
@@ -590,40 +594,45 @@ class BluetoothRepository(
                 val input = socket.inputStream
                 val buffer = ByteArray(mtu.coerceAtLeast(512))
 
-                // Measure in chunks to see if speed varies
-                val chunkSize = 100_000
-                var bytesReadTotal = 0
-                val totalBytes = 1_000_000
-                var chunkStartTime = System.currentTimeMillis()
-                val overallStartTime = chunkStartTime
+                val iterations = 100
+                val totalBytesPerIteration = 1_000_000
+                val iterationTimes = mutableListOf<Long>()
+                val overallStartTime = System.currentTimeMillis()
 
-                while (bytesReadTotal < totalBytes) {
-                    val bytesRead = input.read(buffer)
-                    if (bytesRead == -1) break
+                for (i in 1..iterations) {
+                    var bytesReadTotal = 0
+                    val iterStartTime = System.currentTimeMillis()
 
-                    bytesReadTotal += bytesRead
-
-                    // Report every 100KB
-                    if (bytesReadTotal % chunkSize < buffer.size) {
-                        val now = System.currentTimeMillis()
-                        val chunkTime = now - chunkStartTime
-                        val chunkSpeed = (chunkSize * 8.0 / chunkTime)
-                        Log.d(
-                            "Ross",
-                            "${bytesReadTotal / 1000}KB: ${chunkTime}ms = ${"%.2f".format(chunkSpeed)} Kbps"
-                        )
-                        chunkStartTime = now
+                    while (bytesReadTotal < totalBytesPerIteration) {
+                        val bytesRead = input.read(buffer)
+                        if (bytesRead == -1) throw IOException("Stream closed early on iteration $i")
+                        bytesReadTotal += bytesRead
                     }
+
+                    val iterTime = System.currentTimeMillis() - iterStartTime
+                    val iterSpeed = (bytesReadTotal * 8.0 / iterTime)
+                    iterationTimes.add(iterTime)
+
+                    Log.d("Ross", "Iteration $i/$iterations: ${bytesReadTotal} bytes in ${iterTime}ms = ${"%.2f".format(iterSpeed)} Kbps")
                 }
 
                 val totalTime = System.currentTimeMillis() - overallStartTime
-                val avgSpeed = (bytesReadTotal * 8.0 / totalTime)
+                val totalTransferred = totalBytesPerIteration.toLong() * iterations
+                val avgSpeed = (totalTransferred * 8.0 / totalTime)
 
-                Log.d(
-                    "Ross",
-                    "Total: ${bytesReadTotal} bytes in ${totalTime}ms = ${"%.2f".format(avgSpeed)} Kbps"
-                )
-                pushToUpdates("Time: ${totalTime}ms, Speed: ${"%.2f".format(avgSpeed)} Kbps")
+                val iterSpeeds = iterationTimes.map { totalBytesPerIteration * 8.0 / it }
+                val meanSpeed = iterSpeeds.average()
+                val stdDevSpeed = sqrt(iterSpeeds.map { (it - meanSpeed) * (it - meanSpeed) }.average())
+
+                Log.d("Ross", "=== L2CAP Throughput Results ===")
+                Log.d("Ross", "Iterations: $iterations")
+                Log.d("Ross", "Total: $totalTransferred bytes in ${totalTime}ms")
+                Log.d("Ross", "Average speed: ${"%.2f".format(avgSpeed)} Kbps")
+                Log.d("Ross", "Std dev: ${"%.2f".format(stdDevSpeed)} Kbps")
+                Log.d("Ross", "Min iteration: ${iterationTimes.min()}ms")
+                Log.d("Ross", "Max iteration: ${iterationTimes.max()}ms")
+
+                pushToUpdates("L2CAP: ${iterations}x1MB in ${totalTime}ms, avg ${"%.2f".format(avgSpeed)} +/- ${"%.2f".format(stdDevSpeed)} Kbps")
 
                 socket.close()
                 bluetoothGatt?.disconnect()

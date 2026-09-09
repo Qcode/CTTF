@@ -12,13 +12,18 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.cachetothefuture.MyApplication
+import com.example.cachetothefuture.data.BluetoothEmit
 import com.example.cachetothefuture.data.BluetoothRepository
 import com.example.cachetothefuture.data.RequestRepository
 import com.example.cachetothefuture.data.StoredFilesRepository
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancelAndJoin
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.security.MessageDigest
 import kotlin.time.Duration
 
 class NetworkViewModel(
@@ -41,6 +46,12 @@ class NetworkViewModel(
 
     @RequiresApi(Build.VERSION_CODES.Q)
     @SuppressLint("MissingPermission")
+    fun testL2capThroughput() {
+        bluetoothRepository.testL2capThroughput()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.Q)
+    @SuppressLint("MissingPermission")
     fun connectAndExchange(context: Context) {
         viewModelScope.launch {
             val allUrls = storedFilesRepository.getFilesAsUrls()
@@ -49,11 +60,9 @@ class NetworkViewModel(
             // Hardcoded MACs for timing
 
             withContext(Dispatchers.IO) {
-                mutableListOf<Duration>()
+                val sampleTimes = mutableListOf<Duration>()
                 val name = Build.MODEL
                 Log.d("Ross", name)
-                bluetoothRepository.testWifiAware(context)
-                /*
                 val myMac = if (name == "SM-A536U1") "9C:2E:7A:49:72:87" else "58:79:E0:D9:4F:53"
                 val otherMac = if (name == "SM-A536U1") "58:79:E0:D9:4F:53" else "9C:2E:7A:49:72:87"
 
@@ -158,7 +167,7 @@ class NetworkViewModel(
                         }
                     }
                 }
-                Log.d("Ross", sampleTimes.toString())*/
+                Log.d("Ross", sampleTimes.toString())
             }
         }
     }

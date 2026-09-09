@@ -40,7 +40,8 @@ fun NetworkScreen(
     isSupported: Boolean,
     isEnabled: Boolean,
     networkUpdates: List<String>,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    onL2capTest: () -> Unit = {}
 ) {
     val sharedPref = LocalContext.current.getSharedPreferences("bluetooth", Context.MODE_PRIVATE)
     val sharedPrefVal = sharedPref.getString("mac", "") ?: ""
@@ -97,6 +98,9 @@ fun NetworkScreen(
                 Button(onClick = onClick) { Text("Search for peers") }
             }
             item {
+                Button(onClick = onL2capTest) { Text("L2CAP Throughput Test") }
+            }
+            item {
                 Text("Bluetooth is ${if (isSupported) "" else "not "}supported")
             }
             item {
@@ -119,7 +123,8 @@ fun NetworkScreen(viewModel: NetworkViewModel = viewModel(factory = NetworkViewM
         isSupported = viewModel.isBluetoothSupported(),
         isEnabled = isEnabled.value,
         networkUpdates = networkUpdates.value,
-        onClick = { viewModel.connectAndExchange(context) })
+        onClick = { viewModel.connectAndExchange(context) },
+        onL2capTest = { viewModel.testL2capThroughput() })
 }
 
 @Preview(showBackground = true, widthDp = 320)
