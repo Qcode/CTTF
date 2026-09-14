@@ -95,7 +95,7 @@ class PeerDiscoveryService : Service() {
             return START_NOT_STICKY
         }
 
-        Log.d("ross", "Running")
+        Log.d("CTTF", "Running")
         val notificationChannel = NotificationChannel(
             "CTTFNotification",
             "CacheToTheFutureChannel",
@@ -142,7 +142,7 @@ class PeerDiscoveryService : Service() {
         bluetoothLeAdvertiser.stopAdvertising(advertiseCallback)
         bluetoothLeScanner.stopScan(scanCallback)
         super.onDestroy()
-        Log.d("ross", "destroyed")
+        Log.d("CTTF", "destroyed")
     }
 
     override fun onBind(p0: Intent?): IBinder? {

@@ -14,9 +14,7 @@ import android.bluetooth.le.AdvertiseData
 import android.bluetooth.le.AdvertiseSettings
 import android.bluetooth.le.ScanCallback
 import android.bluetooth.le.ScanResult
-import android.bluetooth.le.ScanFilter
 import android.bluetooth.le.ScanSettings
-import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.LinkProperties
 import android.net.Network
@@ -60,6 +58,7 @@ import java.util.concurrent.TimeUnit
 import kotlin.math.sqrt
 import kotlin.random.Random
 import kotlin.time.Duration
+import kotlin.time.measureTime
 
 sealed class BluetoothEmit {
     data class OtherSaved(val storedUrl: String) : BluetoothEmit()
@@ -121,30 +120,12 @@ class BluetoothRepository(
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)
-    fun testWifiAware(context: Context) {
-        val name = Build.MODEL
-        Log.d("Ross", name)
-        if ("S7" in name) {
-            Log.d("Ross", "server starting")
+    fun testWifiAware(context: Context, isServer: Boolean) {
+        if (isServer) {
+            Log.d("CTTF", "server starting")
             startWifiAwareServer(context)
-        }
-        if ("A53" in name || "ZTE" in name) {
-            val packageManager = context.packageManager
-            val hasWifiAware =
-                packageManager.hasSystemFeature(PackageManager.FEATURE_WIFI_AWARE)
-            Log.d("Ross", "WiFi Aware hardware support: $hasWifiAware")
-
-            val wifiAwareManager =
-                context.getSystemService(Context.WIFI_AWARE_SERVICE) as? WifiAwareManager
-            Log.d("Ross", "WiFi Aware service exists: ${wifiAwareManager != null}")
-
-            if (wifiAwareManager != null) {
-                Log.d("Ross", "WiFi Aware available: ${wifiAwareManager.isAvailable}")
-
-                val characteristics = wifiAwareManager.characteristics
-                Log.d("Ross", "WiFi Aware characteristics: $characteristics")
-            }
-            Log.d("Ross", "client starting")
+        } else {
+            Log.d("CTTF", "client starting")
             startWifiAwareClient(context)
         }
     }
@@ -156,13 +137,13 @@ class BluetoothRepository(
             context.getSystemService(Context.WIFI_AWARE_SERVICE) as? WifiAwareManager
 
         if (wifiAwareManager == null || !wifiAwareManager.isAvailable) {
-            Log.e("Ross", "WiFi Aware not available")
+            Log.e("CTTF", "WiFi Aware not available")
             return
         }
 
         wifiAwareManager.attach(object : AttachCallback() {
             override fun onAttached(session: WifiAwareSession) {
-                Log.d("Ross", "Server: WiFi Aware attached")
+                Log.d("CTTF", "Server: WiFi Aware attached")
 
                 val config = PublishConfig.Builder()
                     .setServiceName("PrivateTransfer")
@@ -172,13 +153,13 @@ class BluetoothRepository(
 
                 session.publish(config, object : DiscoverySessionCallback() {
                     override fun onPublishStarted(publishSession: PublishDiscoverySession) {
-                        Log.d("Ross", "Server: Publishing started")
+                        Log.d("CTTF", "Server: Publishing started")
                         serverSession = publishSession
                     }
 
                     override fun onMessageReceived(peerHandle: PeerHandle, message: ByteArray) {
                         if (String(message) == "CONNECT") {
-                            Log.d("Ross", "Server: Connection request received")
+                            Log.d("CTTF", "Server: Connection request received")
 
                             serverSession?.let { session ->
                                 val networkSpecifier = WifiAwareNetworkSpecifier.Builder(
@@ -197,7 +178,7 @@ class BluetoothRepository(
             }
 
             override fun onAttachFailed() {
-                Log.e("Ross", "Server: Attach failed")
+                Log.e("CTTF", "Server: Attach failed")
             }
         }, null)
     }
@@ -216,7 +197,7 @@ class BluetoothRepository(
             networkRequest,
             object : ConnectivityManager.NetworkCallback() {
                 override fun onAvailable(network: Network) {
-                    Log.d("Ross", "Server: Network available, starting TCP server")
+                    Log.d("CTTF", "Server: Network available, starting TCP server")
 
                     CoroutineScope(Dispatchers.IO).launch {
                         try {
@@ -224,7 +205,7 @@ class BluetoothRepository(
 
                             while (true) {
                                 val socket = serverSocket.accept()
-                                Log.d("Ross", "Server: Client connected!")
+                                Log.d("CTTF", "Server: Client connected!")
 
                                 val output = socket.outputStream
                                 val data = ByteArray(1_000_000)
@@ -245,7 +226,7 @@ class BluetoothRepository(
                                 val timeTaken = System.currentTimeMillis() - startTime
                                 val speedKbps = (data.size * 8.0 / timeTaken)
                                 Log.d(
-                                    "Ross",
+                                    "CTTF",
                                     "Server: Transfer complete in ${timeTaken}ms = ${
                                         "%.2f".format(speedKbps)
                                     } Kbps"
@@ -254,13 +235,13 @@ class BluetoothRepository(
                                 socket.close()
                             }
                         } catch (e: Exception) {
-                            Log.e("Ross", "Server error", e)
+                            Log.e("CTTF", "Server error", e)
                         }
                     }
                 }
 
                 override fun onUnavailable() {
-                    Log.e("Ross", "Server: Network unavailable")
+                    Log.e("CTTF", "Server: Network unavailable")
                 }
             })
     }
@@ -272,13 +253,13 @@ class BluetoothRepository(
             context.getSystemService(Context.WIFI_AWARE_SERVICE) as? WifiAwareManager
 
         if (wifiAwareManager == null || !wifiAwareManager.isAvailable) {
-            Log.e("Ross", "WiFi Aware not available")
+            Log.e("CTTF", "WiFi Aware not available")
             return
         }
 
         wifiAwareManager.attach(object : AttachCallback() {
             override fun onAttached(session: WifiAwareSession) {
-                Log.d("Ross", "Client: WiFi Aware attached")
+                Log.d("CTTF", "Client: WiFi Aware attached")
 
                 val config = SubscribeConfig.Builder()
                     .setServiceName("PrivateTransfer")
@@ -288,7 +269,7 @@ class BluetoothRepository(
 
                 session.subscribe(config, object : DiscoverySessionCallback() {
                     override fun onSubscribeStarted(subscribeSession: SubscribeDiscoverySession) {
-                        Log.d("Ross", "Client: Subscribing started")
+                        Log.d("CTTF", "Client: Subscribing started")
                         clientSession = subscribeSession
                     }
 
@@ -297,7 +278,7 @@ class BluetoothRepository(
                         serviceSpecificInfo: ByteArray,
                         matchFilter: MutableList<ByteArray>
                     ) {
-                        Log.d("Ross", "Client: Service discovered!")
+                        Log.d("CTTF", "Client: Service discovered!")
 
                         clientSession?.let { session ->
                             // Send connection request
@@ -318,7 +299,7 @@ class BluetoothRepository(
             }
 
             override fun onAttachFailed() {
-                Log.e("Ross", "Client: Attach failed")
+                Log.e("CTTF", "Client: Attach failed")
             }
         }, null)
     }
@@ -337,7 +318,7 @@ class BluetoothRepository(
             networkRequest,
             object : ConnectivityManager.NetworkCallback() {
                 override fun onAvailable(network: Network) {
-                    Log.d("Ross", "Client: Network available, connecting to server")
+                    Log.d("CTTF", "Client: Network available, connecting to server")
 
                     CoroutineScope(Dispatchers.IO).launch {
                         delay(500) // Give server time to start listening
@@ -350,7 +331,7 @@ class BluetoothRepository(
                             val serverAddress = java.net.Inet6Address.getByName("fe80::1")
                             socket.connect(java.net.InetSocketAddress(serverAddress, 9999), 5000)
 
-                            Log.d("Ross", "Client: Connected to server!")
+                            Log.d("CTTF", "Client: Connected to server!")
 
                             val input = socket.inputStream
                             val buffer = ByteArray(65536)
@@ -380,7 +361,7 @@ class BluetoothRepository(
                                     val chunkTime = now - chunkStartTime
                                     val chunkSpeed = (chunkSize * 8.0 / chunkTime)
                                     Log.d(
-                                        "Ross",
+                                        "CTTF",
                                         "${bytesReadTotal / 1000}KB: ${chunkTime}ms = ${
                                             "%.2f".format(chunkSpeed)
                                         } Kbps"
@@ -393,7 +374,7 @@ class BluetoothRepository(
                             val avgSpeed = (bytesReadTotal * 8.0 / totalTime)
 
                             Log.d(
-                                "Ross",
+                                "CTTF",
                                 "Client: Total: ${bytesReadTotal} bytes in ${totalTime}ms = ${
                                     "%.2f".format(avgSpeed)
                                 } Kbps"
@@ -401,13 +382,13 @@ class BluetoothRepository(
 
                             socket.close()
                         } catch (e: Exception) {
-                            Log.e("Ross", "Client connection error", e)
+                            Log.e("CTTF", "Client connection error", e)
                         }
                     }
                 }
 
                 override fun onUnavailable() {
-                    Log.e("Ross", "Client: Network unavailable")
+                    Log.e("CTTF", "Client: Network unavailable")
                 }
 
                 override fun onLinkPropertiesChanged(
@@ -416,23 +397,21 @@ class BluetoothRepository(
                 ) {
                     // Log the actual IPv6 address for debugging
                     linkProperties.linkAddresses.forEach { addr ->
-                        Log.d("Ross", "Client: Link address: ${addr.address}")
+                        Log.d("CTTF", "Client: Link address: ${addr.address}")
                     }
                 }
             })
     }
     @SuppressLint("MissingPermission")
     @RequiresApi(Build.VERSION_CODES.Q)
-    fun testL2capThroughput() {
-        Log.d("Ross", "2M PHY supported: ${bluetoothAdapter?.isLe2MPhySupported}")
+    fun testL2capThroughput(isServer: Boolean) {
+        Log.d("CTTF", "2M PHY supported: ${bluetoothAdapter?.isLe2MPhySupported}")
 
-        val name = Build.MODEL
-        if ("ZTE" in name) {
-            Log.d("Ross", "server starting")
+        if (isServer) {
+            Log.d("CTTF", "server starting")
             startL2capServer()
-        }
-        if ("A53" in name) {
-            Log.d("Ross", "scan starting")
+        } else {
+            Log.d("CTTF", "scan starting")
             val scanner = bluetoothAdapter?.bluetoothLeScanner
             val scanCallback = object : ScanCallback() {
                 override fun onScanResult(callbackType: Int, result: ScanResult) {
@@ -442,14 +421,14 @@ class BluetoothRepository(
                     if (serviceData != null) {
                         val psm =
                             ((serviceData[0].toInt() and 0xFF) shl 8) or (serviceData[1].toInt() and 0xFF)
-                        Log.d("Ross", "Found device ${device.address} with PSM $psm")
+                        Log.d("CTTF", "Found device ${device.address} with PSM $psm")
                         connectL2cap(device, psm)
                         scanner?.stopScan(this)
                     }
                 }
 
                 override fun onScanFailed(errorCode: Int) {
-                    Log.e("Ross", "Scan failed with error: $errorCode")
+                    Log.e("CTTF", "Scan failed with error: $errorCode")
                 }
             }
             val scanSettings = ScanSettings.Builder()
@@ -484,22 +463,22 @@ class BluetoothRepository(
 
         val advCallback = object : AdvertiseCallback() {
             override fun onStartSuccess(settingsInEffect: AdvertiseSettings) {
-                Log.d("Ross", "Advertising started")
+                Log.d("CTTF", "Advertising started")
             }
 
             override fun onStartFailure(errorCode: Int) {
-                Log.e("Ross", "Advertising failed: $errorCode")
+                Log.e("CTTF", "Advertising failed: $errorCode")
             }
         }
 
         advertiser?.startAdvertising(settings, advData, advCallback)
-        Log.d("Ross", "Server listening on PSM $psm")
+        Log.d("CTTF", "Server listening on PSM $psm")
         pushToUpdates("L2CAP Server ready - PSM: $psm")
 
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val socket = serverSocket.accept()
-                Log.d("Ross", "Client connected!")
+                Log.d("CTTF", "Client connected!")
                 delay(200)
 
                 val output = socket.outputStream
@@ -518,15 +497,15 @@ class BluetoothRepository(
                         offset += length
                     }
                     output.flush()
-                    Log.d("Ross", "Server: Transfer $i/$iterations complete")
+                    Log.d("CTTF", "Server: Transfer $i/$iterations complete")
                 }
 
-                Log.d("Ross", "Server: All $iterations transfers complete")
+                Log.d("CTTF", "Server: All $iterations transfers complete")
                 socket.close()
                 serverSocket.close()
                 advertiser?.stopAdvertising(advCallback)
             } catch (e: Exception) {
-                Log.e("Ross", "Server error", e)
+                Log.e("CTTF", "Server error", e)
             }
         }
     }
@@ -546,7 +525,7 @@ class BluetoothRepository(
                         newState: Int
                     ) {
                         if (newState == BluetoothProfile.STATE_CONNECTED) {
-                            Log.d("Ross", "GATT connected")
+                            Log.d("CTTF", "GATT connected")
                             gatt?.requestConnectionPriority(BluetoothGatt.CONNECTION_PRIORITY_HIGH)
 
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -570,7 +549,7 @@ class BluetoothRepository(
                         rxPhy: Int,
                         status: Int
                     ) {
-                        Log.d("Ross", "PHY updated - TX: $txPhy, RX: $rxPhy, Status: $status")
+                        Log.d("CTTF", "PHY updated - TX: $txPhy, RX: $rxPhy, Status: $status")
                     }
                 }
 
@@ -582,14 +561,14 @@ class BluetoothRepository(
                 )
 
                 if (!connectionReady.await(3, TimeUnit.SECONDS)) {
-                    Log.w("Ross", "Connection optimization timeout")
+                    Log.w("CTTF", "Connection optimization timeout")
                 }
 
                 val socket = device.createInsecureL2capChannel(psm)
                 socket.connect()
 
                 val mtu = socket.maxReceivePacketSize
-                Log.d("Ross", "L2CAP connected - MTU: $mtu")
+                Log.d("CTTF", "L2CAP connected - MTU: $mtu")
 
                 val input = socket.inputStream
                 val buffer = ByteArray(mtu.coerceAtLeast(512))
@@ -613,7 +592,7 @@ class BluetoothRepository(
                     val iterSpeed = (bytesReadTotal * 8.0 / iterTime)
                     iterationTimes.add(iterTime)
 
-                    Log.d("Ross", "Iteration $i/$iterations: ${bytesReadTotal} bytes in ${iterTime}ms = ${"%.2f".format(iterSpeed)} Kbps")
+                    Log.d("CTTF", "Iteration $i/$iterations: ${bytesReadTotal} bytes in ${iterTime}ms = ${"%.2f".format(iterSpeed)} Kbps")
                 }
 
                 val totalTime = System.currentTimeMillis() - overallStartTime
@@ -624,13 +603,13 @@ class BluetoothRepository(
                 val meanSpeed = iterSpeeds.average()
                 val stdDevSpeed = sqrt(iterSpeeds.map { (it - meanSpeed) * (it - meanSpeed) }.average())
 
-                Log.d("Ross", "=== L2CAP Throughput Results ===")
-                Log.d("Ross", "Iterations: $iterations")
-                Log.d("Ross", "Total: $totalTransferred bytes in ${totalTime}ms")
-                Log.d("Ross", "Average speed: ${"%.2f".format(avgSpeed)} Kbps")
-                Log.d("Ross", "Std dev: ${"%.2f".format(stdDevSpeed)} Kbps")
-                Log.d("Ross", "Min iteration: ${iterationTimes.min()}ms")
-                Log.d("Ross", "Max iteration: ${iterationTimes.max()}ms")
+                Log.d("CTTF", "=== L2CAP Throughput Results ===")
+                Log.d("CTTF", "Iterations: $iterations")
+                Log.d("CTTF", "Total: $totalTransferred bytes in ${totalTime}ms")
+                Log.d("CTTF", "Average speed: ${"%.2f".format(avgSpeed)} Kbps")
+                Log.d("CTTF", "Std dev: ${"%.2f".format(stdDevSpeed)} Kbps")
+                Log.d("CTTF", "Min iteration: ${iterationTimes.min()}ms")
+                Log.d("CTTF", "Max iteration: ${iterationTimes.max()}ms")
 
                 pushToUpdates("L2CAP: ${iterations}x1MB in ${totalTime}ms, avg ${"%.2f".format(avgSpeed)} +/- ${"%.2f".format(stdDevSpeed)} Kbps")
 
@@ -639,7 +618,7 @@ class BluetoothRepository(
                 bluetoothGatt?.close()
 
             } catch (e: Exception) {
-                Log.e("Ross", "L2CAP connection failed", e)
+                Log.e("CTTF", "L2CAP connection failed", e)
             }
         }
     }
@@ -650,13 +629,92 @@ class BluetoothRepository(
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("MissingPermission")
+    fun testRfcommThroughput(myMac: String, otherMac: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val uuid = UUID.fromString("0b5c98e5-6deb-4970-88cd-5241067ed52f")
+            val isServer = myMac > otherMac
+
+            try {
+                val realSocket: BluetoothSocket = if (isServer) {
+                    pushToUpdates("RFCOMM Throughput: Starting server...")
+                    val serverSocket = bluetoothAdapter?.listenUsingInsecureRfcommWithServiceRecord(
+                        "CacheToTheFuture", uuid
+                    )
+                    val socket = serverSocket?.accept()
+                    serverSocket?.close()
+                    socket ?: return@launch
+                } else {
+                    pushToUpdates("RFCOMM Throughput: Starting client...")
+                    val serverDevice = bluetoothAdapter?.getRemoteDevice(otherMac)
+                    val socket = serverDevice?.createInsecureRfcommSocketToServiceRecord(uuid)
+                        ?: return@launch
+                    while (true) {
+                        try {
+                            socket.connect()
+                            break
+                        } catch (e: IOException) {
+                            pushToUpdates("RFCOMM Throughput: Connection failed, retrying...")
+                            Thread.sleep(2000)
+                        }
+                    }
+                    socket
+                }
+
+                pushToUpdates("RFCOMM Throughput: Connected!")
+
+                val randomByteArray = ByteArray(1_000_000)
+                val readByteArray = ByteArray(1_000_000)
+                Random.Default.nextBytes(randomByteArray)
+
+                val timeTaken = measureTime {
+                    if (isServer) {
+                        val outputStream = realSocket.outputStream
+                        var offset = 0
+                        val chunkSize = 1024
+                        while (offset < randomByteArray.size) {
+                            val length = minOf(chunkSize, randomByteArray.size - offset)
+                            outputStream.write(randomByteArray, offset, length)
+                            outputStream.flush()
+                            offset += length
+                        }
+                        val inputStream = realSocket.inputStream
+                        val bufferedReader = BufferedReader(InputStreamReader(inputStream))
+                        bufferedReader.readLine()
+                    } else {
+                        val inputStream = realSocket.inputStream
+                        var bytesRead = 0
+                        while (bytesRead < readByteArray.size) {
+                            val read = inputStream.read(
+                                readByteArray, bytesRead, readByteArray.size - bytesRead
+                            )
+                            if (read == -1) throw IOException("Stream closed early")
+                            bytesRead += read
+                        }
+                        val outputStream = realSocket.outputStream
+                        outputStream.write("ACK\n".toByteArray())
+                        outputStream.flush()
+                    }
+                }
+
+                val speedKbps = (1_000_000 * 8.0 / timeTaken.inWholeMilliseconds)
+                pushToUpdates("RFCOMM Throughput: 1MB in $timeTaken (${"%.2f".format(speedKbps)} Kbps)")
+                realSocket.close()
+            } catch (e: Exception) {
+                Log.e("CTTF", "RFCOMM throughput test failed", e)
+                pushToUpdates("RFCOMM Throughput: Failed - ${e.message}")
+            }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    @SuppressLint("MissingPermission")
     fun connectAndExchange(
         urlsToExchange: List<CachedPage>,
         requests: List<Request>,
         myMac: String,
         otherMac: String
     ): Flow<BluetoothEmit> {
-        Log.d("Ross", bluetoothAdapter?.isLe2MPhySupported.toString())
+        Log.d("CTTF", bluetoothAdapter?.isLe2MPhySupported.toString())
         val otherStrings: Flow<BluetoothEmit> = flow {
             val uuid = UUID.fromString("0b5c98e5-6deb-4970-88cd-5241067ed52f")
             var server = false
@@ -708,42 +766,6 @@ class BluetoothRepository(
         server: Boolean
     ) {
         pushToUpdates("Connected! to ${realSocket.remoteDevice.name}")
-        /*
-        val randomByteArray = ByteArray(1_000_000)
-        val readByteArray = ByteArray(1_000_000)
-        Random.Default.nextBytes(randomByteArray)
-        val timeTaken = measureTime {
-            if (server) {
-                val outputStream = realSocket.outputStream
-
-                var offset = 0
-                val chunkSize = 1024
-                while (offset < randomByteArray.size) {
-                    val length = minOf(chunkSize, randomByteArray.size - offset)
-                    outputStream.write(randomByteArray, offset, length)
-                    outputStream.flush() // Ensure it's sent promptly
-                    offset += length
-                }
-
-                val inputStream = realSocket.inputStream
-                val bufferedReader = BufferedReader(InputStreamReader(inputStream))
-                bufferedReader.readLine()
-            } else {
-                val inputStream = realSocket.inputStream
-
-                // ✅ Read incrementally until buffer is full
-                var bytesRead = 0
-                while (bytesRead < readByteArray.size) {
-                    val read =
-                        inputStream.read(readByteArray, bytesRead, readByteArray.size - bytesRead)
-                    if (read == -1) throw IOException("Stream closed early")
-                    bytesRead += read
-                }
-
-                val outputStream = realSocket.outputStream
-                outputStream.write("ACK\n".toByteArray())
-                outputStream.flush()
-            }*/
 
         val outputStream = CountingOutputStream(realSocket.outputStream)
         for (url in urlsToExchange.map { page -> page.url }) {
@@ -763,9 +785,9 @@ class BluetoothRepository(
             val line = bufferedReader.readLine()
             if (line == "0") break
             pushToUpdates("Network stores ${line}")
-            Log.d("Ross", "Other saved")
+            Log.d("CTTF", "Other saved")
             emit(BluetoothEmit.OtherSaved(line))
-            Log.d("Ross", "Done")
+            Log.d("CTTF", "Done")
         }
 
         val downloadsDir =
@@ -784,8 +806,8 @@ class BluetoothRepository(
                 val filteredUrl = request.url.replace("https://", "").replace("/", "_")
                 val f: File = File(downloadsDir, "cachetothefuture/${filteredUrl}.html")
 
-                Log.d("Ross", "writing")
-                Log.d("Ross", (f.readText().replace("\n", "") + "\n"))
+                Log.d("CTTF", "writing")
+                Log.d("CTTF", (f.readText().replace("\n", "") + "\n"))
                 outputStream.write((f.readText().replace("\n", "") + "\n").toByteArray())
             } else {
                 outputStream.write("0\n".toByteArray())
@@ -832,11 +854,7 @@ class BluetoothRepository(
         } else {
             pushToUpdates("Did not get acknowledgement from other to close")
         }
-        Log.d("Ross", outputStream.byteCount.toString())
-
-        //pushToUpdates("Time: $timeTaken")
-
-        //emit(BluetoothEmit.Time(timeTaken))
+        Log.d("CTTF", outputStream.byteCount.toString())
 
         realSocket.close()
         pushToUpdates("Closing socket")

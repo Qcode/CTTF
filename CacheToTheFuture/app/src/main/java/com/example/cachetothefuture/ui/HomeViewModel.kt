@@ -31,6 +31,10 @@ class HomeViewModel(
     val otherCachedUrls = storedFilesRepository.othersHaveCached
     val requests = requestRepository.requests
     val powUpdates = MutableStateFlow<List<String>>(emptyList())
+    var powMinDifficulty = mutableStateOf("14")
+    var powMaxDifficulty = mutableStateOf("19")
+    var powRuns = mutableStateOf("50")
+    var powInputLength = mutableStateOf("80000")
 
     private fun pushToUpdates(theString: String) {
         val newUpdates = powUpdates.value.toMutableList()
@@ -57,24 +61,24 @@ class HomeViewModel(
     }
 
     fun bruteForceHash() {
+        val startingVal = powMinDifficulty.value.toIntOrNull() ?: 14
+        val endingVal = powMaxDifficulty.value.toIntOrNull() ?: 19
+        val runs = powRuns.value.toIntOrNull() ?: 50
+        val inputLength = powInputLength.value.toIntOrNull() ?: 80_000
+
         viewModelScope.launch(Dispatchers.Default) {
-            val startingVal = 14
-            val endingVal = 19
-            val runs = 50
             val chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
             val maxNonce = 200_000_000L
 
             val timingValues =
                 Array<Array<Double>>(endingVal - startingVal + 1) { Array<Double>(runs) { 0.0 } }
-            // Number of parallel workers (e.g., number of CPU cores)
             val nWorkers = Runtime.getRuntime().availableProcessors()
 
             for (difficulty in startingVal..endingVal) {
                 val requiredZeroBits = difficulty
 
                 repeat(runs) {
-                    // Create a random input base string once per run
-                    val input = (1..80_000).map { chars.random() }.joinToString("")
+                    val input = (1..inputLength).map { chars.random() }.joinToString("")
 
                     // Shared atomic flag to signal when a solution is found
                     val foundNonce = CompletableDeferred<Pair<Long, ByteArray>?>()
@@ -128,11 +132,11 @@ class HomeViewModel(
                                     String.format("%8s", (it.toInt() and 0xFF).toString(2))
                                         .replace(' ', '0')
                                 }
-                                Log.d("ross", "Success! Nonce: $nonce")
-                                Log.d("ross", "Hash: $hashHex")
-                                Log.d("ross", "Bits: $bits")
+                                Log.d("CTTF", "Success! Nonce: $nonce")
+                                Log.d("CTTF", "Hash: $hashHex")
+                                Log.d("CTTF", "Bits: $bits")
                             } else {
-                                Log.d("ross", "Max nonce reached without success")
+                                Log.d("CTTF", "Max nonce reached without success")
                             }
                         }
                     }
@@ -140,7 +144,7 @@ class HomeViewModel(
                     timingValues[difficulty - startingVal][it] += timeMillis
 
                     pushToUpdates("Took $timeMillis ms (difficulty $difficulty run ${it + 1})")
-                    Log.d("ross", "Took $timeMillis ms (difficulty $difficulty run ${it + 1})")
+                    Log.d("CTTF", "Took $timeMillis ms (difficulty $difficulty run ${it + 1})")
                 }
                 var sum: Double = 0.0
                 for (sample in timingValues[difficulty - startingVal]) {
@@ -159,7 +163,7 @@ class HomeViewModel(
                 newUpdates.subList(difficulty - startingVal, newUpdates.size).clear()
                 powUpdates.value = newUpdates
                 pushToUpdates("Difficulty $difficulty average time: $avg ms, stddev: $stddev")
-                Log.d("ross", "Difficulty $difficulty average time: $avg ms, stddev: $stddev")
+                Log.d("CTTF", "Difficulty $difficulty average time: $avg ms, stddev: $stddev")
             }
         }
     }

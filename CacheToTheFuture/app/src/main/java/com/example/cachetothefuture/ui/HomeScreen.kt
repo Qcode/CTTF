@@ -56,8 +56,8 @@ fun HomeScreen(myViewModel: HomeViewModel = viewModel(factory = HomeViewModel.Fa
     var powUpdates = myViewModel.powUpdates.collectAsState()
     val listState = rememberLazyListState()
 
-    Log.d("Ross", urls.value.toString())
-    Log.d("Ross", otherUrls.value.toString())
+    Log.d("CTTF", urls.value.toString())
+    Log.d("CTTF", otherUrls.value.toString())
 
     val validated = urls.value.map { metadata ->
         val otherUrl = otherUrls.value.find { it.url == metadata.originalUrl }
@@ -81,6 +81,39 @@ fun HomeScreen(myViewModel: HomeViewModel = viewModel(factory = HomeViewModel.Fa
                 myViewModel.setURL("")
             },
         )
+        Text("PoW Benchmark", style = MaterialTheme.typography.headlineMedium)
+        Row {
+            TextField(
+                value = myViewModel.powMinDifficulty.value,
+                onValueChange = { myViewModel.powMinDifficulty.value = it },
+                label = { Text("Min Diff") },
+                maxLines = 1,
+                modifier = Modifier.weight(1f)
+            )
+            TextField(
+                value = myViewModel.powMaxDifficulty.value,
+                onValueChange = { myViewModel.powMaxDifficulty.value = it },
+                label = { Text("Max Diff") },
+                maxLines = 1,
+                modifier = Modifier.weight(1f)
+            )
+        }
+        Row {
+            TextField(
+                value = myViewModel.powRuns.value,
+                onValueChange = { myViewModel.powRuns.value = it },
+                label = { Text("Runs") },
+                maxLines = 1,
+                modifier = Modifier.weight(1f)
+            )
+            TextField(
+                value = myViewModel.powInputLength.value,
+                onValueChange = { myViewModel.powInputLength.value = it },
+                label = { Text("Input Length") },
+                maxLines = 1,
+                modifier = Modifier.weight(1f)
+            )
+        }
         Button(onClick = { myViewModel.bruteForceHash() }) {
             Text("Brute-Force Hash")
         }

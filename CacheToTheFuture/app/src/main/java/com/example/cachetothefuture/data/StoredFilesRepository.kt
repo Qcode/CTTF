@@ -31,11 +31,11 @@ data class OtherMetadata(val url: String, val checksum: String)
 
 fun generateSHA256Checksum(input: String): String {
     val digest = MessageDigest.getInstance("SHA-256")
-    Log.d("Ross", "preprocessed")
-    Log.d("Ross", input)
-    Log.d("Ross", "replaced")
+    Log.d("CTTF", "preprocessed")
+    Log.d("CTTF", input)
+    Log.d("CTTF", "replaced")
     val newInput = input.replace("\n", "") + "\n"
-    Log.d("Ross", newInput)
+    Log.d("CTTF", newInput)
     val toDigest = newInput.toByteArray(Charsets.UTF_8)
     val hashBytes = digest.digest(toDigest)
     return hashBytes.joinToString("") { "%02x".format(it) }
@@ -51,8 +51,8 @@ class StoredFilesRepository(private val manager: DownloadManager) {
         val f = File(downloadsDir, "cachetothefuture")
         if (!f.isDirectory) {
             f.mkdirs()
-            Log.d("Ross", "Creating cachetothefuture directory")
-            Log.d("Ross", f.isDirectory.toString())
+            Log.d("CTTF", "Creating cachetothefuture directory")
+            Log.d("CTTF", f.isDirectory.toString())
         }
         val fileList = mutableListOf<FileMetadata>()
         f.walk().forEach { file ->
@@ -78,10 +78,10 @@ class StoredFilesRepository(private val manager: DownloadManager) {
             Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
         if (storeFile) {
             val filesLocation = File(downloadsDir, "cachetothefuture/${filteredUrl}_files")
-            Log.d("Ross", "isDirectory ${filesLocation.isDirectory}")
+            Log.d("CTTF", "isDirectory ${filesLocation.isDirectory}")
             if (!filesLocation.isDirectory) {
                 filesLocation.mkdirs()
-                Log.d("Ross", "isDirectory ${filesLocation.isDirectory}")
+                Log.d("CTTF", "isDirectory ${filesLocation.isDirectory}")
             }
         }
         return withContext(Dispatchers.IO) {
@@ -111,7 +111,7 @@ class StoredFilesRepository(private val manager: DownloadManager) {
                             context.packageName + ".provider",
                             stylesheetDestinationFile
                         )
-                    Log.d("Ross", "Content uri on save is $stylesheetUri")
+                    Log.d("CTTF", "Content uri on save is $stylesheetUri")
                     link.removeAttr("integrity")
                     link.removeAttr("crossorigin")
                     rel.setValue("stylesheet")
@@ -121,7 +121,7 @@ class StoredFilesRepository(private val manager: DownloadManager) {
                         val stylesheetRequest = Request.Builder().url(stylesheetUrl).build()
                         val stylesheetResponse = client.newCall(stylesheetRequest).execute()
                         val stylesheetString = stylesheetResponse.body?.string()
-                        Log.d("Ross", stylesheetDestinationFile.path)
+                        Log.d("CTTF", stylesheetDestinationFile.path)
                         stylesheetDestinationFile.writeText(stylesheetString!!)
                     }
                 }
@@ -130,7 +130,7 @@ class StoredFilesRepository(private val manager: DownloadManager) {
             for (img in doc.select("img")) {
                 val src = img.absUrl("src")
                 val extension = src.substringAfterLast(".", "")
-                Log.d("Ross", src)
+                Log.d("CTTF", src)
                 if (extension !in listOf("gif", "jpg", "png", "jpeg", "svg")) {
                     continue
                 }
@@ -152,11 +152,11 @@ class StoredFilesRepository(private val manager: DownloadManager) {
                     val imageRequest = Request.Builder().url(src).build()
                     val imageResponse = client.newCall(imageRequest).execute()
                     val inputStream = imageResponse.body?.byteStream()
-                    Log.d("Ross", "Bytestream exists ${inputStream != null}")
+                    Log.d("CTTF", "Bytestream exists ${inputStream != null}")
                     val outputStream = FileOutputStream(outputFile)
                     inputStream.use { input ->
                         outputStream.use { output ->
-                            Log.d("Ross", "Copying")
+                            Log.d("CTTF", "Copying")
                             input?.copyTo(output)
                         }
                     }
@@ -187,32 +187,33 @@ class StoredFilesRepository(private val manager: DownloadManager) {
 
         val htmlFile = File(downloadsPath, "cachetothefuture/" + url)
         val filesPath = File(htmlFile.path.substringBeforeLast(".") + "_files")
-        Log.d("Ross", filesPath.toString())
+        Log.d("CTTF", filesPath.toString())
         val includedFiles = mutableListOf<File>()
         filesPath.walk().forEach { file ->
             if (file.name != filesPath.name) {
                 includedFiles.add(file)
             }
         }
-        for (file in includedFiles) {
-            Log.d("Ross", "Found file $file")
-            val uri = FileProvider.getUriForFile(context, context.packageName + ".provider", file)
-            context.grantUriPermission(
-                "com.android.chrome",
-                uri,
-                Intent.FLAG_GRANT_READ_URI_PERMISSION
-            )
-            Log.d("Ross", "Giving permission to $uri")
-        }
-
         val uri = FileProvider.getUriForFile(
             context, context.packageName + ".provider", htmlFile
         )
         val intent = Intent(Intent.ACTION_VIEW)
-        intent.setDataAndType(
-            uri, "text/html"
-        ) // Use the appropriate MIME type for your file
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION) // Grant temporary read access to the Uri
+        intent.setDataAndType(uri, "text/html")
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+
+        val targetPackage = intent.resolveActivity(context.packageManager)?.packageName
+        if (targetPackage != null) {
+            for (file in includedFiles) {
+                Log.d("CTTF", "Found file $file")
+                val fileUri = FileProvider.getUriForFile(context, context.packageName + ".provider", file)
+                context.grantUriPermission(
+                    targetPackage,
+                    fileUri,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION
+                )
+                Log.d("CTTF", "Giving permission to $fileUri")
+            }
+        }
 
         context.startActivity(intent)
     }
@@ -231,11 +232,11 @@ class StoredFilesRepository(private val manager: DownloadManager) {
         if (others.any { it.url == url }) return
         if (filesStored.value.any { metadata -> metadata.originalUrl == url }) return
 
-        Log.d("Ross", "making checksum request")
+        Log.d("CTTF", "making checksum request")
 
         val checksum = downloadFile(url, context, false)
 
-        Log.d("Ross", "Finished checksum request")
+        Log.d("CTTF", "Finished checksum request")
 
         others.add(OtherMetadata(url, checksum))
         othersHaveCached.value = others
